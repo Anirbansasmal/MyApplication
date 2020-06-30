@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rlcheckouttoolbar" android:padding="5dp" android:layout_width="match_parent" android:layout_height="40dp">
+        <ImageView android:id="@+id/checkoutback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="checkoutback" app:srcCompat="@drawable/backward"/>
+        <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="10dp" android:text="Checkout" android:layout_toRightOf="@+id/checkoutback" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+    <FrameLayout android:id="@+id/checkoutFramelayout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent"/>
+</LinearLayout>

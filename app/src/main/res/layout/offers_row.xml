@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="@drawable/custom_green_outline" android:padding="15dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="18dp" android:layout_marginRight="18dp" android:layout_marginBottom="13dp">
+<!--    <TextView android:textSize="17dp" android:textStyle="bold" android:textColor="@color/colorBlue" android:id="@+id/orderId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Order ID : GHY4781Y" android:fontFamily="@font/poppins"/>-->
+
+    <TextView
+        android:id="@+id/offerStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:fontFamily="@font/poppins"
+        android:text="Active"
+        android:textColor="@color/colorGreen" />
+    <TextView
+        android:id="@+id/discount_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:fontFamily="@font/poppins"
+        android:layout_below="@+id/offerStatus"
+        android:text="Active"
+        android:textColor="@color/colorGreen" />
+    <TextView android:textSize="15dp" android:textColor="#414141" android:id="@+id/offer_exp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@font/poppins"/>
+    <TextView android:textSize="13dp" android:textColor="#414141" android:id="@+id/offer_start" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:maxLines="2" android:layout_below="@+id/offer_exp" android:fontFamily="@font/poppins"/>
+    <Button android:textSize="13dp" android:textColor="#414141" android:id="@+id/applynow" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:maxLines="2" android:layout_below="@+id/discount_val" android:text="Apply" android:layout_alignParentRight="true" android:fontFamily="@font/poppins"/>
+</RelativeLayout>

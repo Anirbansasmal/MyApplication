@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/shopping"
+        android:layout_width="390dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="347dp"
+        android:background="@color/colorGreen"
+        android:onClick="continuecheckout"
+        android:text="shopping"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp" />
+</RelativeLayout>

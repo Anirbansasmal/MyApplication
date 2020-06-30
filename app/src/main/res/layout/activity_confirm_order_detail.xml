@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rlconfirmordertoolbar" android:padding="5dp" android:layout_width="match_parent" android:layout_height="40dp">
+        <ImageView android:id="@+id/confirmorderback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="confirmorderback" app:srcCompat="@drawable/backward"/>
+        <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="10dp" android:text="Confirm Order Detail" android:layout_toRightOf="@+id/confirmorderback" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/rlconfirmordertoolbar">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@+id/codProductImage" android:background="@drawable/custom_search" android:padding="20dp" android:layout_width="match_parent" android:layout_height="250dp" android:layout_marginTop="5dp"  android:layout_marginStart="15dp" android:layout_marginEnd="15dp"/>
+            <TextView android:textSize="18dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/codProductName" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Raw Milk" android:layout_below="@+id/codProductImage" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"/>
+            <TextView android:textColor="@color/colorBlack" android:id="@+id/codAddress" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Behala, Sakher Bazar,South Kolkata" android:drawableLeft="@drawable/locationiconfit" android:drawablePadding="10dp" android:layout_below="@+id/codProductName" android:layout_alignWithParentIfMissing="true" android:fontFamily="@font/poppins" android:layout_marginStart="15dp" android:layout_marginEnd="80dp"/>
+            <TextView android:textSize="15dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Quantity" android:layout_below="@+id/codAddress" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"/>
+            <TextView android:textColor="@color/colorBlack" android:id="@+id/codQuantity" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="500 ml:5 pcs" android:layout_below="@+id/tv" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
+            <TextView android:textSize="15dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/tv1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Delivery Time Slot" android:layout_below="@+id/codQuantity" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"/>
+            <TextView android:textColor="@color/colorBlack" android:gravity="center" android:id="@+id/deliverytimeslot" android:background="@drawable/custom_deliverytime_1" android:paddingLeft="15dp" android:paddingRight="15dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="6AM - 7AM" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:layout_below="@+id/tv1" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"/>
+            <TextView android:textSize="15dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/tv2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Order Frequency" android:layout_below="@+id/deliverytimeslot" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"/>
+
+            <TextView
+                android:id="@+id/orderfrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/custom_search"
+                android:drawableLeft="@drawable/ticgreen"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:inputType="text"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/colorBlack" />
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:layout_marginBottom="8dp" android:layout_below="@+id/orderfrequency" android:layout_marginStart="15dp" android:layout_marginEnd="15dp">
+                <Button android:textStyle="bold" android:textColor="@color/colorWhite" android:background="@drawable/custom_resend" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="5dp" android:text="Add to Cart" android:layout_weight="1" android:onClick="addtocart" android:fontFamily="@font/poppins"/>
+                <Button android:textStyle="bold" android:textColor="@color/colorWhite" android:background="@drawable/custom_verify" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="5dp" android:text="Buy now" android:layout_weight="1" android:onClick="buynow" android:fontFamily="@font/poppins"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <TextView android:textSize="14dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center" android:id="@+id/weekTV" android:background="@drawable/custom_search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="3dp" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:background="@drawable/delivercarbackground" android:layout_width="match_parent" android:layout_height="250dp">
+        <ImageView android:id="@+id/iv" android:layout_width="30dp" android:layout_height="30dp" android:layout_marginTop="30dp" android:src="@drawable/successfulicon" android:layout_centerHorizontal="true"/>
+        <TextView android:textStyle="bold" android:textColor="@color/colorWhite" android:id="@+id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Order Placed Successfully" android:layout_below="@+id/iv" android:layout_centerHorizontal="true" android:fontFamily="@font/poppins"/>
+        <ImageView android:layout_width="280dp" android:layout_height="wrap_content" android:src="@drawable/deliverycaricon" android:layout_below="@+id/tv" android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <TextView android:textStyle="bold" android:textColor="#1ba551" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Order ID : MILCH4553" android:fontFamily="@font/poppins"/>
+    <TextView android:textColor="#414141" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Your Order Delivered in 1 day 15 Hours" android:fontFamily="@font/poppins"/>
+    <LinearLayout android:orientation="vertical" android:background="@drawable/custom_green_outline" android:padding="15dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15dp" android:layout_marginStart="15dp" android:layout_marginEnd="15dp">
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:textColor="#414141" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Status : " android:fontFamily="@font/poppins"/>
+            <TextView android:textColor="#1ba551" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Under process"/>
+        </LinearLayout>
+        <TextView android:id="@+id/tyDeliveryMode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        <TextView android:id="@+id/tyDeliveryDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        <TextView android:id="@+id/tyDeliveryTimeslot" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        <TextView android:id="@+id/tyPaymentMethod" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        <TextView android:textColor="@color/colorBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery Address" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        <TextView android:textSize="12dp" android:textColor="#414141" android:id="@+id/tyDeliveryAddress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/testString" android:maxLines="3" android:lineSpacingExtra="-4dp" android:fontFamily="@font/poppins"/>
+    </LinearLayout>
+</LinearLayout>

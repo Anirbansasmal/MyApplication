@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="horizontal" android:paddingBottom="5dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView android:id="@+id/btnPrevious" android:padding="5dp" android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/backward" android:layout_centerVertical="true" android:onClick="flipperHandler"/>
+
+    <LinearLayout
+        android:id="@+id/newArriavleProductLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@+id/btnNext"
+        android:layout_toRightOf="@+id/btnPrevious"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/new_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:maxLines="2"
+                android:text="product name"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/new_product_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:maxLines="3"
+                android:text="Product Description"
+                android:textColor="@color/colorWhite"
+                android:textSize="11dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivMyImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.5" />
+    </LinearLayout>
+
+    <ImageView android:id="@+id/btnNext" android:padding="5dp" android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/forward" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:onClick="flipperHandler"/>
+</RelativeLayout>

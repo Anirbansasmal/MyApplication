@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <group android:checkableBehavior="none">
+        <item android:icon="@drawable/navigationprofileicon" android:id="@+id/nav_Profile" android:title="@string/menu_Profile" android:onClick="navProfile"/>
+<!--        <item android:icon="@drawable/wallet" android:id="@+id/nav_Wallet" android:title="@string/menu_Wallet"/>-->
+        <item android:icon="@drawable/orderhistory" android:id="@+id/nav_order_history" android:title="@string/menu_history" android:onClick="navOrderhistory"/>
+        <item android:icon="@drawable/offers" android:id="@+id/nav_Offers" android:title="@string/menu_Offers" android:onClick="offer"/>
+        <item android:icon="@drawable/support" android:id="@+id/nav_support" android:title="@string/menu_Support" android:onClick="navSupport"/>
+        <item android:icon="@drawable/rateus" android:id="@+id/nav_Rateus" android:title="@string/menu_Rateus" android:onClick="navRateUs"/>
+        <item android:icon="@drawable/aboutus" android:id="@+id/nav_About_us" android:title="@string/menu_About_us" android:onClick="navAboutUs"/>
+<!--        <item android:icon="@drawable/wallet" android:id="@+id/nav_delivery_order" android:title="@string/menu_Wallet" android:onClick="delivery_order"/>-->
+        <item android:icon="@drawable/wallet" android:id="@+id/nav_logout" android:title="@string/menu_logout" android:onClick="logout"/>
+    </group>
+</menu>

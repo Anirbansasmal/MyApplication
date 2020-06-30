@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textStyle="bold" android:textColor="@color/colorGreen" android:id="@+id/deli" android:paddingLeft="15dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+            <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/payment" android:paddingLeft="15dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Payment" android:drawableLeft="@drawable/forwardpayment" android:drawablePadding="10dp" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@+id/confirmpayment" android:layout_below="@+id/ll">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="20dp" android:layout_marginRight="20dp">
+                <LinearLayout android:orientation="vertical" android:background="@drawable/custom_search" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <TextView android:textSize="18dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery Address" android:fontFamily="@font/poppins"/>
+                    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:layout_marginRight="10dp" android:src="@drawable/locationiconfit"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/testString" android:maxLines="3" android:lineSpacingExtra="-5dp" android:fontFamily="@font/poppins"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView android:textSize="18dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Order Details" android:fontFamily="@font/poppins"/>
+                <androidx.recyclerview.widget.RecyclerView android:id="@+id/checkoutOrderRV" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp"/>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp">
+                    <TextView android:id="@+id/txt_items" android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                    <TextView android:id="@+id/txt_price" android:textColor="@color/colorGreen" android:layout_width="145dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="match_parent" android:text="Shipping" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                    <TextView android:textColor="@color/colorGreen" android:id="@+id/txt_shipping" android:layout_width="145dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="match_parent" android:text="GST" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                    <TextView android:id="@+id/txt_gst" android:textColor="@color/colorGreen" android:layout_width="145dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                </LinearLayout>
+                <View android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="1dp"/>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                    <TextView android:textSize="15dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="match_parent" android:text="Total :" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                    <TextView android:id="@+id/txt_total" android:textSize="15dp" android:textColor="@color/colorGreen" android:layout_width="235dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <Button android:textStyle="bold" android:textColor="@color/colorWhite" android:id="@+id/confirmpayment" android:background="@color/colorGreen" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Confirm Payment Type" android:layout_alignParentBottom="true" android:onClick="ConfirmPayment" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+</FrameLayout>

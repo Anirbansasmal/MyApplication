@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/ppCardview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10dp" app:cardCornerRadius="10dp">
+    <LinearLayout android:id="@+id/ppll" android:layout_width="match_parent" android:layout_height="120dp">
+        <ImageView android:id="@+id/pPImage" android:layout_width="80dp" android:layout_height="match_parent" android:layout_weight="1.6"/>
+        <LinearLayout android:gravity="left|center_vertical|center_horizontal|center" android:orientation="vertical" android:layout_width="123dp" android:layout_height="match_parent" android:layout_marginLeft="4dp" android:layout_marginTop="5dp" android:layout_marginRight="10dp" android:layout_marginBottom="5dp" android:layout_weight="1">
+            <TextView android:textSize="15dp" android:textStyle="bold" android:id="@+id/pPName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Product Name" android:singleLine="true"/>
+            <TextView android:textSize="12dp" android:id="@+id/pPQuantity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Product Quantity"/>
+            <TextView android:textSize="9dp" android:id="@+id/pPDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Product Description" android:maxLines="3"/>
+            <TextView android:textSize="12dp" android:id="@+id/pPPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Product price"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

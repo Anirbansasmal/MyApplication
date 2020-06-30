@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="#2b6fcb" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="80dp" android:layout_centerHorizontal="true">
+        <ImageView android:id="@+id/iv" android:layout_width="190dp" android:layout_height="150dp" android:src="@drawable/splashlogo" android:layout_centerHorizontal="true"/>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/ll" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="90dp" android:layout_below="@+id/iv" android:layout_centerHorizontal="true">
+            <EditText android:textSize="18dp" android:textColor="@color/colorWhite" android:gravity="center" android:id="@+id/editTextone" android:layout_width="49dp" android:layout_height="wrap_content" android:maxLength="1" android:inputType="number" android:fontFamily="@font/poppins"/>
+            <EditText android:textColor="@color/colorWhite" android:gravity="center" android:id="@+id/editTexttwo" android:layout_width="49dp" android:layout_height="wrap_content" android:maxLength="1" android:inputType="number" android:fontFamily="@font/poppins"/>
+            <EditText android:textColor="@color/colorWhite" android:gravity="center" android:id="@+id/editTextthree" android:layout_width="49dp" android:layout_height="wrap_content" android:maxLength="1" android:inputType="number" android:fontFamily="@font/poppins"/>
+            <EditText android:textColor="@color/colorWhite" android:gravity="center" android:id="@+id/editTextfour" android:layout_width="49dp" android:layout_height="wrap_content" android:maxLength="1" android:inputType="number" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <TextView android:textSize="16dp" android:textColor="@color/colorWhite" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/msgotp" android:layout_below="@+id/ll" android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true">
+        <TextView android:textSize="13dp" android:textColor="@color/colorWhite" android:id="@+id/tv1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="20dp" android:text="@string/msgotp1" android:layout_centerHorizontal="true"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="30dp" android:layout_below="@+id/tv1">
+            <Button android:textColor="@color/colorWhite" android:id="@+id/btn_resend" android:background="@drawable/custom_resend" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20dp" android:layout_marginRight="5dp" android:text="Resend" android:layout_weight="1" android:textAllCaps="false" android:fontFamily="@font/poppins"/>
+            <Button android:textColor="@color/colorWhite" android:id="@+id/btn_Verify" android:background="@drawable/custom_verify" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="5dp" android:layout_marginRight="20dp" android:text="Verify Now" android:layout_weight="1" android:onClick="verifyOtpBtn" android:textAllCaps="false" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

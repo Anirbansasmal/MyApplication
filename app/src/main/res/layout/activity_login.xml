@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="@drawable/bluegradient" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <ImageView android:id="@+id/iv" android:layout_width="190dp" android:layout_height="150dp" android:src="@drawable/splashlogo" android:layout_centerHorizontal="true"/>
+        <TextView android:textSize="20dp" android:textColor="@color/colorWhite" android:gravity="center" android:id="@+id/tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/msg" android:layout_below="@+id/iv" android:fontFamily="@font/poppins"/>
+        <EditText android:textColorHint="@color/colorWhite" android:id="@+id/txt_mobile" android:background="@drawable/custom_mobile" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="45dp" android:layout_marginTop="90dp" android:layout_marginRight="45dp" android:hint="@string/msg_number" android:layout_below="@+id/tv" android:inputType="number" android:fontFamily="@font/poppins"/>
+        <Button android:textColor="@color/colorWhite" android:id="@+id/btn_otp" android:background="@drawable/customotp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="45dp" android:layout_marginTop="20dp" android:layout_marginRight="45dp" android:text="@string/msg_btn" android:layout_below="@+id/txt_mobile" android:onClick="btnGetOtp" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+</RelativeLayout>

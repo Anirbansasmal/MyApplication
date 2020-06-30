@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:padding="2dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvWeek" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/customWeekOkBtn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="OK" android:layout_weight="1"/>
+        <Button android:id="@+id/customWeekCancelBtn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="CANCEL" android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

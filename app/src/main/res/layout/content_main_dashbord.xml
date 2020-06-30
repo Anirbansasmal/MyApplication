@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="horizontal" android:id="@+id/ll_toolbar" android:layout_width="match_parent" android:layout_height="50dp">
+        <ImageView android:layout_gravity="center" android:id="@+id/nav_menu" android:layout_width="match_parent" android:layout_height="wrap_content" android:src="@drawable/ic_menu_black_24dp" android:layout_weight="1.3"/>
+        <TextView android:textSize="10sp" android:textColor="@color/colorGrey" android:layout_gravity="center" android:id="@+id/txt_welcome" android:layout_width="match_parent" android:layout_height="20dp" android:text="@string/location" android:drawableLeft="@drawable/locationiconfit" android:drawablePadding="5dp" android:layout_weight="1.09" android:fontFamily="@font/poppins"/>
+        <Button android:textSize="10sp" android:textColor="@color/colorGrey" android:layout_gravity="center" android:id="@+id/btn_change" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="20dp" android:text="@string/btn_location" android:layout_weight="1.09" android:textAllCaps="false" android:fontFamily="@font/poppins"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
+        <LinearLayout android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="20dp" android:layout_marginLeft="45dp" android:layout_weight="1">
+            <ImageView android:layout_gravity="center" android:id="@+id/image_cart" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginRight="9dp" android:src="@drawable/carticon" android:scaleType="fitXY" android:onClick="carticon"/>
+            <ImageView android:layout_gravity="center" android:id="@+id/image_notification" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginLeft="9dp" android:src="@drawable/notificationicon" android:scaleType="fitXY"/>
+        </LinearLayout>
+    </LinearLayout>
+    <EditText android:textSize="13dp" android:textColor="@color/colorBlack" android:textColorHint="@color/colorGrey" android:id="@+id/search" android:background="@drawable/custom_search" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/search" android:drawableLeft="@drawable/ic_search_black_24dp" android:drawablePadding="15dp" android:layout_below="@+id/ll_toolbar" android:fontFamily="@font/poppins_light" android:layout_marginStart="15dp" android:layout_marginEnd="15dp"/>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/search">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <RelativeLayout android:id="@+id/slider" android:layout_width="match_parent" android:layout_height="150dp" android:layout_margin="15dp">
+                <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="match_parent" app:cardCornerRadius="10dp">
+                    <androidx.viewpager.widget.ViewPager android:id="@+id/pager" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignParentTop="true"/>
+                    <me.relex.circleindicator.CircleIndicator android:id="@+id/indicator" android:layout_width="match_parent" android:layout_height="15dp" android:layout_alignParentBottom="true"/>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_view_product" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_below="@+id/slider"/>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/ll_bulkorder" android:background="@drawable/bulkorder_background_frame" android:layout_width="match_parent" android:layout_height="80dp" android:layout_marginLeft="15dp" android:layout_marginTop="15dp" android:layout_marginRight="15dp" android:layout_below="@+id/recycler_view_product">
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/bulkorder_img" android:layout_weight="1" android:translationX="-20dp" android:scaleX="1.3" android:scaleY="1.3"/>
+                <Button android:textSize="12dp" android:textColor="@color/colorWhite" android:layout_gravity="center_vertical" android:id="@+id/bulkorderBtn" android:background="#2668c2" android:layout_width="match_parent" android:layout_height="25dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:text="BULK ORDER" android:layout_weight="2" android:onClick="bulkOrderBtn" android:fontFamily="@font/poppins"/>
+            </LinearLayout>
+            <TextView
+                android:textStyle="bold"
+                android:textColor="#474747"
+                android:id="@+id/tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:text="Popular Product"
+                android:layout_below="@+id/ll_bulkorder" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_view_popular_product" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_below="@+id/tv"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="#474747"
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:text="New Arrivals"
+                android:layout_below="@+id/recycler_view_popular_product"
+                android:fontFamily="@font/poppins"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardview" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_marginBottom="13dp" android:layout_below="@+id/tv1" app:cardCornerRadius="8dp" app:cardElevation="5dp">
+                <RelativeLayout android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent">
+                    <AdapterViewFlipper android:id="@+id/avfImageFlipper" android:background="#48d68a" android:layout_width="match_parent" android:layout_height="150dp"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+    <FrameLayout android:id="@+id/framelayout_bulkorder" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/ll_toolbar"/>
+</RelativeLayout>

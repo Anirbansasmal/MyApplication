@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/delivery_time_cv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15dp" app:cardCornerRadius="5dp">
+    <TextView android:textColor="@color/colorBlack" android:gravity="center" android:id="@+id/delivery_time" android:padding="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="5dp"/>
+</androidx.cardview.widget.CardView>

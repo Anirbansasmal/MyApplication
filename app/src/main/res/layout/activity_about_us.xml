@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rlrateustoolbar" android:padding="5dp" android:layout_width="match_parent" android:layout_height="40dp">
+        <ImageView android:id="@+id/aboutusback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="aboutusback" app:srcCompat="@drawable/backward"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/aboutusback"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_vertical"
+            android:text="About Us"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/aboutus" android:fontFamily="@font/poppins" android:layout_marginStart="24dp" android:layout_marginEnd="24dp"/>
+    </ScrollView>
+</LinearLayout>

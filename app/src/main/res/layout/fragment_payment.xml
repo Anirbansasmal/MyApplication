@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textStyle="bold" android:textColor="@color/colorGreen" android:id="@+id/deli" android:paddingLeft="15dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+            <TextView android:textStyle="bold" android:textColor="@color/colorGreen" android:id="@+id/payment" android:paddingLeft="15dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Payment" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:layout_weight="1" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll1" android:background="@drawable/bluegradient" android:layout_width="match_parent" android:layout_height="200dp" android:layout_marginTop="5dp" android:layout_below="@+id/ll">
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="30dp" android:src="@drawable/paymentimage"/>
+        </LinearLayout>
+        <TextView android:textSize="20dp" android:textStyle="bold" android:textColor="#464646" android:gravity="center" android:id="@+id/tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15dp" android:text="Select Payment Option" android:layout_below="@+id/ll1" android:fontFamily="@font/poppins"/>
+        <LinearLayout android:gravity="center" android:id="@+id/cashondelivery_ll" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginLeft="30dp" android:layout_marginTop="15dp" android:layout_marginRight="30dp" android:layout_below="@+id/tv">
+            <TextView android:textSize="17dp" android:textStyle="bold" android:textColor="#414141" android:gravity="center" android:id="@+id/cashondelivery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cash On Delivery" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:id="@+id/onlinepayment_ll" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginLeft="30dp" android:layout_marginTop="20dp" android:layout_marginRight="30dp" android:layout_below="@+id/cashondelivery_ll">
+            <TextView android:textSize="17dp" android:textStyle="bold" android:textColor="#414141" android:gravity="center" android:id="@+id/onlinepayment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Online Payment" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:id="@+id/postpaidpayment_ll" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginLeft="30dp" android:layout_marginTop="20dp" android:layout_marginRight="30dp" android:layout_below="@+id/onlinepayment_ll">
+            <TextView android:textSize="17dp" android:textStyle="bold" android:textColor="#414141" android:gravity="center" android:id="@+id/postpaidpayment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Postpaid Payment" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+        <Button android:textStyle="bold" android:textColor="@color/colorWhite" android:background="@drawable/custom_ad" android:id="@+id/confirmorderpayment_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Proceed Next" android:layout_alignParentBottom="true" android:fontFamily="@font/poppins" android:layout_marginStart="15dp" android:layout_marginEnd="15dp"/>
+    </RelativeLayout>
+</FrameLayout>

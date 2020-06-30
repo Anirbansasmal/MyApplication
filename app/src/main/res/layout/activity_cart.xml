@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rlcarttoolbar" android:padding="5dp" android:layout_width="match_parent" android:layout_height="40dp">
+        <ImageView android:id="@+id/cartback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="cartback" app:srcCompat="@drawable/backward"/>
+        <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="10dp" android:text="My Cart" android:layout_toRightOf="@+id/cartback" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCart"
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/rlcarttoolbar"/>
+
+    <RelativeLayout android:id="@+id/rlbelow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/rvCart" android:layout_alignParentBottom="true">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvaddress"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_address"
+            android:layout_below="@+id/cartTotal"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvdeltime"
+            android:layout_width="match_parent"
+            android:layout_marginTop="520dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_timeslot"
+            android:layout_below="@+id/timeslot"/>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rvpayment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_below="@+id/rvdeltime"/>-->
+        <TextView
+            android:id="@+id/cartTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:text="₹350"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp" />
+        <TextView
+            android:id="@+id/cartpayble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:text="Total Payable Amount"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:layout_marginLeft="30dp" />
+        <TextView
+            android:id="@+id/timeslot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="18dp"
+            android:text="Delivery Time"
+            android:layout_below="@+id/rvaddress"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:layout_marginLeft="30dp" />
+        <Button
+            android:id="@+id/continue_checkout"
+            android:layout_width="390dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorGreen"
+            android:onClick="continuecheckout"
+            android:text="Continue"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp" />
+    </RelativeLayout>
+    <View android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="3dp" android:layout_above="@+id/rlbelow"/>
+</RelativeLayout>

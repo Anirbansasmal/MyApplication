@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "546923587346",
+    "firebase_url": "https://milchmom-f1589.firebaseio.com",
+    "project_id": "milchmom-f1589",
+    "storage_bucket": "milchmom-f1589.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546923587346:android:a1b81c8f328a4af21eb5cb",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546923587346-v5d4spnp6fo9bk492vq4rlqngh6j7qo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQnX3SL94YelNJu8x06TYLNzBHoet5pAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546923587346-v5d4spnp6fo9bk492vq4rlqngh6j7qo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

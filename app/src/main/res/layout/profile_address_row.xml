@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:orientation="vertical"
+    android:id="@+id/rlAddress"
+    android:background="@drawable/custom_search"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/address_heading" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="8dp" android:fontFamily="@font/poppins"/>
+    <TextView android:textSize="14dp" android:textColor="@color/colorGrey" android:id="@+id/edit_address" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edit" android:layout_alignParentRight="true" android:fontFamily="@font/poppins"/>
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/address_view" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLines="2" android:layout_below="@+id/address_heading"/>
+</RelativeLayout>

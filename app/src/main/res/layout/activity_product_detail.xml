@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/scrollview" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rel_bulk" android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout android:id="@+id/rlproductdetailtoolbar" android:background="@drawable/bluegradient" android:padding="5dp" android:layout_width="match_parent" android:layout_height="260dp">
+            <ImageView android:id="@+id/productdetailback" android:clickable="true" android:layout_width="30dp" android:layout_height="30dp" android:onClick="productdetailback" app:srcCompat="@drawable/backarrow"/>
+            <ImageView android:id="@+id/cartimagePD" android:clickable="true" android:layout_width="20dp" android:layout_height="20dp" android:layout_margin="5dp" android:layout_alignParentRight="true" android:onClick="productincart" app:srcCompat="@drawable/carticonwhite"/>
+            <androidx.appcompat.widget.AppCompatImageView android:id="@+id/productImage" android:layout_width="180dp" android:layout_height="180dp" android:layout_centerInParent="true"/>
+        </RelativeLayout>
+        <TextView android:textSize="18dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/productName" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Raw Milk" android:layout_below="@+id/rlproductdetailtoolbar" android:fontFamily="@font/poppins" android:layout_marginStart="15dp" android:layout_marginEnd="15dp"/>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/address_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:layout_below="@+id/productName" android:layout_marginStart="15dp" android:layout_marginEnd="15dp">
+            <TextView android:textSize="12dp" android:textColor="#3e3e3e" android:layout_gravity="center" android:id="@+id/address" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginRight="30dp" android:text="Behala, Sakher Bazar,South Kolkata" android:singleLine="true" android:drawableLeft="@drawable/locationiconfit" android:drawablePadding="10dp" android:layout_weight="1"/>
+            <TextView android:textSize="10dp" android:textColor="@color/colorWhite" android:gravity="center" android:layout_gravity="center" android:id="@+id/editAddressBtn_tv" android:background="@color/colorBlue" android:layout_width="match_parent" android:layout_height="20dp" android:text="Edit Address" android:onClick="Edit_Address" android:layout_weight="3"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/quantity_units" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="12dp" android:layout_marginRight="15dp" android:layout_below="@+id/address_layout">
+            <LinearLayout android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginRight="7.5dp" android:layout_weight="1">
+                <TextView android:textSize="14dp" android:textColor="#464646" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25dp" android:text="Quantity: "/>
+                <TextView android:textSize="15dp" android:textColor="#464646" android:layout_gravity="center_vertical" android:id="@+id/quantity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="25dp" android:text="__"/>
+                <View android:background="@color/colorGrey" android:layout_width="1dp" android:layout_height="match_parent"/>
+                <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                    <ImageView android:id="@+id/upquantity" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/uparrow" android:layout_weight="1" android:onClick="setQuantity"/>
+                    <ImageView android:id="@+id/downquantity" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/downarrow" android:layout_weight="1" android:onClick="setQuantity"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="7.5dp" android:layout_weight="1">
+                <Spinner android:id="@+id/spinnerunits" android:layout_width="match_parent" android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select Delivery Time Slot" android:layout_below="@+id/quantity_units" android:fontFamily="@font/poppins"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deliveryTimeRecyclerView"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="15dp"
+            android:layout_below="@+id/tv">
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select Order Frequency" android:layout_below="@+id/deliveryTimeRecyclerView" android:fontFamily="@font/poppins"/>
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="7dp" android:layout_marginRight="15dp" android:layout_below="@+id/tv1">
+            <TextView android:textColor="#414141" android:gravity="center_vertical" android:id="@+id/onetime" android:background="@drawable/custom_search" android:paddingLeft="15dp" android:layout_width="match_parent" android:layout_height="45dp" android:layout_marginRight="7.5dp" android:text="One Time Order  " android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:layout_weight="1" android:onClick="orderFrequency"/>
+            <TextView android:textColor="#414141" android:gravity="center_vertical" android:id="@+id/everyday" android:background="@drawable/custom_search" android:paddingLeft="15dp" android:layout_width="match_parent" android:layout_height="45dp" android:layout_marginLeft="7.5dp" android:text="@string/product_delivery_time_everyday" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:layout_weight="1" android:lineSpacingExtra="-2dp" android:onClick="orderFrequency"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/ll1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="8dp" android:layout_marginRight="15dp" android:layout_below="@+id/ll">
+            <TextView android:textColor="#414141" android:gravity="center_vertical" android:id="@+id/weekly" android:background="@drawable/custom_search" android:paddingLeft="15dp" android:layout_width="match_parent" android:layout_height="45dp" android:layout_marginRight="7.5dp" android:text="@string/product_delivery_time_weekly" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:layout_weight="1" android:onClick="orderFrequency"/>
+            <TextView android:textColor="#414141" android:gravity="center_vertical" android:id="@+id/customedate" android:background="@drawable/custom_search" android:paddingLeft="15dp" android:visibility="visible" android:layout_width="match_parent" android:layout_height="45dp" android:layout_marginLeft="7.5dp" android:text="Custome Date" android:drawableLeft="@drawable/tickgrey" android:drawablePadding="10dp" android:layout_weight="1" android:lineSpacingExtra="-2dp" android:onClick="orderFrequency"/>
+            <RelativeLayout android:id="@+id/customedateLL" android:background="@drawable/custom_search" android:visibility="gone" android:layout_width="match_parent" android:layout_height="45dp" android:layout_marginLeft="7.5dp" android:layout_weight="1">
+                <androidx.recyclerview.widget.RecyclerView android:id="@+id/customDateRV" android:layout_width="match_parent" android:layout_height="45dp" android:layout_toLeftOf="@+id/calenderIV"/>
+                <ImageView android:id="@+id/calenderIV" android:padding="5dp" android:layout_width="45dp" android:layout_height="45dp" android:src="@drawable/calender" android:layout_alignParentRight="true" android:onClick="calanderIV"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <Button android:textSize="16dp" android:textStyle="bold" android:textColorHint="@color/colorWhite" android:id="@+id/confirmorderdetail" android:background="@drawable/custom_ad" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:layout_marginBottom="5dp" android:hint="Confirm Order Detail" android:layout_below="@+id/ll1" android:layout_alignParentBottom="true" android:onClick="confirmorderdetail" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+</ScrollView>

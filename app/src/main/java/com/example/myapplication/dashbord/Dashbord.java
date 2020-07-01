@@ -260,7 +260,8 @@ public class Dashbord extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Dashbord.this.profileAdapter.getWeeksSelectedArray();
-                        if(profileAdapter.getWeeksSelectedArray().length()<0){
+                        if(profileAdapter.getWeeksSelectedArray()==null){
+                            user_profile.clear();
                             dialog.dismiss();
                         }else {
                             pin=profileAdapter.getWeeksSelectedArray().toString();

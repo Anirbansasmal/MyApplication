@@ -32,7 +32,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
     private ArrayList<TreeMap<String,String>> popularProductGetSetList;
 //    private ArrayList<TreeMap<String,ArrayList>> popularProductSpcial;
     Context context;
-    public static String p_discount;
+    public static int p_discount_val;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         public TextView discount_val;
@@ -79,7 +79,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
 
         holder.applynow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                p_discount=popularProductGetSetList.get(position).get("discount_val");
+                p_discount_val= Integer.parseInt(popularProductGetSetList.get(position).get("discount_val"));
             }
         });
     }

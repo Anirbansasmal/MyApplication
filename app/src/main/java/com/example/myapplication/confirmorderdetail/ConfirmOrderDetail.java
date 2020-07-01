@@ -29,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.myapplication.Discount.OfferAdapter.p_discount_val;
 import static com.example.myapplication.dashbord.Dashbord.user_id;
 
 public class ConfirmOrderDetail extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
     ArrayList<String> DateArray = new ArrayList<>();
     int count=0;
    public static float p_gst;
-    public static int p_discount=10;
+    public static int p_discount;
     public static float p_count;
     public static float p_temp;
     TextView orderfrequency,codProductName,codAddress,codQuantity,deliverytimeslot;
@@ -68,6 +69,11 @@ public class ConfirmOrderDetail extends AppCompatActivity {
 //        img= String.valueOf(getIntent().getStringExtra("image_url"));
 //        System.out.println("kjsfhdjsdfbjsbf"+img);
 //        Glide.with(this.codProductImage.getContext()).load(img).into(this.codProductImage);
+        if (p_discount_val>0){
+            p_discount=p_discount_val;
+        }else {
+            p_discount=0;
+        }
         DateArray.clear();
         shared();
         confirm();

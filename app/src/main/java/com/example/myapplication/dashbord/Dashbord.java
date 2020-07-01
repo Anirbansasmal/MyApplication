@@ -72,22 +72,24 @@ import static com.example.myapplication.verifyotp.VerifyOtp.mypreference;
 public class Dashbord extends AppCompatActivity {
 //    private static String[] IMAGES;
     public static ArrayList<String>IMAGES=new ArrayList<>();
-//            = {Integer.valueOf(R.drawable.banner_1), Integer.valueOf(R.drawable.banner_7), Integer.valueOf(R.drawable.banner_2)};
-    /* access modifiers changed from: private */
     TreeMap<String, String> product_slider = new TreeMap<String, String>();
     TreeMap<String, String> user_single_product = new TreeMap<String, String>();
     TreeMap<String, ArrayList>Product_select_pincode=new TreeMap<String, ArrayList>();
+    TreeMap<String, ArrayList>Product_popular_pincode=new TreeMap<String, ArrayList>();
+    TreeMap<String, ArrayList>Product_new_pincode=new TreeMap<String, ArrayList>();
     TreeMap<String, String> product_new_arivel = new TreeMap<String, String>();
     TreeMap<String, String> product_popular = new TreeMap<String, String>();
     TreeMap<String, String> product_bulk_order = new TreeMap<String, String>();
     TreeMap<String, String> add_profile = new TreeMap<String, String>();
 
-    ArrayList<TreeMap<String,String>> user_profile=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,ArrayList>> user_pincode=new ArrayList<TreeMap<String, ArrayList>>();
-    ArrayList<TreeMap<String,String>>user_product=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>> user_product_unit=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>>new_arivel=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>>popular_product =new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,String>> user_profile=new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,ArrayList>> user_pincode=new ArrayList<TreeMap<String, ArrayList>>();
+     ArrayList<TreeMap<String,ArrayList>> user_pincode_popular=new ArrayList<TreeMap<String, ArrayList>>();
+     ArrayList<TreeMap<String,ArrayList>> user_pincode_new=new ArrayList<TreeMap<String, ArrayList>>();
+     ArrayList<TreeMap<String,String>>user_product=new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,String>> user_product_unit=new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,String>>new_arivel=new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,String>>popular_product =new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,String>> bulk_order=new ArrayList<TreeMap<String, String>>();
     public static final String mypreference = "mypref";
     public static String user_token,user_id;
@@ -152,8 +154,8 @@ public class Dashbord extends AppCompatActivity {
         this.recyclerViewPopularProduct.setItemAnimator(new DefaultItemAnimator());
 //        this.recyclerViewPopularProduct.setAdapter(this.popularProductAdapterDemo);
         this.avfImageFlipper = (AdapterViewFlipper) findViewById(R.id.avfImageFlipper);
-        this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList);
-        this.avfImageFlipper.setAdapter(this.newArrivalsAdapter);
+//        this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList);
+//        this.avfImageFlipper.setAdapter(this.newArrivalsAdapter);
 //        productStaticData();
 //        popularProductStaticData();
 //        newArrivalStaticData1();
@@ -374,6 +376,8 @@ public class Dashbord extends AppCompatActivity {
                                 response.body().getProduct().getProduct_arrqty().get(i).getProductQty(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_img());
                         popular_product.add(product_popular);
+                        Product_popular_pincode=Product_select_pincode(response.body().getProduct().getProduct_arrqty().get(i).getPincode());
+                        user_pincode_popular.add(Product_popular_pincode);
                     }
                 }
                 popularProductStaticData();
@@ -407,6 +411,8 @@ public class Dashbord extends AppCompatActivity {
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_price(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getProductQty(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_img()));
+                        Product_new_pincode=Product_select_pincode(response.body().getProduct().getProduct_arrqty().get(i).getPincode());
+                        user_pincode_new.add(Product_new_pincode);
 //
                     }
                 }
@@ -422,7 +428,7 @@ public class Dashbord extends AppCompatActivity {
                     }
 
     private void newArrivalStaticData1() {
-        this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList);
+        this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList,this.user_pincode_new);
         this.avfImageFlipper.setAdapter(this.newArrivalsAdapter);
         Dashbord.this.newArrivalsAdapter.notifyDataSetChanged();
     }
@@ -447,7 +453,7 @@ public class Dashbord extends AppCompatActivity {
     }
 
     private void popularProductStaticData() {
-        this.popularProductAdapterDemo = new PopularProductAdapterDemo(this,popular_product);
+        this.popularProductAdapterDemo = new PopularProductAdapterDemo(this,popular_product,user_pincode_popular);
         this.recyclerViewPopularProduct.setAdapter(this.popularProductAdapterDemo);
     }
 

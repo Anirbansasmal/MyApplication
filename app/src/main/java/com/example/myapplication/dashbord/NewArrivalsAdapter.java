@@ -16,6 +16,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.productdetail.ProductDetail;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class NewArrivalsAdapter extends ArrayAdapter<NewArrivalsGetSet> {
     TextView desc;
@@ -23,10 +24,12 @@ public class NewArrivalsAdapter extends ArrayAdapter<NewArrivalsGetSet> {
     TextView name;
     LinearLayout newArriavleProductLL;
     ArrayList<NewArrivalsGetSet> newArrivalsGetSets;
+    private ArrayList<TreeMap<String,ArrayList>> check_pincode=new ArrayList<>();
 Context context;
-    public NewArrivalsAdapter(Context context, ArrayList<NewArrivalsGetSet> objects) {
+    public NewArrivalsAdapter(Context context, ArrayList<NewArrivalsGetSet> objects,ArrayList<TreeMap<String,ArrayList>> productList_pincode) {
         super(context, R.layout.new_arrivals_product_row, objects);
         this.newArrivalsGetSets = objects;
+        this.check_pincode=productList_pincode;
         this.context=context;
     }
 
@@ -34,7 +37,7 @@ Context context;
         return initView(position, convertView, parent);
     }
 
-    private View initView(int position, View convertView, ViewGroup parent) {
+    private View initView(final int position, View convertView, ViewGroup parent) {
         final NewArrivalsGetSet newArrivalsGetSet1 = (NewArrivalsGetSet) getItem(position);
         if (convertView == null) {
             if (parent == null) {
@@ -59,6 +62,7 @@ Context context;
                     intent.putExtra("p_id", newArrivalsGetSet1.getP_id());
                     intent.putExtra("p_details", newArrivalsGetSet1.getP_details());
                     intent.putExtra("p_name", newArrivalsGetSet1.getP_name());
+                    intent.putStringArrayListExtra("pincode", check_pincode.get(position).get("pincode"));
                     v.getContext().startActivity(intent);
                 }else {
                     Toast.makeText(context,"Select Any pin",Toast.LENGTH_SHORT).show();

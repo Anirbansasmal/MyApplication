@@ -67,7 +67,7 @@ public class ProductDetail extends AppCompatActivity {
     ArrayList<TreeMap<String,String>> user_product_timeslot=new ArrayList<TreeMap<String, String>>();
     ArrayList<String> dayorderfreq=new ArrayList<>();
     ArrayList<String> weekorderfreq=new ArrayList<>();
-    ArrayList<String> Pincode=new ArrayList<>();
+    public static ArrayList<String> Pincode=new ArrayList<>();
     public static final String mypreference = "mypref";
     static String user_token;
     static String token,token_val,prname,unit;

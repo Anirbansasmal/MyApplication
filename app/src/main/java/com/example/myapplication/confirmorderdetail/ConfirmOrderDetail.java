@@ -20,6 +20,7 @@ import com.example.myapplication.cart.Cart;
 import com.example.myapplication.checkout.Checkout;
 import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.productdetail.AddCart;
+import com.example.myapplication.productdetail.ProductDetail;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -75,6 +76,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
             p_discount=0;
         }
         DateArray.clear();
+        myorderfrequency.clear();
         shared();
         confirm();
     }
@@ -335,32 +337,34 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         });
 //        startActivity(new Intent(getApplicationContext(), Checkout.class));
     }
-//    boolean doubleBackToExitPressedOnce = false;
-//    @Override
-//    public void onBackPressed(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setCancelable(false);
-//        builder.setMessage("Do you want to Exit?");
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                //if user pressed "yes", then he is allowed to exit from application
-////                order_cancle();
-//                Intent intent=new Intent(getApplicationContext(), Dashbord.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
-//        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                //if user select "No", just cancel this dialog and continue with app
-//                dialog.cancel();
-//            }
-//        });
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Back?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+//                order_cancle();
+                DateArray.clear();
+                myorderfrequency.clear();
+                Intent intent=new Intent(getApplicationContext(), Dashbord.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     public static float order_frequency_count=0;
     public void addtocart(View view) {
         add_cart();

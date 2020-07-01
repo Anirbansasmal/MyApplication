@@ -29,6 +29,7 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
     public String[] mColors = {"#F6D85C", "#4BB1F3"};
     public String[] mColorstext = {"#000000", "#ffffff"};
     private ArrayList<TreeMap<String,String>> popularProductGetSetList;
+    private ArrayList<TreeMap<String,ArrayList>> check_pincode=new ArrayList<>();
     Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -51,9 +52,10 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
         }
     }
 
-    public PopularProductAdapterDemo(Context context,ArrayList<TreeMap<String,String>> popularProductList) {
+    public PopularProductAdapterDemo(Context context,ArrayList<TreeMap<String,String>> popularProductList,ArrayList<TreeMap<String,ArrayList>> productList_pincode) {
         this.context=context;
         this.popularProductGetSetList = popularProductList;
+        this.check_pincode=productList_pincode;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -82,8 +84,8 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
                     intent.putExtra("p_id",popularProductGetSetList.get(position).get("p_id"));
                     intent.putExtra("p_details",popularProductGetSetList.get(position).get("p_details"));
                     intent.putExtra("p_name",popularProductGetSetList.get(position).get("p_name"));
-                    intent.putStringArrayListExtra("pincode", (ArrayList<String>) Arrays.asList(popularProductGetSetList.get(position).get("pincode")));
-                    System.out.println("pincode"+(ArrayList<String>) Arrays.asList(popularProductGetSetList.get(position).get("pincode")));
+                    intent.putStringArrayListExtra("pincode", check_pincode.get(position).get("pincode"));
+//                    System.out.println("pincode"+(ArrayList<String>) Arrays.asList(popularProductGetSetList.get(position).get("pincode")));
                     v.getContext().startActivity(intent);
                 }else {
                     Toast.makeText(context,"Select Any pin",Toast.LENGTH_SHORT).show();

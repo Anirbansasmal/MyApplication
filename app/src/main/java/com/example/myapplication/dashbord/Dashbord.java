@@ -220,22 +220,23 @@ public class Dashbord extends AppCompatActivity {
                     //                System.out.println(client_id);
                     if (search.getText().toString().equals(client_id)) {
                         Intent intent=new Intent(Dashbord.this, Search.class);
+                        intent.putExtra("search_key",search.getText().toString());
                         startActivity(intent);
                                             System.out.println("nvkxgvhjsdgfksbfckj"+client_id);
                         //                    Map.Entry entry=(Map.Entry) iterator1.next();
                         //                    if (entry1.getKey().toString().equals(entry.getKey().toString())) {
-                        while (iterator1.hasNext()) {
-                            Map.Entry entry = (Map.Entry) iterator1.next();
-                            if (entry.getKey().toString().equals(search.getText().toString())) {
-                                String client_na = entry.getValue().toString();
-
-                                System.out.println("nvkxgvhjsdgfksbfckj" + client_na);
-                                search.setText(entry.getValue().toString());
-
-//                                Intent intent=new Intent(Dashbord.this, Search.class);
-//                        startActivity(intent);
-                            }
-                        }
+//                        while (iterator1.hasNext()) {
+//                            Map.Entry entry = (Map.Entry) iterator1.next();
+//                            if (entry.getKey().toString().equals(search.getText().toString())) {
+//                                String client_na = entry.getValue().toString();
+//
+//                                System.out.println("nvkxgvhjsdgfksbfckj" + client_na);
+//                                search.setText(entry.getValue().toString());
+//
+////                                Intent intent=new Intent(Dashbord.this, Search.class);
+////                        startActivity(intent);
+//                            }
+//                        }
                         //                        draft_http();
                     }
 

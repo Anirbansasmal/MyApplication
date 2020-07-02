@@ -1,15 +1,23 @@
 package com.example.myapplication.Search;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.ApiClient.ApiClient;
 import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
-import com.example.myapplication.dashbord.Product_user;
+import com.example.myapplication.dashbord.Dashbord;
+import com.example.myapplication.dashbord.ProductAdapterDemo;
+//import com.example.myapplication.dashbord.Product_user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +37,21 @@ public class Search extends AppCompatActivity {
     ArrayList<TreeMap<String,String>> user_product=new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,ArrayList>> user_pincode=new ArrayList<TreeMap<String, ArrayList>>();
     ApiInterface apiInterface;
+   public static String search_key;
+    private RecyclerView recyclerViewSearchProduct;
+    private RecyclerView.LayoutManager layoutManager;
+    ProductAdapterSearch productAdapterSearch;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashbord);
+        setContentView(R.layout.search);
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Intent intent=getIntent();
+        search_key=intent.getStringExtra("search_key");
+        System.out.println("search_key"+search_key);
+        this.recyclerViewSearchProduct = (RecyclerView) findViewById(R.id.rvSearch);
+        this.recyclerViewSearchProduct.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        this.recyclerViewSearchProduct.setItemAnimator(new DefaultItemAnimator());
         shared();
     }
     public void shared() {
@@ -43,17 +61,18 @@ public class Search extends AppCompatActivity {
             token_val = sharedPref.getString("token", "");
             user_token="Berear "+token_val;
 //            user_token = token_val;
+            search();
         } catch (Exception e) {
 
         }
     }
     public void search(){
-        Call<Product_user> call=apiInterface.response_ProductView(user_token);
+        Call<Product_user_search> call=apiInterface.response_productSearch(user_token,search_key);
         System.out.println(user_token);
-        call.enqueue(new Callback<Product_user>() {
+        call.enqueue(new Callback<Product_user_search>() {
 
             @Override
-            public void onResponse(Call<Product_user> call, Response<Product_user> response) {
+            public void onResponse(Call<Product_user_search> call, Response<Product_user_search> response) {
                 for (int i=0;i<response.body().getProduct().getProduct_arrqty().size();i++) {
                     System.out.println(response.body().getProduct().getProduct_arrqty().get(i).getP_img());
                     if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("Normal")) {
@@ -77,13 +96,40 @@ public class Search extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Product_user> call, Throwable t) {
+            public void onFailure(Call<Product_user_search> call, Throwable t) {
 
             }
         });
     }
     public void productAdapter(){
-
+        productAdapterSearch=new ProductAdapterSearch(this,user_product,user_pincode);
+        recyclerViewSearchProduct.setAdapter(productAdapterSearch);
+    }
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+//                order_cancle();
+                Intent intent=new Intent(Search.this, Dashbord.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
     public static TreeMap<String, String> Product_select(String id, String p_name,String p_details, String p_mfg,
                                                          String p_exp, String p_type,String p_price,String ProductQty,

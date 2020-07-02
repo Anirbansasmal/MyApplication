@@ -1,6 +1,7 @@
 package com.example.myapplication.ApiInterface;
 
 import com.example.myapplication.Discount.Discount;
+import com.example.myapplication.Search.Product_user_search;
 import com.example.myapplication.cart.AddCartOrder;
 import com.example.myapplication.cart.CartData;
 import com.example.myapplication.checkout.deliverfragment.OrderConfirm;
@@ -54,7 +55,14 @@ public interface ApiInterface {
 
     @GET("ProductView")
     Call<Product_user> response_ProductView(
-        @Header("Authorization") String token);
+        @Header("Authorization") String token
+        );
+//    response_ProductView_unit
+@POST("productSearch")
+@FormUrlEncoded
+Call<Product_user_search> response_productSearch(
+        @Header("Authorization") String token,
+        @Field("search_key") String search_key);
 //    response_ProductView_unit
 
     @POST("ProductView_unit")

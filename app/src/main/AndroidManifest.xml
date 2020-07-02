@@ -35,6 +35,7 @@
         <activity android:name="com.example.myapplication.verifyotp.VerifyOtp"/>
         <activity android:name="com.example.myapplication.login.Login"/>
         <activity android:name="com.example.myapplication.Discount.Offers"/>
+        <activity android:name=".Search.Search"/>
         <activity android:name=".cart.Shopping"/>
         <activity android:name="com.example.myapplication.dashbord.Dashbord">
             <intent-filter>

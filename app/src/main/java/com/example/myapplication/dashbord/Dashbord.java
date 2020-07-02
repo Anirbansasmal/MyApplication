@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterViewFlipper;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +41,7 @@ import com.example.myapplication.Discount.Discount;
 import com.example.myapplication.Discount.Offers;
 import com.example.myapplication.R;
 import com.example.myapplication.RateUs.RateUs;
+import com.example.myapplication.Search.Search;
 import com.example.myapplication.cart.Cart;
 import com.example.myapplication.checkout.Checkout;
 import com.example.myapplication.dashbord.bulkorder.BulkOrderFragment;
@@ -55,10 +61,14 @@ import com.example.myapplication.profile.View_Profile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
@@ -90,7 +100,10 @@ public class Dashbord extends AppCompatActivity {
      ArrayList<TreeMap<String,String>> user_product_unit=new ArrayList<TreeMap<String, String>>();
      ArrayList<TreeMap<String,String>>new_arivel=new ArrayList<TreeMap<String, String>>();
      ArrayList<TreeMap<String,String>>popular_product =new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>> bulk_order=new ArrayList<TreeMap<String, String>>();
+     ArrayList<TreeMap<String,String>> bulk_order=new ArrayList<TreeMap<String, String>>();
+     ArrayList<String> product_arr=new ArrayList<>();
+    ArrayList<String> product_arr_unique=new ArrayList<>();
+    Map Product_name = new HashMap();
     public static final String mypreference = "mypref";
     public static String user_token,user_id;
     public static String token,pin,address;
@@ -117,6 +130,7 @@ public class Dashbord extends AppCompatActivity {
     private RecyclerView recyclerViewchangelocation;
     private RecyclerView.LayoutManager layoutManager;
    private TextView user_name,user_email;
+   AutoCompleteTextView search;
     ApiInterface apiInterface;
     static int access$008() {
         int i = currentPage;
@@ -170,17 +184,79 @@ public class Dashbord extends AppCompatActivity {
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
         user_name=findViewById(R.id.user_name);
         user_email=findViewById(R.id.user_email);
+        search=findViewById(R.id.search);
         user_product();
         popular_product();
         change_location();
         slider_banner();
         new_arrivel();
         address();
+//        search();
 //        Cart.user_cart.clear();
 //        Cart.product_cart.clear();
     }
 
     String header="application/json";
+
+    public void search(){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.product_autocomplete_row, R.id.text_view_list_item, product_arr_unique);
+        search.setAdapter(arrayAdapter);
+        System.out.println("product_arr_unique"+product_arr_unique);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Set set1 = Product_name.entrySet();
+                Iterator iterator1 = set1.iterator();
+                while (iterator1.hasNext()) {
+                    Map.Entry entry1 = (Map.Entry) iterator1.next();
+                    String client_id = entry1.getValue().toString();
+
+
+                    //                System.out.println(client_id);
+                    if (search.getText().toString().equals(client_id)) {
+                        Intent intent=new Intent(Dashbord.this, Search.class);
+                        startActivity(intent);
+                                            System.out.println("nvkxgvhjsdgfksbfckj"+client_id);
+                        //                    Map.Entry entry=(Map.Entry) iterator1.next();
+                        //                    if (entry1.getKey().toString().equals(entry.getKey().toString())) {
+                        while (iterator1.hasNext()) {
+                            Map.Entry entry = (Map.Entry) iterator1.next();
+                            if (entry.getKey().toString().equals(search.getText().toString())) {
+                                String client_na = entry.getValue().toString();
+
+                                System.out.println("nvkxgvhjsdgfksbfckj" + client_na);
+                                search.setText(entry.getValue().toString());
+
+//                                Intent intent=new Intent(Dashbord.this, Search.class);
+//                        startActivity(intent);
+                            }
+                        }
+                        //                        draft_http();
+                    }
+
+                }
+//                for (int i=0;i<product_arr_unique.size();i++){
+//                    if (search.getText().toString().equals(product_arr_unique.get(i))){
+//                        search.setText(""+product_arr_unique.get(i));
+//                        System.out.println(s);
+//                        Intent intent=new Intent(Dashbord.this, Search.class);
+//                        startActivity(intent);
+//                    }
+//                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+//System.out.println(s);
+            }
+        });
+    }
 
     public void user_product(){
 
@@ -205,13 +281,19 @@ public class Dashbord extends AppCompatActivity {
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_price(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getProductQty(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_img());
+                        product_arr.add(response.body().getProduct().getProduct_arrqty().get(i).getP_name());
                         user_product.add(user_single_product);
+                        Product_name.put(response.body().getProduct().getProduct_arrqty().get(i).get_id(),response.body().getProduct().getProduct_arrqty().get(i).getP_name());
                         Product_select_pincode=Product_select_pincode(response.body().getProduct().getProduct_arrqty().get(i).getPincode());
                         user_pincode.add(Product_select_pincode);
 
                     }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        product_arr_unique=(ArrayList) product_arr.stream().distinct().collect(Collectors.toList());
+                    }
+                    search();
                 }
-                System.out.println("user_product"+user_product);
+                System.out.println("user_product"+product_arr_unique);
                 productStaticData();
 
             }

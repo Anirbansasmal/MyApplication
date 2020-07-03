@@ -245,7 +245,7 @@ Call<AddCartOrder> response_productConfirmCart(
 @FormUrlEncoded
 Call<AddCart> response_productOrderConfirm(
         @Field("Order_id") String Order_id,
-        @Field("status") String status,
+        @Field("usr_pay_type") String status,
         @Header("Authorization") String token);
 @POST("UserDiscountData")
 @FormUrlEncoded

@@ -18,5 +18,11 @@
         <TextView android:id="@+id/tyPaymentMethod" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
         <TextView android:textColor="@color/colorBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery Address" android:drawableLeft="@drawable/ticgreen" android:drawablePadding="10dp" android:fontFamily="@font/poppins"/>
         <TextView android:textSize="12dp" android:textColor="#414141" android:id="@+id/tyDeliveryAddress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/testString" android:maxLines="3" android:lineSpacingExtra="-4dp" android:fontFamily="@font/poppins"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Home"
+            android:layout_gravity="center"
+            android:id="@+id/back_home"/>
     </LinearLayout>
 </LinearLayout>

@@ -837,9 +837,6 @@ public class Dashbord extends AppCompatActivity {
         treeMap.put("_id",_id);
         treeMap.put("UserPhone",UserPhone);
         treeMap.put("email",email);
-//        treeMap.put("p_img",p_img);
-
-        //
         return treeMap;
     }
 }

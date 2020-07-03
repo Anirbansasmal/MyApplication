@@ -58,9 +58,11 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
         this.cashondelivery_ll.setOnClickListener(this);
         this.onlinepayment_ll.setOnClickListener(this);
         this.postpaidpayment_ll.setOnClickListener(this);
+        apiInterface= ApiClient.getClient().create(ApiInterface.class);
         Intent intent=getIntent();
 //        if (Order_id_product==null){
             Order_id=intent.getStringExtra("Order_id");
+            System.out.println("Order_idsmnbdfjhfgdsjkd"+Order_id);
 //        }else {
 //            Order_id=Order_id_product;
 //        }
@@ -128,7 +130,7 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
             this.cashondelivery.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ticgreen, 0, 0, 0);
             if (Build.VERSION.SDK_INT >= 23) {
                 status="cashondelivery";
-                ThankYou();
+                ThankYou(status);
                 this.cashondelivery.setTextColor(this.getColor(R.color.colorGreen));
             }
             this.onlinepayment.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tickgrey, 0, 0, 0);
@@ -145,6 +147,7 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
             this.onlinepayment.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ticgreen, 0, 0, 0);
             if (Build.VERSION.SDK_INT >= 23) {
                 status="onlinepayment";
+                ThankYou(status);
                 this.onlinepayment.setTextColor(this.getColor(R.color.colorGreen));
             }
             this.cashondelivery.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tickgrey, 0, 0, 0);
@@ -161,6 +164,7 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
             this.postpaidpayment.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ticgreen, 0, 0, 0);
             if (Build.VERSION.SDK_INT >= 23) {
                 status="postpaidpayment";
+                ThankYou(status);
 //                PostPaid();
                 this.postpaidpayment.setTextColor(this.getColor(R.color.colorGreen));
             }
@@ -189,14 +193,18 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void CashOnDel(){
-        Call<AddCart> call=apiInterface.response_productOrderConfirm(Order_id,status,user_token);
-        System.out.println(user_token);
+    public void CashOnDel(String status_type){
+        System.out.println("user_tokenuser_token"+user_token);
+        Call<AddCart> call=apiInterface.response_productOrderConfirm(Order_id,status_type,user_token);
+
         call.enqueue(new Callback<AddCart>() {
 
             @Override
             public void onResponse(Call<AddCart> call, Response<AddCart> response) {
-
+if (response.body().getStatus().equals("success")){
+    Intent intent=new Intent(PaymentFragment.this, ThankYou.class);
+    startActivity(intent);
+}
             }
 
             @Override
@@ -206,17 +214,21 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    public void OnlinePay(){
+    public void OnlinePay(String status_type){
 
     }
 
-    public void PostPaid(){
-        Call<AddCart> call=apiInterface.response_productOrderConfirm(Order_id,status,user_token);
+    public void PostPaid(String status_type){
+        Call<AddCart> call=apiInterface.response_productOrderConfirm(Order_id,status_type,user_token);
         System.out.println(user_token);
         call.enqueue(new Callback<AddCart>() {
 
             @Override
             public void onResponse(Call<AddCart> call, Response<AddCart> response) {
+                if (response.body().getStatus().equals("success")){
+                    Intent intent=new Intent(PaymentFragment.this, ThankYou.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -226,18 +238,18 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    public void ThankYou(){
+    public void ThankYou(final String status_pay){
         this.confirmorderpayment_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (status=="cashondelivery"){
-                    CashOnDel();
-                }else if (status=="onlinepayment"){
-                    OnlinePay();
-                }else if (status=="postpaidpayment"){
-                    PostPaid();
+                System.out.println(status_pay.equals("cashondelivery"));
+                if (status_pay.equals("cashondelivery")){
+                    CashOnDel(status_pay);
+                }else if (status_pay.equals("onlinepayment")){
+                    OnlinePay(status_pay);
+                }else if (status_pay.equals("postpaidpayment")){
+                    PostPaid(status_pay);
                 }
-                Intent intent=new Intent(PaymentFragment.this, ThankYou.class);
-                startActivity(intent);
+
 //                PaymentFragment paymentFragment = PaymentFragment.this;
 //                paymentFragment.startActivity(new Intent(paymentFragment.getContext(), ThankYou.class));
             }

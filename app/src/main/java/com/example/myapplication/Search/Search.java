@@ -37,10 +37,11 @@ public class Search extends AppCompatActivity {
     ArrayList<TreeMap<String,String>> user_product=new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,ArrayList>> user_pincode=new ArrayList<TreeMap<String, ArrayList>>();
     ApiInterface apiInterface;
-   public static String search_key;
+    public static String search_key;
     private RecyclerView recyclerViewSearchProduct;
     private RecyclerView.LayoutManager layoutManager;
     ProductAdapterSearch productAdapterSearch;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class Search extends AppCompatActivity {
         this.recyclerViewSearchProduct.setItemAnimator(new DefaultItemAnimator());
         shared();
     }
+
     public void shared() {
         try {
             SharedPreferences sharedPref = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
@@ -66,6 +68,7 @@ public class Search extends AppCompatActivity {
 
         }
     }
+
     public void search(){
         Call<Product_user_search> call=apiInterface.response_productSearch(user_token,search_key);
         System.out.println(user_token);
@@ -101,10 +104,12 @@ public class Search extends AppCompatActivity {
             }
         });
     }
+
     public void productAdapter(){
         productAdapterSearch=new ProductAdapterSearch(this,user_product,user_pincode);
         recyclerViewSearchProduct.setAdapter(productAdapterSearch);
     }
+
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed(){
@@ -131,6 +136,7 @@ public class Search extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
     public static TreeMap<String, String> Product_select(String id, String p_name,String p_details, String p_mfg,
                                                          String p_exp, String p_type,String p_price,String ProductQty,
                                                          String p_img) {
@@ -147,6 +153,7 @@ public class Search extends AppCompatActivity {
         treeMap.put("p_img",p_img);
         return treeMap;
     }
+
     public static TreeMap<String, List> Product_select_pincode(List<String> pincode) {
 
         TreeMap<String, List> treeMap = new TreeMap<String, List>();

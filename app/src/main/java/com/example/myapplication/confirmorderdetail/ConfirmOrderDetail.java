@@ -234,6 +234,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         myorderfrequency=intent.getStringArrayListExtra("weekorderfreq");
         p_price= Integer.parseInt(intent.getStringExtra("p_price"));
         p_GST=intent.getStringExtra("p_GST");
+        p_details=intent.getStringExtra("p_details");
         System.out.println("iojfdsfjsdjfojfgdjhsfdghfgjhsfgjs"+p_gst);
         if (onetimeorder!=0){
 
@@ -244,7 +245,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
             p_temp=(payment_amount)*(p_discount/100);
             payment_amount=p_gst+(onetimeorder*Quantity)*((p_price))-p_temp;
             p_count=onetimeorder*Quantity;
-            Order_type="Day";
+//            Order_type="Day";
 
         }else if (everyorder!=0){
 //            dayorderfreq.add(String.valueOf(everyorder));
@@ -257,7 +258,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
             payment_amount_total=payment_amount-p_temp;
             p_count=everyorder*Quantity;
             System.out.println(payment_amount+ +p_price+ +Integer.parseInt(p_GST));
-            Order_type="EveryDay";
+//            Order_type="EveryDay";
         }else if (DateArray.size()>0){
             count=DateArray.size();
 
@@ -267,11 +268,11 @@ public class ConfirmOrderDetail extends AppCompatActivity {
             p_temp=((payment_amount*(p_discount))/100);
             payment_amount_total=payment_amount-p_temp;
             p_count=count*Quantity;
-            for (int i=0;i<myorderfrequency.size();i++){
-                jsonElements.add(myorderfrequency.get(i));
+            for (int i=0;i<DateArray.size();i++){
+                jsonElements.add(DateArray.get(i));
 //                dayorderfreq.add(DateArray.get(i));
             }
-            Order_type="weekly";
+//            Order_type="weekly";
         }else if (myorderfrequency.size()>=4){
             count=myorderfrequency.size()*4;
 
@@ -284,7 +285,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
             for (int i=0;i<myorderfrequency.size();i++){
                 jsonElements.add(myorderfrequency.get(i));
             }
-            Order_type="CustomDate";
+//            Order_type="CustomDate";
 //                dayorderfreq.add(weekAdapter.getWeeksSelectedArray().get(i));
         }
 
@@ -296,7 +297,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         cart.addProperty("user_id",user_id);
         cart.addProperty("product_id",product_id);
         cart.addProperty("p_details",p_details);
-        cart.addProperty("payment_amount",payment_amount);
+        cart.addProperty("payment_amount",payment_amount_total);
         cart.addProperty("time_slot",deltimeslot);
         cart.addProperty("product_qty",Quantity);
         cart.addProperty("p_unit",unit);
@@ -313,7 +314,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         cart.addProperty("product_amt_gst",p_gst);
         cart.addProperty("p_discount_total",p_temp);
         cart.addProperty("remaning_qty",p_count);
-        cart.addProperty("remaning_amt",payment_amount);
+        cart.addProperty("remaning_amt",payment_amount_total);
         cart.addProperty("Order_type",Order_type);
         Call<OrderStatus> call=apiInterface.response_productConfirm(cart,user_token);
         call.enqueue(new Callback<OrderStatus>() {
@@ -373,7 +374,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         cart.addProperty("user_id",user_id);
         cart.addProperty("product_id",product_id);
 
-        cart.addProperty("p_details","sjdbfjhsvdfjsbjfsdj");
+        cart.addProperty("p_details",p_details);
         cart.addProperty("payment_amount",payment_amount_total);
         cart.addProperty("time_slot",deltimeslot);
         cart.addProperty("product_qty",Quantity);

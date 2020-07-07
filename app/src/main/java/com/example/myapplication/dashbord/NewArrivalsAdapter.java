@@ -62,6 +62,7 @@ Context context;
                     intent.putExtra("p_id", newArrivalsGetSet1.getP_id());
                     intent.putExtra("p_details", newArrivalsGetSet1.getP_details());
                     intent.putExtra("p_name", newArrivalsGetSet1.getP_name());
+                    intent.putExtra("p_type",newArrivalsGetSet1.getP_type());
                     intent.putStringArrayListExtra("pincode", check_pincode.get(position).get("pincode"));
                     v.getContext().startActivity(intent);
                 }else {

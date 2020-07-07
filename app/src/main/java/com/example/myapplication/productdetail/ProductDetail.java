@@ -96,7 +96,7 @@ public class ProductDetail extends AppCompatActivity {
     Button confirmorderdetail;
     String inputDateStr;
     String p_details,product_id,Order_type;
-    String p_price,p_GST,payment_amount;
+    String p_price,p_GST,payment_amount,p_type;
 //    {"Units", "Pcs", "Dozen", "Gms", "Kgs", "Tonnes"};
     ArrayList<String> unitslist = new ArrayList<>();
     WeekAdapter weekAdapter;
@@ -125,7 +125,8 @@ public class ProductDetail extends AppCompatActivity {
 //        this.spinnerunits.setAdapter(aa);
 //        String img;
         img= String.valueOf(getIntent().getStringExtra("image_url"));
-        p_details=String.valueOf(getIntent().getStringArrayExtra("p_details"));
+        p_details=String.valueOf(getIntent().getStringExtra("p_details"));
+        p_type=String.valueOf(getIntent().getStringExtra("p_type"));
         System.out.println("kjsfhdjsdfbjsbf"+img);
         Glide.with(this.productdetailimage.getContext()).load(img).into(this.productdetailimage);
 //        this.productdetailimage.setImageResource(getIntent().getIntExtra("image_url", 0));
@@ -445,6 +446,8 @@ String deltimeslot=deliveryAdapter.delitimeslot();
     intent.putExtra("p_price",p_price);
     intent.putExtra("p_GST",p_GST);
     intent.putExtra("Order_type",Order_type);
+    intent.putExtra("p_type",p_type);
+
 //    if (weekAdapter.getWeeksSelectedArray().size()<0){
 //        intent.putExtra("weekAdapter","");
 //    }else {

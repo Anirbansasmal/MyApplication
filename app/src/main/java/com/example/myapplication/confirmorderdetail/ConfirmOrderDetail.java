@@ -43,7 +43,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
     public static float p_temp;
     TextView orderfrequency,codProductName,codAddress,codQuantity,deliverytimeslot;
     ImageView codProductImage;
-    String proname,Address,deltimeslot,frequency="",unit;
+    String proname,Address,deltimeslot,frequency="",unit,p_type;
     int Quantity;
     ApiInterface apiInterface;
     static String user_token;
@@ -103,7 +103,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         everyorder=intent.getIntExtra("everyorder",0);
         Order_type=intent.getStringExtra("Order_type");
         myorderfrequency=intent.getStringArrayListExtra("weekorderfreq");
-
+p_type=intent.getStringExtra("p_type");
         System.out.println("myorderfrequency"+DateArray);
         if (onetimeorder!=0){
             orderfrequency.setText(""+onetimeorder);
@@ -156,7 +156,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         unit=intent.getStringExtra("unit");
         p_price= Integer.parseInt(intent.getStringExtra("p_price"));
         p_GST=intent.getStringExtra("p_GST");
-
+        p_type=intent.getStringExtra("p_type");
         if (onetimeorder!=0){
             System.out.println("iojfdsfjsdjfo"+p_price);
 //            dayorderfreq.add(String.valueOf(onetimeorder));
@@ -235,6 +235,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         p_price= Integer.parseInt(intent.getStringExtra("p_price"));
         p_GST=intent.getStringExtra("p_GST");
         p_details=intent.getStringExtra("p_details");
+        p_type=intent.getStringExtra("p_type");
         System.out.println("iojfdsfjsdjfojfgdjhsfdghfgjhsfgjs"+p_gst);
         if (onetimeorder!=0){
 
@@ -316,6 +317,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         cart.addProperty("remaning_qty",p_count);
         cart.addProperty("remaning_amt",payment_amount_total);
         cart.addProperty("Order_type",Order_type);
+        cart.addProperty("Order_type",p_type);
         Call<OrderStatus> call=apiInterface.response_productConfirm(cart,user_token);
         call.enqueue(new Callback<OrderStatus>() {
             @Override
@@ -395,6 +397,7 @@ public class ConfirmOrderDetail extends AppCompatActivity {
         cart.addProperty("remaning_qty",p_count);
         cart.addProperty("remaning_amt",payment_amount);
         cart.addProperty("Order_type",Order_type);
+        cart.addProperty("Order_type",p_type);
 //            cart.put("Username",Username);
         //        p_details,this.count,unit,time_slot,myorderfrequency,"123456789",user_id,String.valueOf(payment_amount),product_id,p_img,(p_price),p_GST,
 //        time_slot=deliveryAdapter.delitimeslot();

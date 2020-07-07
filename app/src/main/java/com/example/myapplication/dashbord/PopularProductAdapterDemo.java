@@ -85,6 +85,7 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
                     intent.putExtra("p_details",popularProductGetSetList.get(position).get("p_details"));
                     intent.putExtra("p_name",popularProductGetSetList.get(position).get("p_name"));
                     intent.putStringArrayListExtra("pincode", check_pincode.get(position).get("pincode"));
+                    intent.putExtra("p_type",popularProductGetSetList.get(position).get("p_type"));
 //                    System.out.println("pincode"+(ArrayList<String>) Arrays.asList(popularProductGetSetList.get(position).get("pincode")));
                     v.getContext().startActivity(intent);
                 }else {

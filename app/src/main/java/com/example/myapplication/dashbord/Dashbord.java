@@ -106,6 +106,7 @@ public class Dashbord extends AppCompatActivity {
     Map Product_name = new HashMap();
     public static final String mypreference = "mypref";
     public static String user_token,user_id;
+    public static final String CHANNEL_ID="Milchmom customer app";
     public static String token,pin,address;
     public static int NUM_PAGES = 0;
     /* access modifiers changed from: private */

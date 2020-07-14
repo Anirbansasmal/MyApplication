@@ -31,26 +31,26 @@
         <activity android:name="com.example.myapplication.productdetail.ProductDetail"/>
         <activity android:name=".checkout.paymentfragment.PaymentFragment"/>
         <activity android:name=".thanku.ThankYou"/>
-<!--        <activity android:theme="@style/AppTheme.NoActionBar" android:name="com.example.myapplication.dashbord.Dashbord"/>-->
+        <activity android:theme="@style/AppTheme.NoActionBar" android:name="com.example.myapplication.dashbord.Dashbord"/>
         <activity android:name="com.example.myapplication.verifyotp.VerifyOtp"/>
         <activity android:name="com.example.myapplication.login.Login"/>
         <activity android:name="com.example.myapplication.Discount.Offers"/>
         <activity android:name=".Search.Search"/>
         <activity android:name=".cart.Shopping"/>
-        <activity android:name="com.example.myapplication.dashbord.Dashbord">
+        <activity android:name="com.example.myapplication.splashscreen.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <service-->
-<!--            android:name=".java.MyFirebaseMessagingService"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
+        <service
+            android:name=".Notifcation.Notification"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

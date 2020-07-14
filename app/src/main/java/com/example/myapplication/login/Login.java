@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.ApiClient.ApiClient;
@@ -16,6 +17,10 @@ import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.verifyotp.VerifyOtp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +36,7 @@ public class Login extends AppCompatActivity {
     Button btn_otp;
     String header="application/x-www-form-urlencoded";
     public static final String mypreference = "mypref";
-    public static String token;
+    public static String token,userFCMtoken;
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +46,21 @@ public class Login extends AppCompatActivity {
         editText_phone=findViewById(R.id.txt_mobile);
         btn_otp=findViewById(R.id.btn_otp);
 //        autologin();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (task.isSuccessful()) {
+                    userFCMtoken=task.getResult().getToken();
+                }else{
+                    
+                }
+            }
+        });
     }
 
+
     public void btnGetOtp(View view) {
-        Call<Login_sta> call=apiInterface.response_login(header,(editText_phone.getText().toString()));
+        Call<Login_sta> call=apiInterface.response_login(header,(editText_phone.getText().toString()),userFCMtoken);
         call.enqueue(new Callback<Login_sta>() {
 
             @Override

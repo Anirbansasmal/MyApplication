@@ -92,9 +92,18 @@ public class ProductAdapterDemo extends RecyclerView.Adapter<ProductAdapterDemo.
                 intent.putExtra("p_id",productListFetch.get(position).get("p_id"));
                 intent.putExtra("p_details",productListFetch.get(position).get("p_details"));
                 intent.putExtra("p_name",productListFetch.get(position).get("p_name"));
-                intent.putExtra("pincode",check_pincode.get(position).get("pincode"));
-                    intent.putExtra("p_type",check_pincode.get(position).get("p_type"));
-                mContext.startActivity(intent);
+                intent.putStringArrayListExtra("pincode",check_pincode.get(position).get("pincode"));
+                intent.putExtra("p_type",productListFetch.get(position).get("p_type"));
+                System.out.println("check_pincode"+productListFetch.get(position).get("p_type"));
+                for (int i=0;i<check_pincode.get(position).get("pincode").size();i++){
+                    if (check_pincode.get(position).get("pincode").get(i).equals(Dashbord.pin)){
+                        mContext.startActivity(intent);
+                    }else {
+                        Toast.makeText(mContext,"This product is not available for this pin",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
                 }else {
                     Toast.makeText(mContext,"Select Any pin",Toast.LENGTH_SHORT).show();
                 }

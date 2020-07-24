@@ -6,12 +6,9 @@ import java.util.List;
 public class Login_sta {
     private Login_val login_val;
 
-//    private String[] usr_otp;
-
     private String message;
 
     private String status;
-
 
     public Login_val getLogin_val ()
     {

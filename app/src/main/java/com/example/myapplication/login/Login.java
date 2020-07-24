@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
         editText_phone=findViewById(R.id.txt_mobile);
         btn_otp=findViewById(R.id.btn_otp);
 //        autologin();
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
@@ -56,17 +57,26 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+        btn_otp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnGetOtp();
+            }
+        });
+
     }
 
 
-    public void btnGetOtp(View view) {
+    public void btnGetOtp() {
         Call<Login_sta> call=apiInterface.response_login(header,(editText_phone.getText().toString()),userFCMtoken);
         call.enqueue(new Callback<Login_sta>() {
 
             @Override
             public void onResponse(Call<Login_sta> call, Response<Login_sta> response) {
-                System.out.println("nsvsvhvd"+response.body().toString());
+                System.out.println("nsvsvhvd"+response.body().getLogin_val());
                 Intent intent=new Intent(getApplicationContext(), VerifyOtp.class);
+                System.out.println(response.body().getLogin_val().getPhoneNumber());
                 intent.putExtra("Mobile",response.body().getLogin_val().getPhoneNumber());
                 intent.putExtra("otp",response.body().getLogin_val().getOtp());
                 intent.putStringArrayListExtra("otp_array",response.body().getLogin_val().getUsr_otp());

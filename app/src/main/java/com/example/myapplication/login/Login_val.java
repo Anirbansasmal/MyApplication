@@ -16,16 +16,6 @@ public class Login_val  {
 
     private String time;
 
-    public ArrayList<String> getUsr_otp ()
-    {
-        return usr_otp;
-    }
-
-    public void setUsr_otp (ArrayList<String> usr_otp)
-    {
-        this.usr_otp = usr_otp;
-    }
-
     public String getRegdate ()
     {
         return Regdate;
@@ -44,6 +34,16 @@ public class Login_val  {
     public void setPhoneNumber (String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
+    }
+
+    public ArrayList<String> getUsr_otp ()
+    {
+        return usr_otp;
+    }
+
+    public void setUsr_otp (ArrayList<String> usr_otp)
+    {
+        this.usr_otp = usr_otp;
     }
 
     public String getOtp ()
@@ -79,6 +79,6 @@ public class Login_val  {
     @Override
     public String toString()
     {
-        return "ClassPojo [Regdate = "+Regdate+", phoneNumber = "+phoneNumber+", otp = "+otp+", _id = "+_id+", time = "+time+"]";
+        return "ClassPojo [Regdate = "+Regdate+", phoneNumber = "+phoneNumber+", usr_otp = "+usr_otp+", otp = "+otp+", _id = "+_id+", time = "+time+"]";
     }
 }

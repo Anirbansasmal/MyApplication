@@ -43,7 +43,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="18dp"
             android:layout_marginRight="18dp"
-            android:text="₹350"
+            android:text="₹000"
             android:textColor="@color/colorBlack"
             android:textSize="20dp"
             android:layout_marginLeft="30dp" />

@@ -19,6 +19,7 @@ public class SplashScreen extends AppCompatActivity {
     ImageView iv2;
     public static final String mypreference = "mypref";
     public static String token;
+    SplashScreen splashScreen = SplashScreen.this;
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +41,13 @@ public class SplashScreen extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = sharedPref.edit();
         token = sharedPref.getString("token", "");
-        System.out.println("token"+token.length());
+        System.out.println("token   "+token.length());
+//        startActivity(new Intent(splashScreen.getApplicationContext(), Login.class));
         if (token.length()==0){
 //            startActivity(new Intent(this, Login.class));
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    SplashScreen splashScreen = SplashScreen.this;
+//                    SplashScreen splashScreen = SplashScreen.this;
                     splashScreen.startActivity(new Intent(splashScreen.getApplicationContext(), Login.class));
                     SplashScreen.this.finish();
                 }

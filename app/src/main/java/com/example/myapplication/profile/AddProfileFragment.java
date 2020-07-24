@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -28,7 +29,8 @@ public class AddProfileFragment extends Fragment {
     static String token,token_val,user_id;
     EditText name,email,phoneNumber,pinno,age,deli_location;
     Button btn_addprofile;
-    String usr_name,u_id,usr_email,usr_phoneNumber,usr_pinno,usr_age,usr_location;
+    String usr_name,u_id,usr_email,usr_location;
+    int usr_age,usr_phoneNumber,usr_pinno;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_profile, container, false);
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
@@ -67,9 +69,9 @@ public class AddProfileFragment extends Fragment {
                 System.out.println("jkgsfdvhfhsvfhvsjdf"+user_id);
                 usr_name=name.getText().toString();
                 usr_email=email.getText().toString();
-                usr_phoneNumber=phoneNumber.getText().toString();
-                usr_pinno=pinno.getText().toString();
-                usr_age=age.getText().toString();
+                usr_phoneNumber= Integer.parseInt(phoneNumber.getText().toString());
+                usr_pinno= Integer.parseInt(pinno.getText().toString());
+                usr_age= Integer.parseInt(age.getText().toString());
                 usr_location=deli_location.getText().toString();
                 System.out.println(usr_name);
 
@@ -83,6 +85,8 @@ public class AddProfileFragment extends Fragment {
                         if (response.body().getStatus().equals("success")){
                             Profile.btnAddAddress.setVisibility(View.VISIBLE);
                             startActivity(new Intent(getActivity(), Dashbord.class));
+                        }else {
+                            Toast.makeText(getActivity(), ""+response.body().getStatus()+"", Toast.LENGTH_SHORT).show();
                         }
 //                for (int i=0;i<response.body().getAvl_times().size();i++){
 //                    deliiveryTimeGetSetList.add(response.body().getAvl_times().get(i).getDeliTimeSlot());

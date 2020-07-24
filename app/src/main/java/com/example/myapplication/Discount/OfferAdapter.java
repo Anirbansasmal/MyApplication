@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.ApiClient.ApiClient;
+import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.productdetail.ProductDetail;
@@ -26,10 +28,18 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.TreeMap;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.myapplication.dashbord.Dashbord.user_id;
+import static com.example.myapplication.dashbord.Dashbord.user_token;
+
 public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder> {
     public String[] mColors = {"#F6D85C", "#4BB1F3"};
     public String[] mColorstext = {"#000000", "#ffffff"};
     private ArrayList<TreeMap<String,String>> popularProductGetSetList;
+    ApiInterface apiInterface;
 //    private ArrayList<TreeMap<String,ArrayList>> popularProductSpcial;
     Context context;
     public static int p_discount_val;
@@ -79,11 +89,38 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
 
         holder.applynow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                p_discount_val= Integer.parseInt(popularProductGetSetList.get(position).get("discount_val"));
+                if (popularProductGetSetList.get(position).get("discount_val").equals("null")){
+                    p_discount_val=0;
+                }else {
+                    p_discount_val= Integer.parseInt(popularProductGetSetList.get(position).get("discount_val"));
+                    Discount(popularProductGetSetList.get(position).get("id"));
+                }
+
             }
         });
     }
+    public void Discount(String user_did) {
+        System.out.println(user_did);
+        apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Call<Discount_apply> call = apiInterface.response_UserDiscountStatus(user_id,user_token,user_did);
+        System.out.println(user_token);
+        call.enqueue(new Callback<Discount_apply>() {
 
+            @Override
+            public void onResponse(Call<Discount_apply> call, Response<Discount_apply> response) {
+                if (response.message().equals("Success")){
+
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Discount_apply> call, Throwable t) {
+
+            }
+        });
+    }
     public int getRandomColorCode() {
         Random random = new Random();
         return Color.argb(20, random.nextInt(ItemTouchHelper.Callback.DEFAULT_DRAG_ANIMATION_DURATION), random.nextInt(180), random.nextInt(276));

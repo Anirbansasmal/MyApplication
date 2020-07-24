@@ -157,6 +157,7 @@ p_type=intent.getStringExtra("p_type");
         p_price= Integer.parseInt(intent.getStringExtra("p_price"));
         p_GST=intent.getStringExtra("p_GST");
         p_type=intent.getStringExtra("p_type");
+        Order_type=intent.getStringExtra("Order_type");
         if (onetimeorder!=0){
             System.out.println("iojfdsfjsdjfo"+p_price);
 //            dayorderfreq.add(String.valueOf(onetimeorder));
@@ -317,7 +318,7 @@ p_type=intent.getStringExtra("p_type");
         cart.addProperty("remaning_qty",p_count);
         cart.addProperty("remaning_amt",payment_amount_total);
         cart.addProperty("Order_type",Order_type);
-        cart.addProperty("Order_type",p_type);
+        cart.addProperty("p_type",p_type);
         Call<OrderStatus> call=apiInterface.response_productConfirm(cart,user_token);
         call.enqueue(new Callback<OrderStatus>() {
             @Override
@@ -397,7 +398,7 @@ p_type=intent.getStringExtra("p_type");
         cart.addProperty("remaning_qty",p_count);
         cart.addProperty("remaning_amt",payment_amount);
         cart.addProperty("Order_type",Order_type);
-        cart.addProperty("Order_type",p_type);
+        cart.addProperty("p_type",p_type);
 //            cart.put("Username",Username);
         //        p_details,this.count,unit,time_slot,myorderfrequency,"123456789",user_id,String.valueOf(payment_amount),product_id,p_img,(p_price),p_GST,
 //        time_slot=deliveryAdapter.delitimeslot();
@@ -406,7 +407,8 @@ p_type=intent.getStringExtra("p_type");
         call.enqueue(new Callback<AddCart>() {
             @Override
             public void onResponse(Call<AddCart> call, Response<AddCart> response) {
-                if (response.body().getStatus()=="success"){
+                System.out.println(response.body().getStatus());
+                if (response.body().getStatus().equals("success")){
                     startActivity(new Intent(ConfirmOrderDetail.this, Cart.class));
                 }else {
 

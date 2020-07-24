@@ -1,6 +1,7 @@
 package com.example.myapplication.cart;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,16 @@ import com.example.myapplication.productdetail.AddCart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.myapplication.confirmorderdetail.ConfirmOrderDetail.onetimeorder;
 import static com.example.myapplication.dashbord.Dashbord.user_id;
 import static com.example.myapplication.dashbord.Dashbord.user_token;
 
@@ -33,6 +35,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private ArrayList<TreeMap<String,String>> cartGetSetList;
     Map<String,String> itemCount=new HashMap<String, String>();
     public static TreeMap<String, String> product_cart = new TreeMap<String, String>();
+    ArrayList<Float> total_value=new ArrayList<Float>();
+    ArrayList<Float> total_valuegst=new ArrayList<Float>();
+    ArrayList<Float> total_valuedisc=new ArrayList<Float>();
+    ArrayList<Float> total_value_unique=new ArrayList<Float>();
+    ArrayList<Float> total_value_gstunique=new ArrayList<Float>();
+    ArrayList<Float> total_value_discunique=new ArrayList<Float>();
     int count=0,dcr=0;
     float total_amt=0;
     float p_discount_total=0,product_amt_gst=0;
@@ -79,13 +87,29 @@ int positem=0;
         holder.priceperunit.setText(cartGetSetList.get(position).get("p_unit"));
         holder.totalproductprice.setText(cartGetSetList.get(position).get("p_price"));
 
-        for (int i=0;i<cartGetSetList.size();i++){
-            payment_amount= Float.parseFloat((((cartGetSetList.get(position).get("payment_amount").toString()))));
-            p_discount_total= Float.parseFloat((((cartGetSetList.get(position).get("p_discount_total").toString()))));
-            product_amt_gst= Float.parseFloat((((cartGetSetList.get(position).get("product_amt_gst").toString()))));
-            total_amt= (total_amt+ payment_amount+p_discount_total+product_amt_gst);
-System.out.println("payment_amountasdsadsad"+payment_amount);
+//        System.out.println("payment_amountasdsadsad"+cartGetSetList.size());
+        for (int i=0;i<cartGetSetList.size();i++) {
+            payment_amount = Float.parseFloat((((cartGetSetList.get(position).get("payment_amount").toString()))));
+            p_discount_total = Float.parseFloat((((cartGetSetList.get(position).get("p_discount_total").toString()))));
+            product_amt_gst = Float.parseFloat((((cartGetSetList.get(position).get("product_amt_gst").toString()))));
+
+            total_value.add(payment_amount);
+            total_valuegst.add(product_amt_gst);
+            total_valuedisc.add(p_discount_total);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                total_value_unique = (ArrayList) total_value.stream().distinct().collect(Collectors.toList());
+                total_value_gstunique = (ArrayList) total_valuegst.stream().distinct().collect(Collectors.toList());
+                total_value_discunique = (ArrayList) total_valuedisc.stream().distinct().collect(Collectors.toList());
+                System.out.println(total_value_unique);
+            }
         }
+//            if ()
+//        for (int i=0;i<total_value_unique.size();i++){
+//            total_amt= (total_amt+ (total_value_unique.get(i))+(total_value_gstunique.get(i))+(total_value_discunique.get(i)));
+//
+//        }
+        Cart.cartTotal.setText(""+total_amt);
+        System.out.println("payment_amountasdsadsad"+total_amt+" "+total_value_unique+" "+p_discount_total+" "+p_discount_total);
         final MyCustomObject myCustomObject=new MyCustomObject(new MyCustomObject.MyCustomObjectListener() {
             @Override
             public void onadd(int index, int val) {
@@ -170,8 +194,7 @@ System.out.println("payment_amountasdsadsad"+payment_amount);
                     p_count=dayorderfreq*dcr;
 
                     holder.orderQuantity.setText(""+dcr);
-                    pos(dcr,
-                    cartGetSetList.get(position).get("id"),
+                    pos(dcr,cartGetSetList.get(position).get("id"),
                     Integer.parseInt(cartGetSetList.get(position).get("p_price")),payment_amount_total_upd,product_amt_gst_upd,p_count,p_discount_total_upd);
                     product_cart=product_select_cart_update(cartGetSetList.get(position).get("id"),
                             cartGetSetList.get(position).get("p_name"),
@@ -216,7 +239,23 @@ System.out.println("payment_amountasdsadsad"+payment_amount);
             }
         });
     }
+    public static float sum(List<Float> list)
+    {
+        // iterator for accessing the elements
+        Iterator<Float> it = list.iterator();
 
+        float res = 0;
+        while (it.hasNext()) {
+            float num = it.next();
+
+            // adding the elements greater than 5
+            if (num >= 0) {
+                res += num;
+            }
+        }
+
+        return res;
+    }
     public static TreeMap<String, String> product_select_cart_update(String id, String p_name, String p_img,
                                                                      String product_qty,String payment_amount,String user_id,
                                                                      String product_id,String p_unit,String p_Gst,String p_price,String order_frequency_count,String p_discount) {

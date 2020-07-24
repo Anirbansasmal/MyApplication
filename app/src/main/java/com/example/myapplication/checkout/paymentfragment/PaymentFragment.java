@@ -31,7 +31,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.myapplication.verifyotp.VerifyOtp.user_type;
+
 public class PaymentFragment extends AppCompatActivity implements View.OnClickListener {
+//    Instamojo.InstamojoPaymentCallback
     TextView cashondelivery;
     LinearLayout cashondelivery_ll;
     Button confirmorderpayment_btn;
@@ -40,7 +43,7 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
     TextView postpaidpayment;
     LinearLayout postpaidpayment_ll;
     ApiInterface apiInterface;
-    static String user_token,Order_id,Order_id_product,Order_id_cart,token_val,status;
+    static String user_token,Order_id,Order_id_product,Order_id_cart,token_val,status,user_typeval;
     public static final String mypreference = "mypref";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,16 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
 //            Order_id=Order_id_product;
 //        }
 
+//        user_typeval=user_type;
+
+
         shared();
+        System.out.println(user_type);
+        if (user_type.equals("PostPaid")){
+
+        }else {
+            postpaidpayment_ll.setVisibility(View.INVISIBLE);
+        }
     }
 
     boolean doubleBackToExitPressedOnce = false;
@@ -186,6 +198,7 @@ public class PaymentFragment extends AppCompatActivity implements View.OnClickLi
             SharedPreferences sharedPref = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             token_val = sharedPref.getString("token", "");
+            user_type=sharedPref.getString("user_type","");
             user_token="Berear "+token_val;
 //            user_token = token_val;
         } catch (Exception e) {

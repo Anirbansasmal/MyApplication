@@ -146,17 +146,18 @@ public class ProductDetail extends AppCompatActivity {
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
         Intent intent=getIntent();
         Pincode=intent.getStringArrayListExtra("pincode");
-        System.out.println("pincode"+Pincode.size());
-        for (int i=0;i<Pincode.size();i++){
-            if (Pincode.get(i).equals(Dashbord.pin)){
+        System.out.println("pincodeUser"+Pincode.size());
+//        for (int i=0;i<Pincode.size();i++){
+//            System.out.println("pincodeUser"+Pincode.get(i).equals(Dashbord.pin));
+//            if (Pincode.get(i).equals(Dashbord.pin)){
                 shared();
                 user_product();
                 deliveryTimeStaticData();
-                break;
-            }else {
-                available();
-            }
-        }
+////                break;
+//            }else {
+//                available();
+//            }
+//        }
 //        available();
 //        shared();
 
@@ -484,6 +485,7 @@ String deltimeslot=deliveryAdapter.delitimeslot();
     public void Edit_Address(View view){
         startActivity(new Intent(this, Profile.class));
     }
+
     private void weekdays() {
         final Dialog dialog = new Dialog(this.context);
         dialog.setContentView(R.layout.customdialogweeks);

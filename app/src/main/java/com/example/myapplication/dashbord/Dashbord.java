@@ -144,7 +144,7 @@ public class Dashbord extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashbord);
-        customDialog();
+
         this.drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         this.navMenu = (ImageView) findViewById(R.id.nav_menu);
         btn_change=findViewById(R.id.btn_change);
@@ -192,6 +192,7 @@ public class Dashbord extends AppCompatActivity {
         slider_banner();
         new_arrivel();
         address();
+        Discount();
 //        search();
 //        Cart.user_cart.clear();
 //        Cart.product_cart.clear();
@@ -655,6 +656,8 @@ public class Dashbord extends AppCompatActivity {
         });
         ((Button) dialog.findViewById(R.id.applynow)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent=new Intent(Dashbord.this,Offers.class);
+                startActivity(intent);
                 dialog.dismiss();
             }
         });
@@ -668,6 +671,20 @@ public class Dashbord extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Discount> call, Response<Discount> response) {
+                String apply="";
+
+                for (int i=0;i<response.body().getproduct_discount().size();i++){
+                    System.out.println(response.body().getproduct_discount().get(i).getOffer_apply());
+                    if (response.body().getproduct_discount().get(i).getOffer_apply().equals("Applied")){
+                        apply=response.body().getproduct_discount().get(i).getOffer_apply();
+                    }
+                }
+                if (apply.equals("Applied")){
+
+                }else {
+                    customDialog();
+                }
+
             }
 
             @Override

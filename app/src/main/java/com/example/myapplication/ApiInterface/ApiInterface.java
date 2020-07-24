@@ -1,6 +1,7 @@
 package com.example.myapplication.ApiInterface;
 
 import com.example.myapplication.Discount.Discount;
+import com.example.myapplication.Discount.Discount_apply;
 import com.example.myapplication.Search.Product_user_search;
 import com.example.myapplication.cart.AddCartOrder;
 import com.example.myapplication.cart.CartData;
@@ -123,10 +124,10 @@ Call<Product_user_search> response_productSearch(
             @Field("UserName") String name,
             @Field("u_id") String u_id,
             @Field("email")String email,
-            @Field("UserPhone")String phoneNumber,
-            @Field("UserPin")String product,
-            @Field("age")String p_qty,
-            @Field("UserAddress")String deli_location,
+            @Field("UserPhone")int phoneNumber,
+            @Field("UserPin")int UserPin,
+            @Field("age")int age,
+            @Field("UserAddress")String UserAddress,
             @Header("Authorization") String token);
 
     @GET("FetchPinCode")
@@ -268,4 +269,10 @@ Call<Discount> response_UserDiscountData(
     Call<Order_delivered> response_productFetchDelivered(
             @Field("user_id")String user_id,
             @Header("Authorization") String token);
+    @POST("UserDiscountStatus")
+    @FormUrlEncoded
+    Call<Discount_apply> response_UserDiscountStatus(
+            @Field("user_id") String user_id,
+            @Header("Authorization") String token,
+            @Field("d_uid") String user_did);
 }

@@ -84,6 +84,7 @@ if ("1".equals(response.body().getStatus())){
     editor.putString("token", response.body().getToken());
     editor.putString("u_id",response.body().get_id());
     user_type=response.body().getUser_type();
+    editor.putString("user_type",user_type);
     System.out.println(response.body().get_id());
     editor.commit();
     startActivity(new Intent(getApplicationContext(), Dashbord.class));

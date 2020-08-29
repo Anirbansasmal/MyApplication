@@ -40,7 +40,11 @@ Context context;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.old_order_row, parent, false));
+        View view =  LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.old_order_row, parent, false);
+        MyViewHolder vh = new MyViewHolder(view);
+        view.setOnClickListener(OldOrderFragment.myOnClickListener);
+        return vh;
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {

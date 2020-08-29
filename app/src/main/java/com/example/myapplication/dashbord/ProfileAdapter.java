@@ -22,7 +22,8 @@ import java.util.TreeMap;
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder> {
     private ArrayList<String> Date;
     ArrayList<TreeMap<String,String>> user_profile=new ArrayList<TreeMap<String, String>>();
-    String WeeksSelectedArray,WeeksSelectedAddress;
+   public static String WeeksSelectedArray="", WeeksSelectedAddress="",WeeksSelectedPhone="",WeeksSelectedName="";
+//    ArrayList<String>WeeksSelectedArray=new ArrayList<>();
     Context context;
     public ProfileAdapter(Context context, ArrayList<TreeMap<String,String>> user_profile) {
         this.context=context;
@@ -34,6 +35,10 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
     }
 
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        if (user_profile.size()<=0) {
+
+        }else {
+
         for (int i=0;i<user_profile.size();i++){
             holder.tv_edit_address.setText(user_profile.get(position).get("UserAddress"));
             holder.tv_address_pin.setText(user_profile.get(position).get("UserPin"));
@@ -42,11 +47,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
                 public void onClick(View v) {
                     if (holder.tv_address_pin.isSelected()) {
                         holder.tv_address_pin.setTextColor(Color.GREEN); //16711936
+//                        ProfileAdapter.this.WeeksSelectedArray.add(holder.tv_address_pin.getText().toString());
                         ProfileAdapter.this.WeeksSelectedArray=(holder.tv_address_pin.getText().toString());
-                        ProfileAdapter.this.WeeksSelectedAddress=(holder.tv_edit_address.getText().toString());
+                        ProfileAdapter.this.WeeksSelectedAddress=(user_profile.get(position).get("UserAddress"));
+                        ProfileAdapter.this.WeeksSelectedPhone=(user_profile.get(position).get("UserPhone"));
+                        ProfileAdapter.this.WeeksSelectedName=(user_profile.get(position).get("UserName"));
                         holder.tv_address_pin.setSelected(false);
                     } else {
                         holder.tv_address_pin.setTextColor(ViewCompat.MEASURED_STATE_MASK);
+//                        ProfileAdapter.this.WeeksSelectedArray.add("");
                         ProfileAdapter.this.WeeksSelectedArray="";
                         ProfileAdapter.this.WeeksSelectedAddress="";
                         holder.tv_address_pin.setSelected(true);
@@ -55,12 +64,36 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
                 }
             });
         }
+        }
     }
-    public String getWeeksSelectedArray() {
-        return this.WeeksSelectedArray;
+
+//    public ArrayList<String> getWeeksSelectedArray() {
+//        if (this.WeeksSelectedArray.equals(null)){
+//            this.WeeksSelectedArray.add("novalue");
+//            return this.WeeksSelectedArray;
+//        }else {
+//            return this.WeeksSelectedArray;
+//        }
+////        return this.WeeksSelectedArray;
+//    }
+public String getWeeksSelectedArray() {
+        System.out.println("WeeksSelectedArray"+WeeksSelectedArray);
+        if (this.WeeksSelectedArray.equals("")){
+            this.WeeksSelectedArray="novalue";
+            return this.WeeksSelectedArray;
+        }else {
+            return this.WeeksSelectedArray;
+        }
+//        return this.WeeksSelectedArray;
     }
     public String getWeeksSelectedAddress() {
         return this.WeeksSelectedAddress;
+    }
+    public String getWeeksSelectedPhone(){
+        return WeeksSelectedPhone;
+    }
+    public String getWeeksSelectedName(){
+        return WeeksSelectedName;
     }
     public int getItemCount() {
         return this.user_profile.size();

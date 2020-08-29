@@ -2,6 +2,7 @@ package com.example.myapplication.dashbord;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -24,13 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
+import static com.example.myapplication.dashbord.Dashbord.mypreference;
 
 public class ProductAdapterDemo extends RecyclerView.Adapter<ProductAdapterDemo.MyViewHolder> {
     Context mContext;
     private ArrayList<TreeMap<String,String>> productListFetch;
     private ArrayList<TreeMap<String,ArrayList>> check_pincode=new ArrayList<>();
     String p_details;
-//    String check_pincode;
+    String pin;
+    int flag=0;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView discount;
         public TextView discountPrice;
@@ -60,57 +63,51 @@ public class ProductAdapterDemo extends RecyclerView.Adapter<ProductAdapterDemo.
     }
 
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-
-//for (int i=0;i<productListFetch.size();i++) {
-
-//    final Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), Integer.parseInt(productListFetch.get(position).get("p_img")));
-    Glide.with(holder.image.getContext()).load(productListFetch.get(position).get("p_img")).into(holder.image);
-//        holder.image.setImageResource(Integer.parseInt(String.valueOf(bitmap)));
+    Glide.with(holder.image.getContext()).load("http://app.milchmom.com:8080/"+productListFetch.get(position).get("p_img")).into(holder.image);
     holder.name.setText(productListFetch.get(position).get("p_name"));
     holder.price.setText(productListFetch.get(position).get("p_price"));
     holder.discountPrice.setText(productListFetch.get(position).get("p_price"));
-//}
-        System.out.println(Dashbord.pin);
-//        check_pincode.clear();
+//        System.out.println("productListFetch"+Dashbord.pin);
+
+
             holder.productRL.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Dashbord.pin!=null){
+                SharedPreferences sharedPref = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                pin = sharedPref.getString("pin", "");
+                if (pin.isEmpty()){
 
-//                    for (int i=0;i<productListFetch.get(position).get("pincode").length();i++){
-//                        check_pincode=(productListFetch.get(position).get("pincode"));
-//
-//                        for (int j=0;j<productListFetch.get(i).get("pincode").length();j++){
-//                            if (productListFetch.get(j).get("pincode").equals(Dashbord.pin)){
-//                                System.out.println("productListFetch"+productListFetch.get(position).get("pincode").length());
-//                            }
-//                        }
-
-                    System.out.println("check_pincode"+check_pincode);
-//                    check_pincode.add(productListFetch.get(position).get("pincode"));
-                Intent intent = new Intent(mContext, ProductDetail.class);
-                intent.putExtra("image_url", productListFetch.get(position).get("p_img"));
-                intent.putExtra("p_id",productListFetch.get(position).get("p_id"));
-                intent.putExtra("p_details",productListFetch.get(position).get("p_details"));
-                intent.putExtra("p_name",productListFetch.get(position).get("p_name"));
-                intent.putStringArrayListExtra("pincode",check_pincode.get(position).get("pincode"));
-                intent.putExtra("p_type",productListFetch.get(position).get("p_type"));
-                System.out.println("check_pincode"+productListFetch.get(position).get("p_type"));
-                for (int i=0;i<check_pincode.get(position).get("pincode").size();i++){
-                    if (check_pincode.get(position).get("pincode").get(i).equals(Dashbord.pin)){
-                        mContext.startActivity(intent);
-                    }else {
-                        Toast.makeText(mContext,"This product is not available for this pin",Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-
-                }else {
                     Toast.makeText(mContext,"Select Any pin",Toast.LENGTH_SHORT).show();
+                }else {
+                    System.out.println("pinsjkgdfsgdfj"+pin.isEmpty());
+                    System.out.println("check_pincode"+check_pincode);
+                    Intent intent = new Intent(mContext, ProductDetail.class);
+                    intent.putExtra("image_url", productListFetch.get(position).get("p_img"));
+                    intent.putExtra("p_id",productListFetch.get(position).get("p_id"));
+                    intent.putExtra("p_details",productListFetch.get(position).get("p_details"));
+                    intent.putExtra("p_name",productListFetch.get(position).get("p_name"));
+                    intent.putStringArrayListExtra("pincode",check_pincode.get(position).get("pincode"));
+                    intent.putExtra("p_type",productListFetch.get(position).get("p_type"));
+                    System.out.println("check_pincode"+check_pincode.get(position).get("pincode"));
+                    for (int i=0;i<check_pincode.get(position).get("pincode").size();i++){
+                        if (check_pincode.get(position).get("pincode").get(i).equals(pin)){
+                            flag=1;
+                            if (flag==1){
+                                intent.putExtra("pincodeChek",pin);
+                                System.out.println("pincodeChek"+pin);
+                                break;
+                            }else {
+
+                            }
+                        }else {
+                            intent.putExtra("pincodeChek","0");
+                            System.out.println("pincodeChek"+pin);
+                        }
+                    }
+                    mContext.startActivity(intent);
+
                 }
             }
         });
-
-//}
     }
 
     public int getItemCount() {

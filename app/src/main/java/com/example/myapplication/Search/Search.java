@@ -1,10 +1,13 @@
 package com.example.myapplication.Search;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.dashbord.ProductAdapterDemo;
+import com.example.myapplication.productdetail.ProductDetail;
 //import com.example.myapplication.dashbord.Product_user;
 
 import java.util.ArrayList;
@@ -37,10 +41,13 @@ public class Search extends AppCompatActivity {
     ArrayList<TreeMap<String,String>> user_product=new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,ArrayList>> user_pincode=new ArrayList<TreeMap<String, ArrayList>>();
     ApiInterface apiInterface;
+    ProgressDialog progressDoalog;
     public static String search_key;
     private RecyclerView recyclerViewSearchProduct;
     private RecyclerView.LayoutManager layoutManager;
     ProductAdapterSearch productAdapterSearch;
+    ImageView img_back;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,22 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.search);
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
         Intent intent=getIntent();
+        img_back=findViewById(R.id.img_back);
         search_key=intent.getStringExtra("search_key");
         System.out.println("search_key"+search_key);
         this.recyclerViewSearchProduct = (RecyclerView) findViewById(R.id.rvSearch);
         this.recyclerViewSearchProduct.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         this.recyclerViewSearchProduct.setItemAnimator(new DefaultItemAnimator());
+        progressDoalog = new ProgressDialog(Search.this);
         shared();
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Search.this, Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     public void shared() {
@@ -68,17 +85,31 @@ public class Search extends AppCompatActivity {
 
         }
     }
-
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its product detail loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
     public void search(){
+        progress_message();
+        progress_show();
         Call<Product_user_search> call=apiInterface.response_productSearch(user_token,search_key);
         System.out.println(user_token);
         call.enqueue(new Callback<Product_user_search>() {
 
             @Override
             public void onResponse(Call<Product_user_search> call, Response<Product_user_search> response) {
+                progress_dismiss();
                 for (int i=0;i<response.body().getProduct().getProduct_arrqty().size();i++) {
                     System.out.println(response.body().getProduct().getProduct_arrqty().get(i).getP_img());
-                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("Normal")) {
+                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("normal") || response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("popular") || response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("new arrival")) {
                         user_single_product = Product_select(response.body().getProduct().getProduct_arrqty().get(i).get_id(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_name(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_details(),
@@ -122,6 +153,7 @@ public class Search extends AppCompatActivity {
                 //if user pressed "yes", then he is allowed to exit from application
 //                order_cancle();
                 Intent intent=new Intent(Search.this, Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }

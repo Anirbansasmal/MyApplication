@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:background="@drawable/custom_search" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="10dp">
     <TextView android:textSize="18dp" android:textStyle="bold" android:textColor="@color/colorBlack" android:id="@+id/productName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Milk" android:fontFamily="@font/poppins"/>
-    <ImageView android:id="@+id/productImage" android:layout_width="100dp" android:layout_height="100dp" android:src="@drawable/product_4" android:layout_alignParentRight="true"/>
+    <ImageView android:id="@+id/productImage" android:layout_width="100dp" android:layout_height="100dp" android:layout_alignParentRight="true"/>
     <TextView android:textColor="@color/colorBlack" android:id="@+id/orderunit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:layout_below="@+id/productName" android:fontFamily="@font/poppins"/>
-    <TextView android:textColor="@color/colorBlack" android:id="@+id/orderTxt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qty:" android:layout_below="@+id/orderunit" android:fontFamily="@font/poppins"/>
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/orderTxt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qty:" android:layout_below="@+id/orderunit" android:layout_marginStart="3dp" android:fontFamily="@font/poppins"/>
     <TextView android:textColor="@color/colorBlack" android:id="@+id/orderQuantity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:layout_below="@+id/orderunit" android:layout_marginStart="40dp" android:fontFamily="@font/poppins"
         android:layout_marginLeft="45dp" />
-    <TextView android:textColor="@color/colorBlack" android:id="@+id/priceSymbol" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:layout_below="@+id/orderQuantity" android:layout_marginStart="3dp" android:fontFamily="@font/poppins"
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/unitSymbol" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unit: " android:layout_below="@+id/orderQuantity" android:layout_marginStart="3dp" android:fontFamily="@font/poppins"
         android:layout_marginLeft="3dp" />
-    <TextView android:textColor="@color/colorBlack" android:id="@+id/priceperunit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="rs 80/kg" android:layout_below="@+id/orderQuantity" android:layout_marginStart="10dp" android:fontFamily="@font/poppins"
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/priceperunit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="rs 80/kg" android:layout_below="@+id/orderQuantity" android:layout_marginStart="50dp" android:fontFamily="@font/poppins"
         android:layout_marginLeft="10dp" />
-    <TextView android:textColor="@color/colorBlack" android:id="@+id/totalproductprice" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:layout_below="@+id/priceperunit" android:fontFamily="@font/poppins"/>
-    <View android:id="@+id/view" android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="2dp" android:layout_below="@+id/totalproductprice"/>
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/priceSymbol" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Price: " android:layout_below="@+id/unitSymbol" android:layout_marginStart="3dp" android:fontFamily="@font/poppins"
+        android:layout_marginLeft="3dp" />
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/totalproductprice" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:layout_below="@+id/priceperunit" android:layout_marginStart="50dp" android:fontFamily="@font/poppins"/>
+
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/timeSlot" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Time Slot: " android:layout_below="@+id/priceSymbol" android:layout_marginStart="3dp" android:fontFamily="@font/poppins"
+        android:layout_marginLeft="3dp" />
+    <TextView android:textColor="@color/colorBlack" android:id="@+id/deltimeSlot" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:layout_below="@+id/priceSymbol" android:layout_marginStart="75dp" android:fontFamily="@font/poppins"/>
+    <View android:id="@+id/view" android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="2dp" android:layout_below="@+id/timeSlot"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -23,13 +29,22 @@
             android:layout_height="40dp"
             android:text="+"
             android:onClick="btn_incr"
+            android:background="@drawable/bluegradient"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/off_white"
+            android:textSize="20dp"
             android:id="@+id/btn_incr"/>
         <Button
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:text="-"
             android:onClick="btn_dcr"
+            android:background="@drawable/bluegradient"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/off_white"
+            android:layout_marginStart="@dimen/fragment_title_padding_10"
+            android:textSize="20dp"
             android:id="@+id/btn_dcr"/>
-        <TextView android:id="@+id/btn_delete" android:textColor="@color/colorBlack" android:paddingLeft="5dp" android:paddingTop="3dp" android:paddingRight="5dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Remove" android:drawableLeft="@drawable/delete" android:drawablePadding="5dp" android:fontFamily="@font/poppins"/>
+        <TextView android:id="@+id/btn_delete" android:textColor="@color/colorBlack" android:layout_marginStart="@dimen/fragment_title_padding_10" android:paddingLeft="5dp" android:paddingTop="3dp" android:paddingRight="5dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Remove" android:drawableLeft="@drawable/delete" android:drawablePadding="5dp" android:fontFamily="@font/poppins"/>
     </LinearLayout>
 </RelativeLayout>

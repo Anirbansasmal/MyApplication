@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 public class DeliveryTimeAdapter extends RecyclerView.Adapter<DeliveryTimeAdapter.MyViewHolder> {
     private ArrayList<String> deliiveryTimeGetSetList;
-    String slottime;
+    String slottime="";
     ArrayList<TreeMap<String,String>> user_product_unit=new ArrayList<TreeMap<String, String>>();
     int delivery_index = -1;
     public int[] mColors = {R.drawable.custom_deliverytime_1, R.drawable.custom_deliverytime_2, R.drawable.custom_deliverytime_3};
@@ -51,7 +51,7 @@ System.out.println(user_product_unit.size());
                 public void onClick(View v) {
                     DeliveryTimeAdapter deliveryTimeAdapter = DeliveryTimeAdapter.this;
                     slottime=holder.deliveryTime.getText().toString();
-                    slottime=holder.deliveryTime.getText().toString();
+//                    slottime=holder.deliveryTime.getText().toString();
                     deliveryTimeAdapter.delivery_index = position;
                     deliveryTimeAdapter.notifyDataSetChanged();
                 }

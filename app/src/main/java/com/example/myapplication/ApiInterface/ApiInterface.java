@@ -7,6 +7,7 @@ import com.example.myapplication.cart.AddCartOrder;
 import com.example.myapplication.cart.CartData;
 import com.example.myapplication.checkout.deliverfragment.OrderConfirm;
 import com.example.myapplication.checkout.deliverfragment.Order_product;
+import com.example.myapplication.checkout.paymentfragment.Payment;
 import com.example.myapplication.confirmorderdetail.OrderStatus;
 import com.example.myapplication.dashbord.Avl_times_deli;
 import com.example.myapplication.dashbord.Product_unit;
@@ -15,11 +16,14 @@ import com.example.myapplication.dashbord.Slider_product;
 import com.example.myapplication.dashbord.bulkorder.Bulk;
 import com.example.myapplication.login.Login_sta;
 import com.example.myapplication.orderhistory.activeorderfragment.User_Order;
+import com.example.myapplication.orderhistory.activeorderfragment.User_Order_detail;
 import com.example.myapplication.orderhistory.oldorderfragment.Order_delivered;
 import com.example.myapplication.productdetail.AddCart;
 import com.example.myapplication.productdetail.Deltimeslotuser;
 import com.example.myapplication.profile.AddProfile;
 import com.example.myapplication.profile.View_Profile;
+import com.example.myapplication.thanku.OrderSuccess;
+import com.example.myapplication.thanku.OrderSuccessDeliver;
 import com.example.myapplication.verifyotp.Login_otp;
 import com.google.gson.JsonObject;
 
@@ -55,6 +59,11 @@ public interface ApiInterface {
             @Field("otp") String otp,
             @Field("time") String time);
 
+    @POST("otpResend")
+    @FormUrlEncoded
+    Call<Login_sta> response_otpResend(
+            @Field("phoneNumber") String phoneNumber,
+            @Field("time") String time);
     @GET("ProductView")
     Call<Product_user> response_ProductView(
         @Header("Authorization") String token
@@ -73,6 +82,11 @@ Call<Product_user_search> response_productSearch(
             @Header("Authorization") String token,
             @Field("p_id") String id);
 
+    @POST("productOrderPlaced")
+    @FormUrlEncoded
+    Call<OrderSuccessDeliver> response_productOrderPlaced(
+            @Header("Authorization") String token,
+            @Field("Order_id") String Order_id);
     @GET("BannerRecived")
 //    @FormUrlEncoded
     Call<Slider_product> response_ProductBanner(
@@ -91,12 +105,15 @@ Call<Product_user_search> response_productSearch(
                     @Field("email")String email,
                     @Field("phoneNumber")String phoneNumber,
                     @Field("product")String product,
+                    @Field("p_unit")String p_unit,
                     @Field("p_qty")String p_qty,
                     @Field("delivery_date")String delivery_date,
                     @Field("deli_location")String deli_location,
                     @Field("deli_time")String deli_time,
                     @Field("note")String note,
-                    @Header("Authorization") String token);
+                    @Header("Authorization") String token
+//                    @Header("Content-Type") String auth
+    );
 
     @GET("ProductView")
 //    @FormUrlEncoded
@@ -109,7 +126,12 @@ Call<Product_user_search> response_productSearch(
 //            @Header("Content-Type") String Content,
             @Header("Authorization") String token,
             @Field("u_profileid") String u_id);
-
+@POST("ProfileDelete")
+@FormUrlEncoded
+Call<View_Profile> response_ProfileDelete(
+//            @Header("Content-Type") String Content,
+        @Header("Authorization") String token,
+        @Field("u_profileid") String u_id);
 
     @POST("ViewProfileUserAddress")
     @FormUrlEncoded
@@ -124,8 +146,8 @@ Call<Product_user_search> response_productSearch(
             @Field("UserName") String name,
             @Field("u_id") String u_id,
             @Field("email")String email,
-            @Field("UserPhone")int phoneNumber,
-            @Field("UserPin")int UserPin,
+            @Field("UserPhone")String phoneNumber,
+            @Field("UserPin")String UserPin,
             @Field("age")int age,
             @Field("UserAddress")String UserAddress,
             @Header("Authorization") String token);
@@ -254,6 +276,11 @@ Call<AddCart> response_productOrderConfirm(
 Call<Discount> response_UserDiscountData(
         @Field("user_id") String user_id,
         @Header("Authorization") String token);
+    @POST("UserDiscountData")
+    @FormUrlEncoded
+    Call<Discount> response_UserDiscountDataoffer(
+            @Field("user_id") String user_id,
+            @Header("Authorization") String token);
     @POST("DeleteFromCart")
     @FormUrlEncoded
     Call<AddCart> response_DeleteCart(
@@ -261,7 +288,7 @@ Call<Discount> response_UserDiscountData(
             @Header("Authorization") String token);
     @POST("productFetchOrderDeliveryActive")
     @FormUrlEncoded
-    Call<User_Order> response_productFetchOrderDeliveryActive(
+    Call<User_Order_detail> response_productFetchOrderDeliveryActive(
             @Field("user_id")String user_id,
             @Header("Authorization") String token);
     @POST("productFetchDelivered")
@@ -269,10 +296,36 @@ Call<Discount> response_UserDiscountData(
     Call<Order_delivered> response_productFetchDelivered(
             @Field("user_id")String user_id,
             @Header("Authorization") String token);
+    @POST("Deliver_order_active_detail")
+    @FormUrlEncoded
+    Call<User_Order> response_Deliver_order_active_detail(
+            @Field("user_id")String user_id,
+            @Field("Order_id") String Order_id,
+            @Header("Authorization") String token);
+
+    @POST("Deliver_order_old_detail")
+    @FormUrlEncoded
+    Call<Order_delivered> response_Deliver_order_old_detail(
+            @Field("user_id")String user_id,
+            @Field("Order_id") String Order_id,
+            @Header("Authorization") String token);
+
     @POST("UserDiscountStatus")
     @FormUrlEncoded
     Call<Discount_apply> response_UserDiscountStatus(
             @Field("user_id") String user_id,
             @Header("Authorization") String token,
             @Field("d_uid") String user_did);
+    @POST("productOrderOnlinePayment")
+    @FormUrlEncoded
+    Call<Payment> response_productOrderOnlinePayment(
+            @Field("Order_id") String Order_id,
+            @Field("total_pay") float total,
+            @Field("phoneNo") String phoneNo,
+            @Field("email") String email,
+            @Field("user_name") String user_name,
+            @Field("usr_pay_type") String status,
+            @Field("user_id") String user_id,
+            @Field("redirect_url_pay") String redirect_url,
+            @Header("Authorization") String token);
 }

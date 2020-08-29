@@ -13,6 +13,18 @@
         <LinearLayout android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="20dp" android:layout_marginLeft="45dp" android:layout_weight="1">
             <ImageView android:layout_gravity="center" android:id="@+id/image_cart" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginRight="9dp" android:src="@drawable/carticon" android:scaleType="fitXY" android:onClick="carticon"/>
             <ImageView android:layout_gravity="center" android:id="@+id/image_notification" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginLeft="9dp" android:src="@drawable/notificationicon" android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/cart_count"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="-40dp"
+                android:textColor="#ffff"
+                android:textSize="8sp"
+                android:background="@drawable/cart_item"
+                android:visibility="gone"
+                android:gravity="center"
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
     </LinearLayout>
     <AutoCompleteTextView android:textSize="13dp" android:textColor="@color/colorBlack" android:textColorHint="@color/colorGrey" android:id="@+id/search" android:background="@drawable/custom_search" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/search" android:drawableLeft="@drawable/ic_search_black_24dp" android:drawablePadding="15dp" android:layout_below="@+id/ll_toolbar" android:fontFamily="@font/poppins_light" android:layout_marginStart="15dp" android:layout_marginEnd="15dp"/>

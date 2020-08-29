@@ -3,11 +3,15 @@ package com.example.myapplication.orderhistory.activeorderfragment;
 public class Order_product_active {
     private String product_amt_gst;
 
+    private String remaning_amt;
+
     private String payment_details;
 
     private String delivery_time;
 
     private String p_price;
+
+    private String Order_type;
 
     private String usr_pay_type;
 
@@ -33,11 +37,15 @@ public class Order_product_active {
 
     private String payment_amount;
 
+    private String p_details;
+
     private String product_amt_total;
 
     private String product_name;
 
     private String product_qty_total;
+
+    private String order_date;
 
     private String delivery_date;
 
@@ -46,6 +54,10 @@ public class Order_product_active {
     private String Username;
 
     private String user_id;
+
+    private String p_discount_total;
+
+    private String p_type;
 
     private String product_qty;
 
@@ -63,6 +75,16 @@ public class Order_product_active {
     public void setProduct_amt_gst (String product_amt_gst)
     {
         this.product_amt_gst = product_amt_gst;
+    }
+
+    public String getRemaning_amt ()
+    {
+        return remaning_amt;
+    }
+
+    public void setRemaning_amt (String remaning_amt)
+    {
+        this.remaning_amt = remaning_amt;
     }
 
     public String getPayment_details ()
@@ -93,6 +115,16 @@ public class Order_product_active {
     public void setP_price (String p_price)
     {
         this.p_price = p_price;
+    }
+
+    public String getOrder_type ()
+    {
+        return Order_type;
+    }
+
+    public void setOrder_type (String Order_type)
+    {
+        this.Order_type = Order_type;
     }
 
     public String getUsr_pay_type ()
@@ -215,6 +247,16 @@ public class Order_product_active {
         this.payment_amount = payment_amount;
     }
 
+    public String getP_details ()
+    {
+        return p_details;
+    }
+
+    public void setP_details (String p_details)
+    {
+        this.p_details = p_details;
+    }
+
     public String getProduct_amt_total ()
     {
         return product_amt_total;
@@ -243,6 +285,16 @@ public class Order_product_active {
     public void setProduct_qty_total (String product_qty_total)
     {
         this.product_qty_total = product_qty_total;
+    }
+
+    public String getOrder_date ()
+    {
+        return order_date;
+    }
+
+    public void setOrder_date (String order_date)
+    {
+        this.order_date = order_date;
     }
 
     public String getDelivery_date ()
@@ -283,6 +335,26 @@ public class Order_product_active {
     public void setUser_id (String user_id)
     {
         this.user_id = user_id;
+    }
+
+    public String getP_discount_total ()
+    {
+        return p_discount_total;
+    }
+
+    public void setP_discount_total (String p_discount_total)
+    {
+        this.p_discount_total = p_discount_total;
+    }
+
+    public String getP_type ()
+    {
+        return p_type;
+    }
+
+    public void setP_type (String p_type)
+    {
+        this.p_type = p_type;
     }
 
     public String getProduct_qty ()
@@ -328,6 +400,6 @@ public class Order_product_active {
     @Override
     public String toString()
     {
-        return "ClassPojo [product_amt_gst = "+product_amt_gst+", payment_details = "+payment_details+", delivery_time = "+delivery_time+", p_price = "+p_price+", usr_pay_type = "+usr_pay_type+", product_confirmation = "+product_confirmation+", p_Gst = "+p_Gst+", UserPhone = "+UserPhone+", product_id = "+product_id+", __v = "+__v+", Order_id = "+Order_id+", pincode = "+pincode+", address = "+address+", p_img = "+p_img+", p_unit = "+p_unit+", payment_amount = "+payment_amount+", product_amt_total = "+product_amt_total+", product_name = "+product_name+", product_qty_total = "+product_qty_total+", delivery_date = "+delivery_date+", remaning_qty = "+remaning_qty+", Username = "+Username+", user_id = "+user_id+", product_qty = "+product_qty+", _id = "+_id+", order_frequency = "+order_frequency+", p_discount = "+p_discount+"]";
+        return "ClassPojo [product_amt_gst = "+product_amt_gst+", remaning_amt = "+remaning_amt+", payment_details = "+payment_details+", delivery_time = "+delivery_time+", p_price = "+p_price+", Order_type = "+Order_type+", usr_pay_type = "+usr_pay_type+", product_confirmation = "+product_confirmation+", p_Gst = "+p_Gst+", UserPhone = "+UserPhone+", product_id = "+product_id+", __v = "+__v+", Order_id = "+Order_id+", pincode = "+pincode+", address = "+address+", p_img = "+p_img+", p_unit = "+p_unit+", payment_amount = "+payment_amount+", p_details = "+p_details+", product_amt_total = "+product_amt_total+", product_name = "+product_name+", product_qty_total = "+product_qty_total+", order_date = "+order_date+", delivery_date = "+delivery_date+", remaning_qty = "+remaning_qty+", Username = "+Username+", user_id = "+user_id+", p_discount_total = "+p_discount_total+", p_type = "+p_type+", product_qty = "+product_qty+", _id = "+_id+", order_frequency = "+order_frequency+", p_discount = "+p_discount+"]";
     }
 }

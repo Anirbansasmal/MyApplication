@@ -89,10 +89,16 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
 
         holder.applynow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (popularProductGetSetList.get(position).get("discount_val").equals("null")){
+                if (popularProductGetSetList.get(position).get("discount_val").equals(null)){
                     p_discount_val=0;
+                    Intent intent=new Intent(context,Dashbord.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
                 }else {
                     p_discount_val= Integer.parseInt(popularProductGetSetList.get(position).get("discount_val"));
+                    Intent intent=new Intent(context,Dashbord.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
                     Discount(popularProductGetSetList.get(position).get("id"));
                 }
 
@@ -109,7 +115,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
             @Override
             public void onResponse(Call<Discount_apply> call, Response<Discount_apply> response) {
                 if (response.message().equals("Success")){
-
+                    Intent intent=new Intent(context,Dashbord.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
                 }else {
 
                 }

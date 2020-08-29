@@ -1,11 +1,15 @@
 package com.example.myapplication.profile;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.ApiClient.ApiClient;
 import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
+import com.example.myapplication.cart.Cart;
+import com.example.myapplication.dashbord.Dashbord;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -35,6 +41,7 @@ public class Profile extends AppCompatActivity {
     public static final String mypreference = "mypref";
     RecyclerView rvprofile;
     ProfileAdapter profileAdapter;
+    ImageView productdetailback;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -42,12 +49,21 @@ public class Profile extends AppCompatActivity {
 //        getSupportActionBar().hide();
 //        btnAddAddress.setVisibility(View.VISIBLE);
         rvprofile=findViewById(R.id.rvprofile);
-        rvprofile.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        rvprofile.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
         rvprofile.setItemAnimator(new DefaultItemAnimator());
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        productdetailback=findViewById(R.id.productdetailback);
         shared();
         user_profile();
 //        add_profile();
+        productdetailback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Profile.this, Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     public void shared() {
@@ -63,12 +79,15 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    public void profilelback(View view) {
-        finish();
-    }
-
-//    public void profilepagecart(View view) {
+//    public void profilelback(View view) {
+//        finish();
 //    }
+
+    public void profilepagecart(View view) {
+        Intent intent=new Intent(Profile.this, Cart.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
     public void Add_New_Address(View view) {
         btnAddAddress.setVisibility(View.INVISIBLE);
@@ -111,7 +130,31 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
-
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                Intent intent=new Intent(Profile.this, Dashbord.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     private void add_profile(){
         profileAdapter=new ProfileAdapter(this,user_profile);
         rvprofile.setAdapter(profileAdapter);

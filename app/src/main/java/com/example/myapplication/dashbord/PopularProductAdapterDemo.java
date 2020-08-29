@@ -2,6 +2,7 @@ package com.example.myapplication.dashbord;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +26,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
+import static com.example.myapplication.dashbord.Dashbord.mypreference;
+
 public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProductAdapterDemo.MyViewHolder> {
     public String[] mColors = {"#F6D85C", "#4BB1F3"};
     public String[] mColorstext = {"#000000", "#ffffff"};
     private ArrayList<TreeMap<String,String>> popularProductGetSetList;
     private ArrayList<TreeMap<String,ArrayList>> check_pincode=new ArrayList<>();
     Context context;
-
+    String pin;
+int flag=0;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         public TextView ppdesc;
@@ -64,11 +68,11 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
 
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 //        final PopularProductGetSet popularProductGetSet = this.popularProductGetSetList.get(position);
-        Glide.with(holder.ppimage.getContext()).load(popularProductGetSetList.get(position).get("p_img")).into(holder.ppimage);
+        Glide.with(holder.ppimage.getContext()).load("http://app.milchmom.com:8080/"+popularProductGetSetList.get(position).get("p_img")).into(holder.ppimage);
 //        holder.ppimage.setImageResource(popularProductGetSetList.get(position).get(""));
         holder.ppname.setText(popularProductGetSetList.get(position).get("p_name"));
-        holder.ppprice.setText(popularProductGetSetList.get(position).get("p_price"));
-        holder.ppquantity.setText(popularProductGetSetList.get(position).get("ProductQty"));
+        holder.ppprice.setText("");
+        holder.ppquantity.setText("");
         holder.ppdesc.setText(popularProductGetSetList.get(position).get("p_details"));
         System.out.println("popularProductGetSetList"+popularProductGetSetList);
         holder.ppname.setTextColor(Color.parseColor(this.mColorstext[position % 2]));
@@ -76,9 +80,15 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
         holder.ppquantity.setTextColor(Color.parseColor(this.mColorstext[position % 2]));
         holder.ppdesc.setTextColor(Color.parseColor(this.mColorstext[position % 2]));
         holder.ppll.setBackgroundColor(Color.parseColor(this.mColors[position % 2]));
+
         holder.ppll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Dashbord.pin!=null) {
+                SharedPreferences sharedPref = context.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                pin = sharedPref.getString("pin", "");
+                if (pin.isEmpty()) {
+                    Toast.makeText(context,"Select Any pin",Toast.LENGTH_SHORT).show();
+//                    this.finish();
+                }else {
                     Intent intent = new Intent(v.getContext(), ProductDetail.class);
                     intent.putExtra("image_url", popularProductGetSetList.get(position).get("p_img"));
                     intent.putExtra("p_id",popularProductGetSetList.get(position).get("p_id"));
@@ -86,10 +96,24 @@ public class PopularProductAdapterDemo extends RecyclerView.Adapter<PopularProdu
                     intent.putExtra("p_name",popularProductGetSetList.get(position).get("p_name"));
                     intent.putStringArrayListExtra("pincode", check_pincode.get(position).get("pincode"));
                     intent.putExtra("p_type",popularProductGetSetList.get(position).get("p_type"));
+                    for (int i=0;i<check_pincode.get(position).get("pincode").size();i++){
+                        if (check_pincode.get(position).get("pincode").get(i).equals(pin)){
+                            flag=1;
+                            if (flag==1){
+                                intent.putExtra("pincodeChek",pin);
+                                System.out.println("pincodeChek"+pin);
+                                break;
+                            }else {
+
+                            }
+                        }else {
+                            intent.putExtra("pincodeChek","0");
+                            System.out.println("pincodeChek"+pin);
+                        }
+                    }
 //                    System.out.println("pincode"+(ArrayList<String>) Arrays.asList(popularProductGetSetList.get(position).get("pincode")));
                     v.getContext().startActivity(intent);
-                }else {
-                    Toast.makeText(context,"Select Any pin",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

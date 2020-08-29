@@ -1,8 +1,14 @@
 package com.example.myapplication.Discount;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.ApiClient.ApiClient;
 import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
+import com.example.myapplication.cart.Cart;
+import com.example.myapplication.checkout.paymentfragment.PaymentFragment;
+import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.dashbord.Product_user;
 
 import java.util.ArrayList;
@@ -31,6 +40,10 @@ public class Offers extends AppCompatActivity {
     public static String user_token,user_id,token_val;
     private RecyclerView recyclerViewOffer;
     ApiInterface apiInterface;
+    RelativeLayout offer_notseen,offer_screen;
+    Button shopping;
+    ProgressDialog progressDoalog;
+    ImageView productdetailback,cartimagePD;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -39,36 +52,89 @@ public class Offers extends AppCompatActivity {
         this.recyclerViewOffer.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
         this.recyclerViewOffer.setItemAnimator(new DefaultItemAnimator());
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
-     shared();
+        offer_notseen=findViewById(R.id.offer_notseen);
+        shopping=findViewById(R.id.shopping);
+        productdetailback=findViewById(R.id.productdetailback);
+        cartimagePD=findViewById(R.id.cartimagePD);
+        offer_screen=findViewById(R.id.offer_screen);
+        progressDoalog = new ProgressDialog(Offers.this);
+        shared();
+        offer();
+        productdetailback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getApplicationContext().startActivity(intent);
+            }
+        });
+
+        cartimagePD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), Cart.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getApplicationContext().startActivity(intent);
+            }
+        });
+
     }
 
     public void shared() {
+//        apiInterface= ApiClient.getClient().create(ApiInterface.class);
         try {
             SharedPreferences sharedPref = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
+//            SharedPreferences.Editor editor = sharedPref.edit();
             token_val = sharedPref.getString("token", "");
             user_id = sharedPref.getString("u_id", "");
             user_token="Berear "+token_val;
             System.out.println(user_token);
-            offer();
+//            offer();
+
 //            user_token = token_val;
         } catch (Exception e) {
 
         }
     }
+
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its product detail loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
+
     public void offer(){
-        Call<Discount> call=apiInterface.response_UserDiscountData(user_id,user_token);
-        System.out.println(user_token);
+        progress_show();
+        progress_message();
+        System.out.println("nsvsvhvdjhfgjdjf"+user_id);
+        Call<Discount> call=apiInterface.response_UserDiscountDataoffer(user_id,user_token);
+//        System.out.println(user_token);
         call.enqueue(new Callback<Discount>() {
 
             @Override
             public void onResponse(Call<Discount> call, Response<Discount> response) {
-//                System.out.println("nsvsvhvdjhfgjdjf"+response.body().getProduct().getProduct_arrqty());
-                for (int i=0;i<response.body().getproduct_discount().size();i++) {
-//                    System.out.println(response.body().getProduct().getProduct_arrqty().get(i).getP_img());
-//                    for (int j = 0; j < response.body().getProduct().getProduct_arrqty().size(); j++) {
-//                        if (response.body().getProduct().getProduct_arrqty().get(i).get_id() == response.body().getProduct().getProduct_qty().get(i).get_id()) {
-//                    if (response.body().getUser_discount().get(i).get_id().equals("Normal")) {
+                progress_dismiss();
+                if (response.body().getMessage().equals("no data found")){
+                    offer_screen.setVisibility(View.GONE);
+                    offer_notseen.setVisibility(View.VISIBLE);
+
+                    shopping.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent=new Intent(getApplicationContext(), Dashbord.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            getApplicationContext().startActivity(intent);
+                        }
+                    });
+                }else {
+                    for (int i=0;i<response.body().getproduct_discount().size();i++) {
                         product_offers = select_offer(response.body().getproduct_discount().get(i).get_id(),
                                 response.body().getproduct_discount().get(i).getOffer_apply(),
                                 response.body().getproduct_discount().get(i).getU_id(),
@@ -76,12 +142,12 @@ public class Offers extends AppCompatActivity {
                                 response.body().getproduct_discount().get(i).getOffer_exp(),
                                 response.body().getproduct_discount().get(i).getDiscount_val());
                         user_offers.add(product_offers);
-
-
-//                    }
+                    }
+                    adapter_offer();
                 }
+
                 System.out.println("user_product"+user_offers);
-                adapter_offer();
+
 
             }
 
@@ -91,6 +157,7 @@ public class Offers extends AppCompatActivity {
             }
         });
     }
+
     public void adapter_offer(){
         offerAdapter=new OfferAdapter(this,user_offers);
         recyclerViewOffer.setAdapter(offerAdapter);

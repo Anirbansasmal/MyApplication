@@ -1,5 +1,6 @@
 package com.example.myapplication.checkout;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.myapplication.confirmorderdetail.ConfirmOrderDetail.product_id;
+import static com.example.myapplication.dashbord.Dashbord.address;
 import static com.example.myapplication.dashbord.Dashbord.user_id;
 
 public class Checkout extends AppCompatActivity {
@@ -46,13 +48,14 @@ public class Checkout extends AppCompatActivity {
     ApiInterface apiInterface;
     static String user_token,Order_id,Order_id_product,Order_id_cart;
     public static final String mypreference = "mypref";
+    ProgressDialog progressDoalog;
     static String token,token_val,prname;
-    float total,shipping,gst;
+    float total,shipping,gst,item,price;
     String content="application/json";
     //    private List<CheckoutOrderGetSet> checkoutOrderGetSetList = new ArrayList();
     RecyclerView checkoutOrderRV;
     Button confirmpayment;
-    TextView txt_items,txt_price,txt_gst,txt_total,txt_shipping;
+    TextView txt_items,txt_price,txt_gst,txt_total,txt_shipping,user_address;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,8 @@ public class Checkout extends AppCompatActivity {
         txt_gst=findViewById(R.id.txt_gst);
         txt_total=findViewById(R.id.txt_total);
         txt_shipping=findViewById(R.id.txt_shipping);
-        checkoutOrderStaticData();
+        user_address=findViewById(R.id.user_address);
+        user_address.setText(""+address);
 //        cart_order();
 //        onBackPressed();
         Order_id_product=ConfirmOrderDetail.Order_id;
@@ -84,18 +88,38 @@ public class Checkout extends AppCompatActivity {
         Intent intent=getIntent();
         if (Order_id_product==null){
             Order_id=intent.getStringExtra("Order_id");
+            System.out.println("khjdhsajdsjdsa"+Order_id);
         }else {
             Order_id=Order_id_product;
         }
+
+
+        progressDoalog = new ProgressDialog(Checkout.this);
 //        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.add(R.id.checkoutFramelayout, new DeliveryFragment(), "HELLO");
 //        fragmentTransaction.commit();
+        checkoutOrderStaticData();
+    }
+
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its product detail loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     private void checkoutOrderStaticData() {
+        progress_message();
+        progress_show();
         apiInterface= ApiClient.getClient().create(ApiInterface.class);
 //        String Order_id;
-        Order_id= ConfirmOrderDetail.Order_id;
+//        Order_id= ConfirmOrderDetail.Order_id;
         System.out.println(Order_id);
         Call<OrderConfirm> call=apiInterface.response_productFetchOrder(Order_id,user_token);
         System.out.println(user_token);
@@ -103,8 +127,9 @@ public class Checkout extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<OrderConfirm> call, Response<OrderConfirm> response) {
+                progress_dismiss();
                 for (int i = 0; i < response.body().getOrder_product().size(); i++) {
-                    System.out.println("jkbdsfhsdjfjsbfd"+response.body().getOrder_product().get(i).getProduct_name());
+                    System.out.println("jkbdsfhsdjfjsbfd"+response.body().getOrder_product().size());
                     user_order=Product_select(response.body().getOrder_product().get(i).get_id(),
                             response.body().getOrder_product().get(i).getProduct_name(),
                             response.body().getOrder_product().get(i).getPayment_details(),
@@ -142,13 +167,16 @@ public class Checkout extends AppCompatActivity {
 
     public void placed_order(){
         for (int i=0;i<user_order_detail.size();i++){
-            total=total+Float.parseFloat(user_order_detail.get(i).get("product_amt_total"));
+            total=total+Float.parseFloat(user_order_detail.get(i).get("payment_amount"));
             gst=gst+Float.parseFloat(user_order_detail.get(i).get("product_amt_gst"));
-            txt_items.setText(""+user_order_detail.get(i).get("ProductQty")+" items");
-            txt_price.setText(""+user_order_detail.get(i).get("p_price"));
-            txt_gst.setText(""+user_order_detail.get(i).get("product_amt_gst"));
-            txt_total.setText("INR "+total);
+            item=item+Float.parseFloat(user_order_detail.get(i).get("ProductQty"));
+            price=price+((Float.parseFloat(user_order_detail.get(i).get("payment_amount"))-Float.parseFloat(user_order_detail.get(i).get("product_amt_gst"))));
+            txt_items.setText(""+item+" items");
+            txt_price.setText(String.format("%.2f",price));
+            txt_gst.setText(String.format("%.2f",gst));
+            txt_total.setText("INR:"+String.format("%.2f",total));
             txt_shipping.setText("INR "+0);
+            System.out.println("jhgdjgsdjgjsd"+user_order_detail);
         }
     }
 
@@ -165,7 +193,10 @@ public class Checkout extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //if user pressed "yes", then he is allowed to exit from application
                 order_cancle();
+                user_order.clear();
+                user_order_detail.clear();
                 Intent intent=new Intent(Checkout.this, Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -211,7 +242,11 @@ public class Checkout extends AppCompatActivity {
     public void ConfirmPayment(View view){
 //        Fragment fragment = new PaymentFragment();
         Intent intent=new Intent(this,PaymentFragment.class);
+        System.out.println(total);
         intent.putExtra("Order_id",Order_id);
+        intent.putExtra("product_amt_total",total);
+//        intent.putExtra("Order_id",Order_id);
+//        intent.putExtra("Order_id",Order_id);
         startActivity(intent);
 //
     }

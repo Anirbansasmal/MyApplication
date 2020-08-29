@@ -1,4 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvDiscount" android:layout_marginTop="20dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView android:id="@+id/productdetailback" android:clickable="true" android:layout_width="30dp" android:layout_height="30dp" android:onClick="productdetailback" app:srcCompat="@drawable/backward"/>
+        <ImageView android:id="@+id/cartimagePD" android:clickable="true" android:layout_width="20dp" android:layout_height="20dp" android:layout_margin="5dp" android:layout_alignParentRight="true" android:onClick="productincart" app:srcCompat="@drawable/carticon"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/offer_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="visible">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvDiscount" android:layout_marginTop="20dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="invisible"
+        android:id="@+id/offer_notseen"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sorry currently no offer"
+            android:gravity="center"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/shopping"
+            android:background="@drawable/bluegradient"
+            android:layout_marginTop="40dp"
+            android:text="Continue Shopping"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
+</RelativeLayout>
+
 </RelativeLayout>

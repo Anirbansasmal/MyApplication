@@ -1,5 +1,6 @@
 package com.example.myapplication.cart;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,16 +44,16 @@ public class Cart extends AppCompatActivity {
     static String user_token,usr_id,cart_id,Order_id,product_confirmation;
     int p_price,p_gst,p_discount,p_count,p_discount_total,product_amt_gst,payment_amount;
     public static TextView cartTotal;
-
+    ProgressDialog progressDoalog;
     public static TreeMap<String, String> product_cart = new TreeMap<String, String>();
-    TreeMap<String, String> user_address = new TreeMap<String, String>();
-    TreeMap<String, String>Product_timeslot=new TreeMap<String, String>();
+//    TreeMap<String, String> user_address = new TreeMap<String, String>();
+//    TreeMap<String, String>Product_timeslot=new TreeMap<String, String>();
     TreeMap<String, String> product_payment = new TreeMap<String, String>();
     TreeMap<String, String> product_cart_update = new TreeMap<String, String>();
 
    public static ArrayList<TreeMap<String,String>> user_cart=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>> user_del_address=new ArrayList<TreeMap<String, String>>();
-    ArrayList<TreeMap<String,String>>user_product_timeslot=new ArrayList<TreeMap<String, String>>();
+//    public static ArrayList<TreeMap<String,String>> user_del_address=new ArrayList<TreeMap<String, String>>();
+//    public static ArrayList<TreeMap<String,String>>user_product_timeslot=new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,String>> user_payment=new ArrayList<TreeMap<String, String>>();
     ArrayList<TreeMap<String,String>> user_cart_update=new ArrayList<TreeMap<String, String>>();
 
@@ -63,27 +66,37 @@ private CartAdapterAddress cartAdapterAddress;
 private CartAdaptertimeslot cartAdaptertimeslot;
 private CartAdapterPayment cartAdapterPayment;
     RecyclerView.SmoothScroller smoothScroller;
+    RelativeLayout cart_not,offer_screen;
+    Button shopping;
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView((int) R.layout.activity_cart);
 //        getSupportActionBar().hide();
         this.rvCart = (RecyclerView) findViewById(R.id.rvCart);
-        this.rvAddress = (RecyclerView) findViewById(R.id.rvaddress);
-        this.rvtimeslot = (RecyclerView) findViewById(R.id.rvdeltime);
+//        this.rvAddress = (RecyclerView) findViewById(R.id.rvaddress);
+//        this.rvtimeslot = (RecyclerView) findViewById(R.id.rvdeltime);
         cartTotal=findViewById(R.id.cartTotal);
 //        this.rvpaymenttype = (RecyclerView) findViewById(R.id.rvpayment);
-
+        offer_screen=findViewById(R.id.offer_notseen);
+        cart_not=findViewById(R.id.cart_not);
+        shopping=findViewById(R.id.shopping);
+        shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Cart.this,Dashbord.class));
+            }
+        });
 //        this.cartAdapter = new CartAdapter(this.cartGetSetList);
         this.rvCart.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false));
         this.rvCart.setItemAnimator(new DefaultItemAnimator());
 
-        this.rvAddress.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        this.rvAddress.setItemAnimator(new DefaultItemAnimator());
-
-        this.rvtimeslot.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        this.rvtimeslot.setItemAnimator(new DefaultItemAnimator());
-
+//        this.rvAddress.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        this.rvAddress.setItemAnimator(new DefaultItemAnimator());
+//
+//        this.rvtimeslot.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        this.rvtimeslot.setItemAnimator(new DefaultItemAnimator());
+        progressDoalog = new ProgressDialog(Cart.this);
 //        this.rvpaymenttype.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 //        this.rvpaymenttype.setItemAnimator(new DefaultItemAnimator());
 
@@ -98,10 +111,13 @@ private CartAdapterPayment cartAdapterPayment;
 //                        return LinearSmoothScroller.SNAP_TO_START;
 //                    }
 //                };
+
         shared();
         address();
         user_cart.clear();
         product_cart.clear();
+//        user_del_address.clear();
+//        user_product_timeslot.clear();
 //        scroll();
 //        smooth();
         scroll_recycler();
@@ -121,15 +137,33 @@ private CartAdapterPayment cartAdapterPayment;
 
         }
     }
-
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its product detail loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
     private void address(){
+        progress_show();
+        progress_message();
         Call<CartData> call=apiInterface.response_fetchFromCart(user_id,user_token);
         call.enqueue(new Callback<CartData>() {
             @Override
             public void onResponse(Call<CartData> call, Response<CartData> response) {
                 System.out.println(response.body().getCart_item());
+                progress_dismiss();
                 if (response.body().getStatus().equals("No data found")){
-                    startActivity(new Intent(Cart.this,Shopping.class));
+
+//                    startActivity(new Intent(Cart.this,Shopping.class));
+
+                    offer_screen.setVisibility(View.VISIBLE);
+                    cart_not.setVisibility(View.GONE);
                 }else {
                     for (int i=0;i<response.body().getCart_item().size();i++){
                         product_cart=product_select_cart(response.body().getCart_item().get(i).get_id(),
@@ -150,26 +184,26 @@ private CartAdapterPayment cartAdapterPayment;
                                 response.body().getCart_item().get(i).getProduct_amt_gst(),
                                 response.body().getCart_item().get(i).getOrder_frequency_count());
                         user_cart.add(product_cart);
-                        user_address=product_select_address(response.body().getCart_item().get(i).get_id(),
-                                response.body().getCart_item().get(i).getProductName(),
-                                response.body().getCart_item().get(i).getP_details(),
-                                response.body().getCart_item().get(i).getUser_address(),
-                                response.body().getCart_item().get(i).getProduct_id(),
-                                response.body().getCart_item().get(i).getUser_id());
-                        user_del_address.add(user_address);
-                        Product_timeslot=product_select_timeslot(response.body().getCart_item().get(i).get_id(),
-                                response.body().getCart_item().get(i).getProductName(),
-                                response.body().getCart_item().get(i).getP_details(),
-                                response.body().getCart_item().get(i).getTime_slot(),
-                                response.body().getCart_item().get(i).getProduct_id(),
-                                response.body().getCart_item().get(i).getUser_id());
-                        user_product_timeslot.add(Product_timeslot);
+//                        user_address=product_select_address(response.body().getCart_item().get(i).get_id(),
+//                                response.body().getCart_item().get(i).getProductName(),
+//                                response.body().getCart_item().get(i).getP_details(),
+//                                response.body().getCart_item().get(i).getUser_address(),
+//                                response.body().getCart_item().get(i).getProduct_id(),
+//                                response.body().getCart_item().get(i).getUser_id());
+//                        user_del_address.add(user_address);
+//                        Product_timeslot=product_select_timeslot(response.body().getCart_item().get(i).get_id(),
+//                                response.body().getCart_item().get(i).getProductName(),
+//                                response.body().getCart_item().get(i).getP_details(),
+//                                response.body().getCart_item().get(i).getTime_slot(),
+//                                response.body().getCart_item().get(i).getProduct_id(),
+//                                response.body().getCart_item().get(i).getUser_id());
+//                        user_product_timeslot.add(Product_timeslot);
 //                    product_payment=product_select_payment();
 //                    user_payment.add(product_payment);
 
                     }
-                    setRvtimeslot();
-                    setRvpaymenttype();
+//                    setRvtimeslot();
+//                    setRvpaymenttype();
                     cartStaticData();
                 }
 
@@ -277,7 +311,15 @@ cart_delete(index);
             @Override
             public void onResponse(Call<AddCart> call, Response<AddCart> response) {
                 user_cart.remove(pos);
+//                user_del_address.remove(pos);
+//                user_product_timeslot.remove(pos);
+                if (user_cart.size()<0){
+                    Intent intent=new Intent(Cart.this, Dashbord.class);
+                    startActivity(intent);
+                }
                 cart_update();
+//                cart_addressupdate();
+//                cart_timeupdate();
             }
 
             @Override
@@ -292,6 +334,20 @@ cart_delete(index);
         this.rvCart.setAdapter(this.cartAdapter);
 //        cart_update_val(4,"5e9b5cd9f62d203f84ee01a9");
     }
+//
+//    public void cart_addressupdate() {
+//
+//        this.cartAdapterAddress = new CartAdapterAddress(this,user_del_address);
+//        this.rvAddress.setAdapter(this.cartAdapterAddress);
+////        cart_update_val(4,"5e9b5cd9f62d203f84ee01a9");
+//    }
+//
+//    public void cart_timeupdate() {
+//
+//        this.cartAdaptertimeslot = new CartAdaptertimeslot(this,user_product_timeslot);
+//        this.rvtimeslot.setAdapter(this.cartAdaptertimeslot);
+////        cart_update_val(4,"5e9b5cd9f62d203f84ee01a9");
+//    }
 
     public void cart_update_val(int p_count,String cart_id,String p_price){
 //        apiInterface= ApiClient.getClient().create(ApiInterface.class);
@@ -314,24 +370,33 @@ cart_delete(index);
         System.out.println(product_count);
     }
 
-    private void setRvtimeslot(){
-        this.cartAdaptertimeslot = new CartAdaptertimeslot(this,user_product_timeslot);
-        this.rvtimeslot.setAdapter(this.cartAdaptertimeslot);
-    }
-
-    private void setRvpaymenttype(){
-        this.cartAdapterAddress = new CartAdapterAddress(this,user_del_address);
-        this.rvAddress.setAdapter(this.cartAdapterAddress);
-    }
+//    private void setRvtimeslot(){
+//        this.cartAdaptertimeslot = new CartAdaptertimeslot(this,user_product_timeslot);
+//        this.rvtimeslot.setAdapter(this.cartAdaptertimeslot);
+//    }
+//
+//    private void setRvpaymenttype(){
+//        this.cartAdapterAddress = new CartAdapterAddress(this,user_del_address);
+//        this.rvAddress.setAdapter(this.cartAdapterAddress);
+//    }
 
     private void cartStaticData() {
+        float total_amt=0;
+        for (int i=0;i<user_cart.size();i++){
+//            total_amt= Float.parseFloat((total_amt+ (user_cart.get(i).get("payment_amount"))+(user_cart.get(i).get("product_amt_gst"))));
+        }
+//        cartTotal.setText(""+total_amt);
         this.cartAdapter = new CartAdapter(this,user_cart);
         this.rvCart.setAdapter(this.cartAdapter);
         cart();
     }
 
     public void cartback(View view) {
+        Intent intent=new Intent(Cart.this, Dashbord.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
+//        finish();
     }
     public void cart_order() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -350,10 +415,13 @@ cart_delete(index);
             }
         });
     }
+
     public void continuecheckout(View view) {
         user_cart.clear();
         product_cart.clear();
 //        cart_order();
+        progress_show();
+        progress_message();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<AddCartOrder> call = apiInterface.response_productConfirmCart(user_id,"false", user_token);
         System.out.println(user_token);
@@ -362,7 +430,7 @@ cart_delete(index);
             public void onResponse(Call<AddCartOrder> call, Response<AddCartOrder> response) {
                 Order_id=response.body().getOrder_id();
                 if (response.body().getStatus().equals("success")){
-
+                    progress_dismiss();
                     System.out.println("kjhfdsgjsghdfjhsgdfgjdfgdsf"+Order_id);
                     product_confirmation=response.body().getProduct_confirmation();
                     Intent intent=new Intent(getApplicationContext(), Checkout.class);
@@ -394,6 +462,7 @@ cart_delete(index);
                 //if user pressed "yes", then he is allowed to exit from application
 //                order_cancle();
                 Intent intent=new Intent(Cart.this, Dashbord.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }

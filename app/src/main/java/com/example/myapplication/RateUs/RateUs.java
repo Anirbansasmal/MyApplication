@@ -1,6 +1,7 @@
 package com.example.myapplication.RateUs;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.ApiClient.ApiClient;
@@ -16,6 +18,7 @@ import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.dashbord.Dashbord;
 import com.example.myapplication.profile.AddProfile;
+import com.example.myapplication.profile.Edit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +48,8 @@ public class RateUs extends AppCompatActivity {
     }
 
     public void rateusback(View view) {
+        Intent intent=new Intent(RateUs.this, Dashbord.class);
+        startActivity(intent);
         finish();
     }
     public void shared() {
@@ -89,5 +94,29 @@ public class RateUs extends AppCompatActivity {
 
 
     }
-
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                Intent intent=new Intent(RateUs.this, Dashbord.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

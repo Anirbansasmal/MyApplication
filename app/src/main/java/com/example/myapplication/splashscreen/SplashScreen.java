@@ -1,13 +1,18 @@
 package com.example.myapplication.splashscreen;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
@@ -26,8 +31,23 @@ public class SplashScreen extends AppCompatActivity {
         setContentView((int) R.layout.splash_screen);
 //        getSupportActionBar().hide();
         this.iv1 = (ImageView) findViewById(R.id.imageView_flow_up);
+        if (!isNetworkAvailable()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setMessage("You are not online!!!!");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-        autologin();
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else{
+            autologin();
+        }
+
     }
 
     private void changeStatusBarColor() {
@@ -54,6 +74,13 @@ public class SplashScreen extends AppCompatActivity {
             }, 10000);
         }else{
             startActivity(new Intent(this, Dashbord.class));
+            SplashScreen.this.finish();
         }
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

@@ -16,28 +16,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
+
         android:theme="@style/AppTheme.NoActionBar">
+<!--        android:hardwareAccelerated="false"-->
         <activity android:name=".MainActivity"/>
+<!--        android:hardwareAccelerated="false"-->
 <!--        <activity android:name="com.intlum.milchmom.thanku.ThankYou"/>-->
-        <activity android:name="com.example.myapplication.checkout.Checkout"/>
-        <activity android:name="com.example.myapplication.confirmorderdetail.ConfirmOrderDetail"/>
-        <activity android:name="com.example.myapplication.cart.Cart"/>
-        <activity android:name=".profile.Edit"/>
-        <activity android:name="com.example.myapplication.orderhistory.OrderHistory"/>
+        <activity android:name="com.example.myapplication.checkout.Checkout"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.dashbord.bulkorder.BulkOrderFragment"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.confirmorderdetail.ConfirmOrderDetail"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.cart.Cart"
+            android:noHistory="true"/>
+        <activity android:name=".profile.Edit"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.orderhistory.OrderHistory"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.orderhistory.activeorderfragment.Order_detail"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.orderhistory.oldorderfragment.Order_detail_Deliver"
+            android:noHistory="true"/>
 <!--        <activity android:name="com.intlum.milchmom.support.Support"/>-->
-        <activity android:name="com.example.myapplication.AboutUs.AboutUs"/>
-        <activity android:name="com.example.myapplication.RateUs.RateUs"/>
-        <activity android:name="com.example.myapplication.profile.Profile"/>
-        <activity android:name="com.example.myapplication.productdetail.ProductDetail"/>
-        <activity android:name=".checkout.paymentfragment.PaymentFragment"/>
-        <activity android:name=".thanku.ThankYou"/>
-        <activity android:theme="@style/AppTheme.NoActionBar" android:name="com.example.myapplication.dashbord.Dashbord"/>
-        <activity android:name="com.example.myapplication.verifyotp.VerifyOtp"/>
-        <activity android:name="com.example.myapplication.login.Login"/>
-        <activity android:name="com.example.myapplication.Discount.Offers"/>
-        <activity android:name=".Search.Search"/>
-        <activity android:name=".cart.Shopping"/>
-        <activity android:name="com.example.myapplication.splashscreen.SplashScreen">
+        <activity android:name="com.example.myapplication.AboutUs.AboutUs"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.RateUs.RateUs"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.profile.Profile"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.productdetail.ProductDetail"
+            android:noHistory="true"/>
+        <activity android:name=".checkout.paymentfragment.PaymentFragment"
+            android:noHistory="true"/>
+        <activity android:name=".checkout.paymentfragment.OnlinePaymentFragment"
+            android:noHistory="true"/>
+        <activity android:name=".thanku.ThankYou"
+            android:noHistory="true"/>
+        <activity android:theme="@style/AppTheme.NoActionBar" android:name="com.example.myapplication.dashbord.Dashbord"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.verifyotp.VerifyOtp"
+            />
+        <activity android:name="com.example.myapplication.login.Login"
+            />
+        <activity android:name="com.example.myapplication.Discount.Offers"
+            android:noHistory="true"/>
+        <activity android:name=".Search.Search"
+            android:noHistory="true"/>
+        <activity android:name=".cart.Shopping"
+            android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.splashscreen.SplashScreen"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -98,6 +98,9 @@
                 <Spinner
                     android:id="@+id/bulk_product"
                     android:layout_width="match_parent"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:layout_marginStart="4dp"
                     android:layout_height="wrap_content" />
                 <View
                     android:layout_width="match_parent"
@@ -116,6 +119,9 @@
                 <Spinner
                     android:id="@+id/bulk_product_unit"
                     android:layout_width="match_parent"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:layout_marginStart="4dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,15 +155,15 @@
                     android:textColor="#424243"
                     android:textSize="12dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/bulk_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:background="#00000000"
                     android:drawableRight="@drawable/calander_icon_fit"
-                    android:inputType="date"
                     android:paddingLeft="2dp"
+                    android:onClick="calender_date"
+                    android:clickable="true"
                     android:textSize="14dp" />
 
                 <View
@@ -198,13 +204,12 @@
                     android:textColor="#424243"
                     android:textSize="12dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/bulk_prefferd_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:background="#00000000"
-                    android:inputType="text"
                     android:paddingLeft="2dp"
                     android:textSize="14dp" />
 

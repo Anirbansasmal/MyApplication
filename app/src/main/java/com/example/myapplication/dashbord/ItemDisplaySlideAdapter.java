@@ -42,7 +42,7 @@ public class ItemDisplaySlideAdapter extends PagerAdapter {
         System.out.println("jsdgfjksdgfksdjhf"+IMAGES);
 //        for (int i=0;i<IMAGES.size();i++){
             Glide.with(((ImageView) imageLayout.findViewById(R.id.image)).getContext())
-                    .load(IMAGES.get(position)).into(((ImageView) imageLayout.findViewById(R.id.image)));
+                    .load("http://app.milchmom.com:8080/"+IMAGES.get(position)).into(((ImageView) imageLayout.findViewById(R.id.image)));
 ////            Glide.with(context).load(IMAGES.get(position)).
 //                    placeholder(R.drawable.about).error(R.drawable.about).into(imgDisplay);
 //            ((ImageView) imageLayout.findViewById(R.id.image)).setImageResource(Integer.parseInt(IMAGES.get(position).get("img")));

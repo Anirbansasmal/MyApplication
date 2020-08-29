@@ -7,7 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Discount {
+    private String message;
     private ArrayList<product_discount> product_discount;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 
     public ArrayList<product_discount> getproduct_discount ()
     {
@@ -22,6 +32,6 @@ public class Discount {
     @Override
     public String toString()
     {
-        return "ClassPojo [Product_arrqty = "+product_discount+"]";
+        return "ClassPojo [Product_arrqty = "+product_discount+"message= +"+message+"]";
     }
 }

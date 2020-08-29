@@ -9,16 +9,26 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.ApiClient.ApiClient;
+import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.productdetail.ProductDetail;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.myapplication.profile.Profile.user_token;
+
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder> {
     private ArrayList<String> Date;
     ArrayList<TreeMap<String,String>> user_profile=new ArrayList<TreeMap<String, String>>();
     Context context;
+    ApiInterface apiInterface;
+
     public ProfileAdapter(Context context,ArrayList<TreeMap<String,String>> user_profile) {
         this.context=context;
         this.user_profile=user_profile;
@@ -47,7 +57,31 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
                     v.getContext().startActivity(intent);
                 }
             });
+            holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    profile_delete(user_profile.get(position).get("_id"),position);
+                }
+            });
         }
+    }
+
+    public void profile_delete(String user_id, final int position){
+        apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Call<View_Profile> call = apiInterface.response_ProfileDelete(user_token,user_id);
+        call.enqueue(new Callback<View_Profile>() {
+            @Override
+            public void onResponse(Call<View_Profile> call, Response<View_Profile> response) {
+                user_profile.remove(position);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<View_Profile> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public int getItemCount() {
@@ -55,13 +89,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_edit_address,tv_address_view,tv_address_heading;
+        TextView tv_edit_address,tv_address_view,tv_address_heading,btn_delete;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.tv_edit_address = (TextView) itemView.findViewById(R.id.edit_address);
             this.tv_address_view = (TextView) itemView.findViewById(R.id.address_view);
             this.tv_address_heading=itemView.findViewById(R.id.address_heading);
+            this.btn_delete=itemView.findViewById(R.id.btn_delete);
         }
     }
 }

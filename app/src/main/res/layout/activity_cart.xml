@@ -4,89 +4,147 @@
         <ImageView android:id="@+id/cartback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="cartback" app:srcCompat="@drawable/backward"/>
         <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="10dp" android:text="My Cart" android:layout_toRightOf="@+id/cartback" android:fontFamily="@font/poppins"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/cart_not"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlcarttoolbar"
+        android:visibility="visible">
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCart"
         android:layout_width="match_parent"
-        android:layout_height="189dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_below="@+id/rlcarttoolbar"/>
-
-    <RelativeLayout android:id="@+id/rlbelow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/rvCart" android:layout_alignParentBottom="true">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvaddress"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_address"
-            android:layout_below="@+id/cartTotal"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvdeltime"
-            android:layout_width="match_parent"
-            android:layout_marginTop="520dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_timeslot"
-            android:layout_below="@+id/timeslot"/>
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvpayment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_below="@+id/rvdeltime"/>-->
-        <TextView
-            android:id="@+id/cartTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:text="₹000"
-            android:textColor="@color/colorBlack"
-            android:textSize="20dp"
-            android:layout_marginLeft="30dp" />
-        <TextView
-            android:id="@+id/cartpayble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:text="Total Payable Amount"
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:layout_marginLeft="30dp" />
-        <TextView
-            android:id="@+id/timeslot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="18dp"
-            android:text="Delivery Time"
-            android:layout_below="@+id/rvaddress"
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:layout_marginLeft="30dp" />
+        android:layout_marginBottom="50dp"
+        />
         <Button
             android:id="@+id/continue_checkout"
-            android:layout_width="390dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="8dp"
             android:background="@color/colorGreen"
             android:onClick="continuecheckout"
             android:text="Continue"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="16dp" />
+<!--    <RelativeLayout android:id="@+id/rlbelow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/rvCart" android:layout_alignParentBottom="true">-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rvaddress"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:background="@drawable/custom_green_outline"-->
+<!--            android:layout_below="@+id/cartTotal"/>-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rvdeltime"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="520dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:background="@drawable/custom_search"-->
+<!--            android:layout_below="@+id/timeslot"/>-->
+<!--&lt;!&ndash;        <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/rvpayment"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="100dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_below="@+id/rvdeltime"/>&ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/cartTotal"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginStart="30dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="18dp"-->
+<!--            android:layout_marginRight="18dp"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="20dp"-->
+<!--            android:layout_marginLeft="30dp" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/cartpayble"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="18dp"-->
+<!--            android:layout_marginRight="18dp"-->
+
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="14dp"-->
+<!--            android:layout_marginLeft="30dp" />-->
+<!--&lt;!&ndash;        android:text="Payment Amount"&ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/timeslot"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginRight="18dp"-->
+<!--            android:text="Delivery Time"-->
+<!--            android:layout_below="@+id/rvaddress"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="14dp"-->
+<!--            android:layout_marginLeft="30dp" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/address"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginRight="18dp"-->
+<!--            android:text="Delivery Time"-->
+<!--            android:layout_below="@+id/cartpayble"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="14dp"-->
+<!--            android:layout_marginLeft="30dp" />-->
+<!--        <Button-->
+<!--            android:id="@+id/continue_checkout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="@color/colorGreen"-->
+<!--            android:onClick="continuecheckout"-->
+<!--            android:text="Continue"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/colorWhite"-->
+<!--            android:textSize="16dp" />-->
+<!--    </RelativeLayout>-->
+    <View android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="3dp" android:layout_below="@+id/rvCart"/>
+
     </RelativeLayout>
-    <View android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="3dp" android:layout_above="@+id/rlbelow"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        android:id="@+id/offer_notseen"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sorry currently no cart data available"
+            android:gravity="center"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/shopping"
+            android:background="@drawable/bluegradient"
+            android:layout_marginTop="40dp"
+            android:text="Continue Shopping"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -10,7 +10,37 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginEnd="10dp">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/search_layout"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_back"
+            android:src="@drawable/backward"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Search Item"
+            android:id="@+id/img_search"
+            android:layout_marginStart="100dp"/>
+    </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSearch" android:layout_width="match_parent" android:layout_height="150dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearch"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/search_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
+</RelativeLayout>
+
 
 </RelativeLayout>

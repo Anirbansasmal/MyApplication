@@ -10,9 +10,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="347dp"
-        android:background="@color/colorGreen"
+        android:background="@mipmap/splashbg"
         android:onClick="continuecheckout"
-        android:text="shopping"
+        android:text="continue shopping"
         android:textColor="@color/colorWhite"
         android:textSize="16dp" />
 </RelativeLayout>

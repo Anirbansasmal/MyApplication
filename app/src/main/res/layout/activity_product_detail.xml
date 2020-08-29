@@ -21,11 +21,49 @@
                     <ImageView android:id="@+id/downquantity" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/downarrow" android:layout_weight="1" android:onClick="setQuantity"/>
                 </LinearLayout>
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progress_layout">
+
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:minWidth="250dp"
+                android:max="100"
+                android:indeterminate="true"
+                android:progress="1"
+                android:visibility="visible"
+                android:id="@+id/progress_cyclic"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_cyclic"
+                    android:text="Please wait"
+                    android:gravity="center_horizontal"
+                    android:layout_marginStart="80dp"/>
+            </RelativeLayout>
             <LinearLayout android:orientation="horizontal" android:background="@drawable/custom_search" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="7.5dp" android:layout_weight="1">
-                <Spinner android:id="@+id/spinnerunits" android:layout_width="match_parent" android:layout_height="match_parent"/>
+                <Spinner android:id="@+id/spinnerunits" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-        <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select Delivery Time Slot" android:layout_below="@+id/quantity_units" android:fontFamily="@font/poppins"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/linear_view"
+            android:layout_below="@+id/quantity_units"
+            android:orientation="horizontal">
+            <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select Delivery Time Slot" android:layout_below="@+id/quantity_units" android:fontFamily="@font/poppins"/>
+            <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:layout_below="@+id/quantity_units" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+
+        <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#e34430" android:id="@+id/tv_alert" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select product is currently out of stock" android:layout_below="@+id/linear_view" android:fontFamily="@font/poppins"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/deliveryTimeRecyclerView"
             android:visibility="visible"
@@ -34,7 +72,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="7dp"
             android:layout_marginRight="15dp"
-            android:layout_below="@+id/tv">
+            android:layout_below="@+id/tv_alert">
         </androidx.recyclerview.widget.RecyclerView>
         <TextView android:textSize="13dp" android:textStyle="bold" android:textColor="#464646" android:id="@+id/tv1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:text="Select Order Frequency" android:layout_below="@+id/deliveryTimeRecyclerView" android:fontFamily="@font/poppins"/>
         <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="7dp" android:layout_marginRight="15dp" android:layout_below="@+id/tv1">
@@ -49,6 +87,7 @@
                 <ImageView android:id="@+id/calenderIV" android:padding="5dp" android:layout_width="45dp" android:layout_height="45dp" android:src="@drawable/calender" android:layout_alignParentRight="true" android:onClick="calanderIV"/>
             </RelativeLayout>
         </LinearLayout>
-        <Button android:textSize="16dp" android:textStyle="bold" android:textColorHint="@color/colorWhite" android:id="@+id/confirmorderdetail" android:background="@drawable/custom_ad" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:layout_marginBottom="5dp" android:hint="Confirm Order Detail" android:layout_below="@+id/ll1" android:layout_alignParentBottom="true" android:onClick="confirmorderdetail" android:fontFamily="@font/poppins"/>
+        <Button android:textSize="16dp" android:textStyle="bold" android:textColorHint="@color/colorWhite" android:id="@+id/confirmorderdetail" android:background="@drawable/custom_ad" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginTop="10dp" android:layout_marginRight="15dp" android:layout_marginBottom="5dp" android:hint="Confirm Order Detail" android:layout_below="@+id/ll1" android:layout_alignParentBottom="true" android:onClick="confirmorderdetail" android:clickable="true" android:fontFamily="@font/poppins"/>
     </RelativeLayout>
+
 </ScrollView>

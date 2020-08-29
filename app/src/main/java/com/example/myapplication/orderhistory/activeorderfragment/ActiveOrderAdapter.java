@@ -40,15 +40,21 @@ public class ActiveOrderAdapter extends RecyclerView.Adapter<ActiveOrderAdapter.
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.active_order_row, parent, false));
+        View view =  LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.active_order_row, parent, false);
+
+//        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.active_order_row, parent, false));
+        MyViewHolder vh = new MyViewHolder(view);
+        view.setOnClickListener(ActiveOrderFragment.myOnClickListener);
+        return vh;
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        ActiveOrderGetSet activeOrderGetSet = this.activeOrderGetSetList.get(position);
         holder.orderID.setText(activeOrderGetSetList.get(position).get("Order_id"));
         holder.orderStatus.setText("Active");
-        holder.orderProduct.setText(activeOrderGetSetList.get(position).get("remaning_qty"));
-        holder.orderProductDesc.setText(activeOrderGetSetList.get(position).get("remaning_amt"));
+//        holder.orderProduct.setText(activeOrderGetSetList.get(position).get("remaning_qty"));
+//        holder.orderProductDesc.setText(activeOrderGetSetList.get(position).get("remaning_amt"));
     }
 
     public int getItemCount() {

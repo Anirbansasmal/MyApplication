@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -42,7 +43,9 @@ public class CartAdapterPayment extends RecyclerView.Adapter<CartAdapterPayment.
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         CartGetSet cartGetSet = this.cartGetSetList.get(position);
-        holder.image.setImageResource(cartGetSet.getProductImage());
+//        holder.image.setImageResource(cartGetSet.getProductImage());
+        System.out.println("image"+cartGetSet.getProductImage());
+        Glide.with(holder.image.getContext()).load("http://app.milchmom.com:8080/"+cartGetSet.getProductImage()).into(holder.image);
         holder.productName.setText(cartGetSet.getProductName());
         holder.orderQuantity.setText(cartGetSet.getOrderQuantity());
         holder.priceperunit.setText(cartGetSet.getPriceperunit());

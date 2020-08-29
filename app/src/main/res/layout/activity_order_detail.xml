@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rlcarttoolbar" android:padding="5dp" android:layout_width="match_parent" android:layout_height="40dp">
+        <ImageView android:id="@+id/cartback" android:clickable="true" android:layout_width="30dp" android:layout_height="20dp" android:layout_centerVertical="true" android:onClick="activeback" app:srcCompat="@drawable/backward"/>
+        <TextView android:textStyle="bold" android:textColor="@color/colorBlack" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="10dp" android:text="My Active Order" android:layout_toRightOf="@+id/cartback" android:fontFamily="@font/poppins"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/cart_not"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlcarttoolbar"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+<LinearLayout
+    android:id="@+id/user_active"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:layout_weight="1">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvactive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        />
+</LinearLayout>
+
+
+    <LinearLayout android:id="@+id/rlbelow" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:layout_weight="0.5" android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="18dp"
+            android:text="Bottle Pending Details"
+            android:layout_below="@+id/cartpayble"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:layout_marginLeft="30dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvOld"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_green_outline"
+            android:layout_below="@+id/cartTotal"/>
+
+    </LinearLayout>
+    <View android:background="@color/colorGrey" android:layout_width="match_parent" android:layout_height="3dp" android:layout_above="@+id/rlbelow"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

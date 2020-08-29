@@ -12,6 +12,6 @@
         android:text="Active"
         android:textColor="@color/colorGreen" />
 
-    <TextView android:textSize="15dp" android:textColor="#414141" android:id="@+id/orderProducts" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Daily Milk 500 ml" android:layout_below="@+id/orderId" android:fontFamily="@font/poppins"/>
-    <TextView android:textSize="13dp" android:textColor="#414141" android:id="@+id/orderProductsDesc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/testString" android:maxLines="2" android:layout_below="@+id/orderProducts" android:fontFamily="@font/poppins"/>
+    <TextView android:textSize="15dp" android:textColor="#414141" android:id="@+id/orderProducts" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/orderId" android:fontFamily="@font/poppins"/>
+    <TextView android:textSize="13dp" android:textColor="#414141" android:id="@+id/orderProductsDesc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="2" android:layout_below="@+id/orderProducts" android:fontFamily="@font/poppins"/>
 </RelativeLayout>

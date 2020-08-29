@@ -1,12 +1,18 @@
 package com.example.myapplication.orderhistory;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.myapplication.Discount.Offers;
 import com.example.myapplication.R;
+import com.example.myapplication.checkout.paymentfragment.OnlinePaymentFragment;
+import com.example.myapplication.dashbord.Dashbord;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderHistory extends AppCompatActivity {
@@ -42,7 +48,35 @@ public class OrderHistory extends AppCompatActivity {
         });
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                Intent intent=new Intent(OrderHistory.this, Dashbord.class);
+                startActivity(intent);
+//                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     public void orderhistoryback(View view) {
-        finish();
+        Intent intent=new Intent(this, Dashbord.class);
+        startActivity(intent);
+//        finish();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.myapplication.orderhistory.oldorderfragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.ApiClient.ApiClient;
 import com.example.myapplication.ApiInterface.ApiInterface;
 import com.example.myapplication.R;
+import com.example.myapplication.orderhistory.activeorderfragment.ActiveOrderFragment;
+import com.example.myapplication.orderhistory.activeorderfragment.Order_detail;
 import com.example.myapplication.orderhistory.activeorderfragment.User_Order;
 
 import java.util.ArrayList;
@@ -33,15 +37,19 @@ public class OldOrderFragment extends Fragment {
     RecyclerView rvOldOrder;
     public static final String mypreference = "mypref";
     public static String user_token,user_id,token;
-    RecyclerView rvActiveOrder;
+    public static ProgressDialog progressDoalog;
+//    RecyclerView rvActiveOrder;
     ApiInterface apiInterface;
+    static View.OnClickListener myOnClickListener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_old_order, container, false);
         this.rvOldOrder = (RecyclerView) v.findViewById(R.id.rvOldOrder);
-
+        myOnClickListener = new MyOnClickListener1(getActivity());
         this.rvOldOrder.setLayoutManager(new LinearLayoutManager(getContext()));
         this.rvOldOrder.setItemAnimator(new DefaultItemAnimator());
+        progressDoalog = new ProgressDialog(getActivity());
 shared();
+
 //        oldOrderStaticData();
         return v;
     }
@@ -53,21 +61,36 @@ shared();
         user_token="Berear "+token;
         oldOrderStaticData();
     }
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its Old product detail loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
 
     private void oldOrderStaticData() {
+        progress_show();
+        progress_message();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<Order_delivered> call = apiInterface.response_productFetchDelivered(user_id, user_token);
         call.enqueue(new Callback<Order_delivered>() {
 
             @Override
             public void onResponse(Call<Order_delivered> call, Response<Order_delivered> response) {
+                progress_dismiss();
                 System.out.println(response.body().getDelivered());
                 for (int i=0;i<response.body().getDelivered().size();i++){
                     oldOrderGetSetList=Product_select_ordered(response.body().getDelivered().get(i).get_id(),
-                            response.body().getDelivered().get(i).getProduct_qty(),
+                            response.body().getDelivered().get(i).getRemaning_qty(),
                             response.body().getDelivered().get(i).getOrder_id(),
-                            response.body().getDelivered().get(i).getDelivery_time(),
-                            response.body().getDelivered().get(i).getDelivery_date());
+                            response.body().getDelivered().get(i).getDelivery_status(),
+                            response.body().getDelivered().get(i).getRecive_date());
                     oldOrder.add(oldOrderGetSetList);
                 }
                 oldorder();
@@ -79,7 +102,26 @@ shared();
             }
         });
     }
+    private class MyOnClickListener1 implements View.OnClickListener {
 
+        private final Context context;
+
+        private MyOnClickListener1(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int selectedItemPosition=rvOldOrder.getChildAdapterPosition(v);
+            RecyclerView.ViewHolder viewHolder=rvOldOrder.findViewHolderForAdapterPosition(selectedItemPosition);
+            details(viewHolder.getAdapterPosition());
+        }
+    }
+    public void details(int position){
+        Intent intent=new Intent(getActivity(), Order_detail_Deliver.class);
+        intent.putExtra("Order_id",oldOrder.get(position).get("Order_id"));
+        startActivity(intent);
+    }
             public void oldorder(){
         this.oldOrderAdapter = new OldOrderAdapter(getActivity().getApplicationContext(),oldOrder);
         this.rvOldOrder.setAdapter(this.oldOrderAdapter);

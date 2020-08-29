@@ -1,10 +1,13 @@
 package com.example.myapplication.dashbord;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +48,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.RateUs.RateUs;
 import com.example.myapplication.Search.Search;
 import com.example.myapplication.cart.Cart;
+import com.example.myapplication.cart.CartData;
 import com.example.myapplication.checkout.Checkout;
 import com.example.myapplication.dashbord.bulkorder.BulkOrderFragment;
 import com.example.myapplication.login.Login;
@@ -81,7 +87,7 @@ import static com.example.myapplication.verifyotp.VerifyOtp.mypreference;
 
 public class Dashbord extends AppCompatActivity {
 //    private static String[] IMAGES;
-    public static ArrayList<String>IMAGES=new ArrayList<>();
+    public ArrayList<String>IMAGES=new ArrayList<>();
     TreeMap<String, String> product_slider = new TreeMap<String, String>();
     TreeMap<String, String> user_single_product = new TreeMap<String, String>();
     TreeMap<String, ArrayList>Product_select_pincode=new TreeMap<String, ArrayList>();
@@ -105,14 +111,16 @@ public class Dashbord extends AppCompatActivity {
     ArrayList<String> product_arr_unique=new ArrayList<>();
     Map Product_name = new HashMap();
     public static final String mypreference = "mypref";
-    public static String user_token,user_id;
+    public static String user_token,user_id,email="",phoneNo="",user_Name="";
     public static final String CHANNEL_ID="Milchmom customer app";
-    public static String token,pin,address;
+    public static String token="",address="";
+    String pin;
     public static int NUM_PAGES = 0;
     /* access modifiers changed from: private */
     public static int currentPage = 0;
     /* access modifiers changed from: private */
     public static ViewPager mPager;
+    RelativeLayout reltlayout;
     private ArrayList<String> ImagesArray = new ArrayList<>();
     AdapterViewFlipper avfImageFlipper;
     final Context context = this;
@@ -130,9 +138,11 @@ public class Dashbord extends AppCompatActivity {
     private RecyclerView recyclerViewProduct;
     private RecyclerView recyclerViewchangelocation;
     private RecyclerView.LayoutManager layoutManager;
-   private TextView user_name,user_email;
+   private TextView user_name,user_email,txt_welcome;
+   private static TextView cart_count;
    AutoCompleteTextView search;
     ApiInterface apiInterface;
+    ProgressDialog progressDoalog;
     static int access$008() {
         int i = currentPage;
         currentPage = i + 1;
@@ -149,6 +159,8 @@ public class Dashbord extends AppCompatActivity {
         this.navMenu = (ImageView) findViewById(R.id.nav_menu);
         btn_change=findViewById(R.id.btn_change);
         mPager = (ViewPager) findViewById(R.id.pager);
+        txt_welcome=findViewById(R.id.txt_welcome);
+        cart_count=(TextView) findViewById(R.id.cart_count);
         this.navMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Dashbord.this.drawer.openDrawer((int) GravityCompat.START);
@@ -179,6 +191,8 @@ public class Dashbord extends AppCompatActivity {
 //        SharedPreferences.Editor editor = sharedPref.edit();
         token = sharedPref.getString("token", "");
         user_id = sharedPref.getString("u_id", "");
+        address=sharedPref.getString("address", "");
+        txt_welcome.setText(""+address);
         System.out.println(token);
         user_token="Berear "+token;
         System.out.println("knsfjksgf"+user_token);
@@ -186,19 +200,45 @@ public class Dashbord extends AppCompatActivity {
         user_name=findViewById(R.id.user_name);
         user_email=findViewById(R.id.user_email);
         search=findViewById(R.id.search);
-        user_product();
-        popular_product();
-        change_location();
-        slider_banner();
-        new_arrivel();
-        address();
-        Discount();
-//        search();
+        reltlayout=findViewById(R.id.layout);
+        progressDoalog = new ProgressDialog(Dashbord.this);
+        search();
+        IMAGES.clear();
 //        Cart.user_cart.clear();
 //        Cart.product_cart.clear();
+        if (!isNetworkAvailable()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setMessage("You are not online!!!!");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+//                    startActivity(context,Dashbord.class);
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else {
+            user_product();
+            popular_product();
+            change_location();
+            slider_banner();
+            new_arrivel();
+            address_dialog();
+//        address();
+            Discount();
+address();
+        }
     }
 
     String header="application/json";
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     public void search(){
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.product_autocomplete_row, R.id.text_view_list_item, product_arr_unique);
@@ -261,20 +301,34 @@ public class Dashbord extends AppCompatActivity {
         });
     }
 
+    public void progress_show(){
+        progressDoalog.show();
+    }
+    public void progress_dismiss(){
+        progressDoalog.dismiss();
+    }
+    public void progress_message(){
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Its loading....");
+        progressDoalog.setTitle("Thank you for give some time");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
     public void user_product(){
-
+        progress_message();
+        progress_show();
         Call<Product_user> call=apiInterface.response_ProductView(user_token);
         System.out.println(user_token);
         call.enqueue(new Callback<Product_user>() {
 
             @Override
             public void onResponse(Call<Product_user> call, Response<Product_user> response) {
+                progress_dismiss();
 //                System.out.println("nsvsvhvdjhfgjdjf"+response.body().getProduct().getProduct_arrqty());
                 for (int i=0;i<response.body().getProduct().getProduct_arrqty().size();i++) {
                     System.out.println(response.body().getProduct().getProduct_arrqty().get(i).getP_img());
 //                    for (int j = 0; j < response.body().getProduct().getProduct_arrqty().size(); j++) {
 //                        if (response.body().getProduct().getProduct_arrqty().get(i).get_id() == response.body().getProduct().getProduct_qty().get(i).get_id()) {
-                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("Normal")) {
+                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("normal")) {
                         user_single_product = Product_select(response.body().getProduct().getProduct_arrqty().get(i).get_id(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_name(),
                                 response.body().getProduct().getProduct_arrqty().get(i).getP_details(),
@@ -309,11 +363,14 @@ public class Dashbord extends AppCompatActivity {
     }
 
     public void slider_banner() {
+        progress_message();
+        progress_show();
         Call<Slider_product> call = apiInterface.response_ProductBanner(user_token);
         call.enqueue(new Callback<Slider_product>() {
                 @Override
             public void onResponse(Call<Slider_product> call, Response<Slider_product> response) {
 //                slider_product_select
+                    progress_dismiss();
                 for (int i=0;i<response.body().getSlider().size();i++){
                     IMAGES.add(response.body().getSlider().get(i).getP_img());
                 }
@@ -346,18 +403,31 @@ public class Dashbord extends AppCompatActivity {
                 btn_submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Dashbord.this.profileAdapter.getWeeksSelectedArray();
-                        if(profileAdapter.getWeeksSelectedArray()==null){
-                            user_profile.clear();
-                            dialog.dismiss();
-                        }else {
-                            pin=profileAdapter.getWeeksSelectedArray().toString();
-//                            address=profileAdapter.getWeeksSelectedAddress().toString();
-//                            address();
-                            System.out.println(pin);
+//                        Dashbord.this.profileAdapter.getWeeksSelectedArray();
+//                        System.out.println(profileAdapter.getWeeksSelectedArray());
+                        try {
+                            if(profileAdapter.getWeeksSelectedArray().isEmpty()){
+//                            Intent intent=new Intent(Dashbord.this,Dashbord.class);
+//                            startActivity(intent);
+
+                                user_profile.clear();
+                                dialog.dismiss();
+                            }else {
+                                pin=profileAdapter.getWeeksSelectedArray().toString();
+                                address=profileAdapter.getWeeksSelectedAddress().toString();
+                                txt_welcome.setText(""+address);
+                                sharedPin(pin);
+//                            address(Integer.parseInt(pin));
+                                System.out.println(pin);
+                                System.out.println("jkxhckjvbjcvxkjv"+profileAdapter.getWeeksSelectedArray().toString());
+                                user_profile.clear();
+                                dialog.dismiss();
+                            }
+                        }catch (Exception e){
                             user_profile.clear();
                             dialog.dismiss();
                         }
+
                     }
                 });
                 btn_cancle.setOnClickListener(new View.OnClickListener() {
@@ -368,19 +438,32 @@ public class Dashbord extends AppCompatActivity {
                     }
                 });
                 dialog.show();
-                dialog.getWindow().setLayout(900,700);
+//                dialog.getWindow().setLayout(900,700);
             }
         });
     }
 
+    private void sharedPin(String pin){
+        SharedPreferences sharedPref = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("pin", pin);
+        editor.putString("address", address);
+//        Intent intent=new Intent(getApplicationContext(), Dashbord.class);
+//        startActivity(intent);
+        editor.commit();
+    }
     private void change_pin() {
+        progress_message();
+        progress_show();
+        System.out.println("jkwdhkwgfekresponse"+user_id);
         Call<View_Profile> call = apiInterface.response_UserProfile(user_token,user_id);
 
         call.enqueue(new Callback<View_Profile>() {
 
             @Override
             public void onResponse(Call<View_Profile> call, Response<View_Profile> response) {
-                System.out.println(response.body().getUser());
+                progress_dismiss();
+                System.out.println("jkwdhkwgfekresponse"+response.body().getMessage());
                 for (int i=0;i<response.body().getUser().size();i++){
                     add_profile=profile_view_user(response.body().getUser().get(i).getU_id(),
                             response.body().getUser().get(i).getUserName(),
@@ -403,14 +486,19 @@ public class Dashbord extends AppCompatActivity {
         });
     }
 
-    public void address(){
+    public void address(int pincode){
+        progress_message();
+        progress_show();
         Call<View_Profile> call = apiInterface.response_UserProfile(user_token,user_id);
 
         call.enqueue(new Callback<View_Profile>() {
 
             @Override
             public void onResponse(Call<View_Profile> call, Response<View_Profile> response) {
+                progress_dismiss();
                 System.out.println(response.body().getUser());
+                txt_welcome.setText(""+response.body().getUser().get(0).getUserAddress());
+                email=response.body().getUser().get(0).getEmail();
 //                for (int i=0;i<response.body().getUser().size();i++){
 //                    add_profile=profile_view_user(response.body().getUser().get(i).getU_id(),
 //                            response.body().getUser().get(i).getUserName(),
@@ -442,13 +530,21 @@ public class Dashbord extends AppCompatActivity {
     }
 
     public void popular_product() {
+        progress_message();
+        progress_show();
         Call<Product_user> call = apiInterface.response_ProductPopular(user_token);
 
         call.enqueue(new Callback<Product_user>() {
 
             @Override
             public void onResponse(Call<Product_user> call, Response<Product_user> response) {
+                progress_dismiss();
                 for (int i=0;i<response.body().getProduct().getProduct_arrqty().size();i++) {
+//                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals(null)){
+//
+//                    }else {
+
+
                     if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("popular")) {
                         System.out.println(response.body().getProduct().getProduct_arrqty().get(i).getP_img());
                         product_popular = popular_Product_select(response.body().getProduct().getProduct_arrqty().get(i).get_id(),
@@ -463,8 +559,10 @@ public class Dashbord extends AppCompatActivity {
                         popular_product.add(product_popular);
                         Product_popular_pincode=Product_select_pincode(response.body().getProduct().getProduct_arrqty().get(i).getPincode());
                         user_pincode_popular.add(Product_popular_pincode);
+                        System.out.println("Product_popular_pincode"+user_pincode_popular);
                     }
                 }
+//                }
                 popularProductStaticData();
             }
 
@@ -476,15 +574,18 @@ public class Dashbord extends AppCompatActivity {
     }
 
     public void new_arrivel() {
+        progress_message();
+        progress_show();
         Call<Product_user> call = apiInterface.response_ProductNewArrivel(user_token);
 
         call.enqueue(new Callback<Product_user>() {
 
             @Override
             public void onResponse(Call<Product_user> call, Response<Product_user> response) {
+                progress_dismiss();
                 System.out.println(response.body().getProduct().getProduct_arrqty().size());
                 for (int i=0;i<response.body().getProduct().getProduct_arrqty().size();i++) {
-                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("NewArrivel")) {
+                    if (response.body().getProduct().getProduct_arrqty().get(i).getP_popularity().equals("new arrival")) {
 
                         Dashbord.this.newArrivalsGetSetArrayList.add(new NewArrivalsGetSet(
                                 response.body().getProduct().getProduct_arrqty().get(i).get_id(),
@@ -513,9 +614,15 @@ public class Dashbord extends AppCompatActivity {
                     }
 
     private void newArrivalStaticData1() {
-        this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList,this.user_pincode_new);
-        this.avfImageFlipper.setAdapter(this.newArrivalsAdapter);
-        Dashbord.this.newArrivalsAdapter.notifyDataSetChanged();
+        if(user_pincode_new.size()==0){
+//            reltlayout.setVisibility(View.INVISIBLE);
+        }else {
+//            reltlayout.setVisibility(View.VISIBLE);
+            this.newArrivalsAdapter = new NewArrivalsAdapter(this, this.newArrivalsGetSetArrayList,this.user_pincode_new);
+            this.avfImageFlipper.setAdapter(this.newArrivalsAdapter);
+            Dashbord.this.newArrivalsAdapter.notifyDataSetChanged();
+        }
+
     }
 
     public void flipperHandler(View view) {
@@ -547,6 +654,39 @@ public class Dashbord extends AppCompatActivity {
         recyclerViewProduct.setAdapter(productAdapterDemo);
     }
 
+    private void address(){
+        Call<CartData> call=apiInterface.response_fetchFromCart(user_id,user_token);
+        call.enqueue(new Callback<CartData>() {
+            @Override
+            public void onResponse(Call<CartData> call, Response<CartData> response) {
+                System.out.println(response.body().getCart_item());
+                progress_dismiss();
+                if (response.body().getStatus().equals("No data found")){
+//cart_count.setText("0");
+                    cart_count.setVisibility(View.GONE);
+                }else {
+                    cart_count.setVisibility(View.VISIBLE);
+                    cart_count.setText(""+response.body().getCart_item().size());
+                }
+
+
+//                if (response.body().getStatus().equals("success")){
+//                    startActivity(new Intent(getApplicationContext(), Dashbord.class));
+//                }
+//                for (int i=0;i<response.body().getAvl_times().size();i++){
+//                    deliiveryTimeGetSetList.add(response.body().getAvl_times().get(i).getDeliTimeSlot());
+//                }
+            }
+            @Override
+            public void onFailure(Call<CartData> call, Throwable t) {
+
+            }
+        });
+//    }
+//});
+
+
+    }
     private void bannerSlider() {
         int i = 0;
         while (true) {
@@ -576,7 +716,7 @@ public class Dashbord extends AppCompatActivity {
                     public void run() {
                         handler.post(Update);
                     }
-                }, 2000, 2000);
+                }, 4000, 4000);
                 indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     public void onPageSelected(int position) {
                         int unused = Dashbord.currentPage = position;
@@ -636,11 +776,12 @@ public class Dashbord extends AppCompatActivity {
     }
 
     public void bulkOrderBtn(View view) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Fragment hello = new BulkOrderFragment();
-        fragmentTransaction.addToBackStack((String) null);
-        fragmentTransaction.replace(R.id.framelayout_bulkorder, hello, "HELLO");
-        fragmentTransaction.commit();
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        Fragment hello = new BulkOrderFragment();
+//        fragmentTransaction.addToBackStack((String) null);
+//        fragmentTransaction.replace(R.id.framelayout_bulkorder, hello, "HELLO");
+//        fragmentTransaction.commit();
+        startActivity(new Intent(getApplicationContext(), BulkOrderFragment.class));
     }
 
     public void customDialog() {
@@ -664,15 +805,41 @@ public class Dashbord extends AppCompatActivity {
         dialog.show();
     }
 
+    public void customAddressDialog() {
+        final Dialog dialog = new Dialog(this.context);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.custom_ad);//17170445
+        dialog.setContentView(R.layout.custom_dialog_newuseraddress);
+
+        ((Button) dialog.findViewById(R.id.applynow)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent=new Intent(Dashbord.this,Profile.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     public void Discount() {
+        progress_message();
+        progress_show();
         Call<Discount> call = apiInterface.response_UserDiscountData(user_id,user_token);
         System.out.println(user_token);
         call.enqueue(new Callback<Discount>() {
 
             @Override
             public void onResponse(Call<Discount> call, Response<Discount> response) {
+                progress_dismiss();
                 String apply="";
 
+//if (!response.body().getproduct_discount().equals(null)){
+//
+//}else {
+
+
+                System.out.println("Applied"+response.body().getproduct_discount());
                 for (int i=0;i<response.body().getproduct_discount().size();i++){
                     System.out.println(response.body().getproduct_discount().get(i).getOffer_apply());
                     if (response.body().getproduct_discount().get(i).getOffer_apply().equals("Applied")){
@@ -684,8 +851,9 @@ public class Dashbord extends AppCompatActivity {
                 }else {
                     customDialog();
                 }
-
+//}
             }
+
 
             @Override
             public void onFailure(Call<Discount> call, Throwable t) {
@@ -694,31 +862,49 @@ public class Dashbord extends AppCompatActivity {
         });
     }
 
+    private void address_dialog(){
+        progress_message();
+        progress_show();
+        System.out.println("address_dialog"+user_id);
+        Call<View_Profile> call = apiInterface.response_UserProfile(user_token,user_id);
+
+        call.enqueue(new Callback<View_Profile>() {
+
+            @Override
+            public void onResponse(Call<View_Profile> call, Response<View_Profile> response) {
+                progress_dismiss();
+                if (response.body().getMessage().equals("no data available")){
+                    customAddressDialog();
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<View_Profile> call, Throwable t) {
+
+            }
+        });
+    }
+
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setMessage("Do you want to Exit?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        this.finish();
+        new Handler().postDelayed(new Runnable() {
+
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
-//                order_cancle();
-//                Intent intent=new Intent(Dashbord.this, Dashbord.class);
-//                startActivity(intent);
-                finish();
+            public void run() {
+                doubleBackToExitPressedOnce=false;
             }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if user select "No", just cancel this dialog and continue with app
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+        }, 4000);
     }
 
             public static TreeMap<String, String> slider_product_select(String id, String p_name, String p_details, String p_img) {

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -65,6 +67,66 @@ public class VerifyOtp extends AppCompatActivity {
 //            otp3.setText(""+currencies.get(2));
 //            otp4.setText(""+currencies.get(3));
 //        }
+
+        otp1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("otp1"+otp1.getText().toString());
+                if(otp1.getText().toString().length()==1)     //size as per your requirement
+                {
+                    otp2.requestFocus();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        otp2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (otp2.getText().toString().length()==1){
+                    otp3.requestFocus();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        otp3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (otp3.getText().toString().length()==1){
+                    otp4.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
     public void progress_show(){
         progressDoalog.show();

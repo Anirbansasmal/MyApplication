@@ -26,6 +26,8 @@
             android:noHistory="true"/>
         <activity android:name="com.example.myapplication.dashbord.bulkorder.BulkOrderFragment"
             android:noHistory="true"/>
+        <activity android:name="com.example.myapplication.dashbord.Emergeny.Emergency"
+            android:noHistory="true"/>
         <activity android:name="com.example.myapplication.confirmorderdetail.ConfirmOrderDetail"
             android:noHistory="true"/>
         <activity android:name="com.example.myapplication.cart.Cart"

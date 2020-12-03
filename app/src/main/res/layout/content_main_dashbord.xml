@@ -41,6 +41,10 @@
                 <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/bulkorder_img" android:layout_weight="1" android:translationX="-20dp" android:scaleX="1.3" android:scaleY="1.3"/>
                 <Button android:textSize="12dp" android:textColor="@color/colorWhite" android:layout_gravity="center_vertical" android:id="@+id/bulkorderBtn" android:background="#2668c2" android:layout_width="match_parent" android:layout_height="25dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:text="BULK ORDER" android:layout_weight="2" android:onClick="bulkOrderBtn" android:fontFamily="@font/poppins"/>
             </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/ll_emergency" android:background="@drawable/bulkorder_background_frame" android:layout_width="match_parent" android:layout_height="80dp" android:layout_marginLeft="15dp" android:layout_marginTop="15dp" android:layout_marginRight="15dp" android:layout_below="@+id/ll_bulkorder">
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/bulkorder_img" android:layout_weight="1" android:translationX="-20dp" android:scaleX="1.3" android:scaleY="1.3"/>
+                <Button android:textSize="12dp" android:textColor="@color/colorWhite" android:layout_gravity="center_vertical" android:id="@+id/emergencyBtn" android:background="#2668c2" android:layout_width="match_parent" android:layout_height="25dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:text="EMERGENCY ORDER" android:layout_weight="1.4" android:onClick="emergencyOrderBtn" android:fontFamily="@font/poppins"/>
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="#474747"
@@ -50,7 +54,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginBottom="13dp"
                 android:text="Popular Product"
-                android:layout_below="@+id/ll_bulkorder" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"
+                android:layout_below="@+id/ll_emergency" android:fontFamily="@font/poppins" android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp" />
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_view_popular_product" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_below="@+id/tv"/>
 

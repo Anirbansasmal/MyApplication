@@ -50,6 +50,7 @@ import com.example.myapplication.Search.Search;
 import com.example.myapplication.cart.Cart;
 import com.example.myapplication.cart.CartData;
 import com.example.myapplication.checkout.Checkout;
+import com.example.myapplication.dashbord.Emergeny.Emergency;
 import com.example.myapplication.dashbord.bulkorder.BulkOrderFragment;
 import com.example.myapplication.login.Login;
 import com.example.myapplication.login.Login_sta;
@@ -783,7 +784,9 @@ address();
 //        fragmentTransaction.commit();
         startActivity(new Intent(getApplicationContext(), BulkOrderFragment.class));
     }
-
+public void emergencyOrderBtn(View view){
+    startActivity(new Intent(getApplicationContext(), Emergency.class));
+}
     public void customDialog() {
         final Dialog dialog = new Dialog(this.context);
         dialog.setCanceledOnTouchOutside(false);

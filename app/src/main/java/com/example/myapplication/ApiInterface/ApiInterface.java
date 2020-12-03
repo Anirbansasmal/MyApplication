@@ -10,6 +10,7 @@ import com.example.myapplication.checkout.deliverfragment.Order_product;
 import com.example.myapplication.checkout.paymentfragment.Payment;
 import com.example.myapplication.confirmorderdetail.OrderStatus;
 import com.example.myapplication.dashbord.Avl_times_deli;
+import com.example.myapplication.dashbord.Emergeny.Emergency_order;
 import com.example.myapplication.dashbord.Product_unit;
 import com.example.myapplication.dashbord.Product_user;
 import com.example.myapplication.dashbord.Slider_product;
@@ -114,7 +115,21 @@ Call<Product_user_search> response_productSearch(
                     @Header("Authorization") String token
 //                    @Header("Content-Type") String auth
     );
-
+@POST("EmergencyOrder")
+@FormUrlEncoded
+Call<Emergency_order>response_EmergencyOrder(
+        @Field("name") String name,
+        @Field("email")String email,
+        @Field("phoneNumber")String phoneNumber,
+        @Field("product")String product,
+        @Field("p_unit")String p_unit,
+        @Field("p_qty")String p_qty,
+        @Field("delivery_date")String delivery_date,
+        @Field("deli_location")String deli_location,
+        @Field("deli_time")String deli_time,
+        @Field("note")String note,
+        @Header("Authorization") String token
+);
     @GET("ProductView")
 //    @FormUrlEncoded
     Call<Product_user> response_ProductNewArrivel(

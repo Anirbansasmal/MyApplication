@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:dist="http://schemas.android.com/apk/distribution" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="@color/colorWhite" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="15dp" android:layout_marginRight="15dp">
+        <LinearLayout android:orientation="horizontal" android:background="@drawable/custom_emergency" android:layout_width="match_parent" android:layout_height="80dp" android:layout_marginTop="10dp">
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/bulk_heading_img" android:layout_weight="3" android:scaleX="1.2" android:scaleY="1.2"/>
+            <TextView android:textSize="14dp" android:textColor="@color/colorWhite" android:gravity="bottom" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginRight="5dp" android:layout_marginBottom="10dp" android:text="Fill Up the Form and Order Your Emergency Order Requirements in Minutes !" android:layout_weight="1" android:lineSpacingExtra="-5dp" android:fontFamily="@font/poppins"/>
+        </LinearLayout>
+<!--        <TextView android:textSize="14dp" android:textColor="@color/colorBlack" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginRight="5dp" android:layout_marginBottom="10dp" android:text="Fill Up the Form and Order Your Bulk Requirements in Minutes !" android:lineSpacingExtra="-5dp" android:fontFamily="@font/poppins"/>-->
+        <ScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Name *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_name"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Email *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/bulk_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="2dp"
+                    android:textColor="#2668c2"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Phone Number *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/bulk_phoneno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingLeft="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Select Product *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <Spinner
+                    android:id="@+id/bulk_product"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Select Product unit *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <Spinner
+                    android:id="@+id/bulk_product_unit"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Select Quantity *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/bulk_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:inputType="number"
+                    android:paddingLeft="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Select Date *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/bulk_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:drawableRight="@drawable/calander_icon_fit"
+                    android:paddingLeft="2dp"
+                    android:onClick="calender_date"
+                    android:clickable="true"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Enter Your Location *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/bulk_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:inputType="text"
+                    android:paddingLeft="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Prefferd Time *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/bulk_prefferd_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:paddingLeft="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Add note *"
+                    android:textColor="#424243"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/bulk_addnote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#00000000"
+                    android:maxLines="5"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e0e0" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/btn_enquiry"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="enquiry"
+                    android:background="@drawable/custom_verify"
+                    android:fontFamily="@font/poppins"
+                    android:text="enquiry now"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
